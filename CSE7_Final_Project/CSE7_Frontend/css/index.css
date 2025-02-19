@@ -1,0 +1,294 @@
+.card {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    backdrop-filter: blur(30px);
+    border-radius: 26px;
+    background: linear-gradient(248.54deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+    border: 4px solid #fff;
+    box-sizing: border-box;
+}
+.glass1 {
+    width: 100%;
+    position: absolute;
+    margin: 0 !important;
+    height: 100%;
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+    z-index: 0;
+}
+.glass {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    width: 389px;
+    height: 523px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 69px 0px;
+    box-sizing: border-box;
+}
+.login {
+    align-self: stretch;
+    position: relative;
+    display: inline-block;
+    height: 29px;
+    flex-shrink: 0;
+}
+.welcome-onboard-with {
+    align-self: stretch;
+    position: relative;
+    font-size: 16px;
+    font-weight: 300;
+    display: inline-block;
+    height: 17px;
+    flex-shrink: 0;
+}
+.login-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 14px;
+}
+.username {
+    align-self: stretch;
+    position: relative;
+    display: inline-block;
+    height: 19px;
+    flex-shrink: 0;
+}
+.enter-your-email {
+    position: relative;
+    font-weight: 300;
+}
+.enter-your-email-wrapper {
+    align-self: stretch;
+    backdrop-filter: blur(60px);
+    border-radius: 7px;
+    background: linear-gradient(109.46deg, rgba(201, 201, 201, 0.8), rgba(196, 196, 196, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    height: 38px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3px 11px;
+}
+.username-parent {
+    width: 312px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2px;
+}
+.password {
+    align-self: stretch;
+    position: relative;
+    display: inline-block;
+    height: 18px;
+    flex-shrink: 0;
+}
+.enter-your-password-wrapper {
+    align-self: stretch;
+    backdrop-filter: blur(60px);
+    border-radius: 7px;
+    background: linear-gradient(109.46deg, rgba(201, 201, 201, 0.8), rgba(196, 196, 196, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-sizing: border-box;
+    height: 37px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 11px;
+}
+.password-parent {
+    width: 312px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 4px;
+}
+.frame-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+}
+.sign-up {
+    position: relative;
+    font-weight: 600;
+}
+.sign-up-wrapper {
+    width: 312px;
+    border-radius: 7px;
+    background: linear-gradient(90deg, rgba(255, 193, 7, 0.92), rgba(255, 167, 81, 0.92));
+    height: 37px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 85px;
+    color: #ffffff;
+    border: 0px;
+}
+.frame-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 59px;
+    font-size: 15px;
+}
+.frame-group {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+    text-align: left;
+}
+.frame-child {
+    width: 88px;
+    position: relative;
+    border-top: 2px solid #fff;
+    box-sizing: border-box;
+    height: 2px;
+}
+.or {
+    width: 19px;
+    position: relative;
+    font-weight: 500;
+    display: inline-block;
+    height: 15px;
+    flex-shrink: 0;
+}
+.line-parent {
+    align-self: stretch;
+    height: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 13px;
+}
+.phgoogle-logo-bold-icon {
+    width: 24px;
+    position: relative;
+    height: 24px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+.phgoogle-logo-bold-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.google-container {
+    position: relative;
+    display: inline-block; /* adjust as needed */
+  }
+  
+.google {
+    width: 60px;
+    border-radius: 10px;
+    background-color: #ececec;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+  
+  /* The overlay container for Google’s rendered button */
+  #gsi_button_login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;    /* makes it invisible */
+    z-index: 2;    /* ensure it sits on top */
+    pointer-events: auto;  /* allow clicks */
+  }
+  
+  #gsi_button_signUp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;    /* makes it invisible */
+    z-index: 2;    /* ensure it sits on top */
+    pointer-events: auto;  /* allow clicks */
+  }
+.social-media {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.already-have-an {
+    font-weight: 300;
+}
+.login1 {
+    font-weight: 600;
+}
+.already-have-an-container {
+    align-self: stretch;
+    position: relative;
+    display: inline-block;
+    height: 12px;
+    flex-shrink: 0;
+}
+.social-media-parent {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 16px;
+    font-size: 15px;
+}
+.frame-parent {
+    position: absolute;
+    top: 29px;
+    left: 39px;
+    width: 312px;
+    height: 523px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+}
+.glass-parent {
+    width: 100%;
+    position: relative;
+    margin: 0 !important;
+    text-align: center;
+    font-size: 32px;
+    color: #fff;
+    font-family: Roboto;
+}
+
