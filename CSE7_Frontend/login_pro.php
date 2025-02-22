@@ -71,8 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     "email" => $db_email,
                     "google_id" => $db_google_id,
                     "remember_token" => $remember_token,
-                    // Fix the redirect URL to use absolute path from localhost root
-                    "redirect_url" => "/CSE7_Final_Project/CSE7_Frontend/homepage.html"
+                    "redirect_url" => "/CSE-7/CSE7_Frontend/homepage.html"
                 ]);
             } else {
                 http_response_code(401);
@@ -88,8 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     "name" => $db_name,
                     "email" => $db_email,
                     "remember_token" => $remember_token,
-                    // Fix the redirect URL to use absolute path from localhost root
-                    "redirect_url" => "/CSE7_Final_Project/CSE7_Frontend/homepage.html"
+                    "redirect_url" => "/CSE-7/CSE7_Frontend/homepage.html"
                 ]);
             } else {
                 http_response_code(401);

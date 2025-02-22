@@ -1,63 +1,74 @@
 function initializeModal() {
-    // Use a more robust way to wait for elements
-    const checkElements = setInterval(() => {
-        var modal = document.getElementById("addCropModal");
-        var btn = document.getElementById("addCropBtn");
-        var span = document.getElementsByClassName("close")[0];
-        var form = document.getElementById("addCropForm");
-        var cancelBtn = document.getElementsByClassName("cancel")[0];
+    var modal = document.getElementById("addCropModal");
+    var btn = document.querySelector(".add_btn");
+    var closeBtn = document.querySelector(".close");
+    var cancelBtn = document.querySelector(".cancel");
+    var form = document.getElementById("addCropForm");
 
-        // Debug logging
-        console.log("Checking modal elements...");
+    // Debug logs to check elements
+    console.log('Modal:', modal);
+    console.log('Button:', btn);
+    console.log('Close button:', closeBtn);
+    console.log('Form:', form);
 
-        if (modal && btn && span) {
-            clearInterval(checkElements); // Stop checking once elements are found
-            console.log("Modal elements found, initializing...");
+    if (modal && btn && closeBtn && form) {
+        // Show modal when button is clicked
+        btn.onclick = function () {
+            console.log('Button clicked');
+            modal.style.display= "flex";
+            modal.style.justifyContent = "center";
+            modal.style.alignItems = "center";
+            modal.style.opacity = 1;
+            modal.style.visibility = "visible";
+        };
 
-            // When the user clicks the button, open the modal 
-            btn.onclick = function() {
-                modal.style.display = "block";
-            }
+        // Close modal when close button (X) is clicked
+        closeBtn.onclick = function () {
+            modal.style.display = "none";
+            form.reset();
+        };
 
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
+        // Close modal when cancel button is clicked
+        if (cancelBtn) {
+            cancelBtn.onclick = function () {
                 modal.style.display = "none";
-            }
-
-            // When the user clicks on Cancel, close the modal
-            if (cancelBtn) {
-                cancelBtn.onclick = function() {
-                    modal.style.display = "none";
-                }
-            }
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
-
-            // Handle form submission if form exists
-            if (form) {
-                form.addEventListener("submit", function(event) {
-                    event.preventDefault();
-                    // Process form data here
-                    modal.style.display = "none";
-                });
-            }
+                form.reset();
+            };
         }
-    }, 100); // Check every 100ms
 
-    // Stop checking after 5 seconds to prevent infinite checking
-    setTimeout(() => {
-        clearInterval(checkElements);
-        console.log("Stopped checking for modal elements");
-    }, 5000);
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+                form.reset();
+            }
+        };
+
+        // Form submission handler
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+
+            fetch("/CSE-7/CSE7_Frontend/add_crop.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Crop added successfully!");
+                    form.reset();
+                    modal.style.display = "none";
+                } else {
+                    alert("Error: " + data.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    } else {
+        console.error('One or more required elements not found');
+    }
 }
 
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', initializeModal);
-
-// Export for use in other scripts
-window.initializeModal = initializeModal;
+// Initialize modal after the content is loaded
+window.addEventListener('load', initializeModal);

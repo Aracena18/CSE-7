@@ -1,8 +1,55 @@
 window.onload = function() {
-    initializeGoogle();
+    console.log("Page fully loaded!");
+
+    // Ensure Google API is loaded before initializing
+    setTimeout(() => {
+        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+            initializeGoogle();
+        } else {
+            console.error("Google API not loaded yet!");
+        }
+    }, 1000);
+
+    // Login Form Handling
+    const loginForm = document.getElementById("loginUserForm");
+
+    if (loginForm) {
+        loginForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+            console.log("Login form submitted!");
+
+            let email = document.getElementById("userEmail").value;
+            let password = document.getElementById("userPassword").value;
+
+            let formData = new FormData();
+            formData.append("email", email);
+            formData.append("password", password);
+
+            fetch("/CSE-7/CSE7_Frontend/login_pro.php", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Server Response:", data);
+
+                if (data.login === "success") {
+                    window.location.href = "/CSE-7/CSE7_Frontend/homepage.html";  // Fixed URL
+                } else {
+                    alert("Login failed: " + (data.message || "Invalid credentials"));
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while logging in. Please try again.");
+            });
+        });
+    } else {
+        console.error("Error: loginUserForm not found in the DOM!");
+    }
 };
 
-// Initialize Google API for Google Sign-In
+// Google Sign-In Initialization
 function initializeGoogle() {
     if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
         google.accounts.id.initialize({
@@ -11,26 +58,15 @@ function initializeGoogle() {
             ux_mode: 'popup'
         });
 
-        // Try to render buttons if elements exist
         const signUpButton = document.getElementById("gsi_button_signUp");
         const loginButton = document.getElementById("gsi_button_login");
 
         if (signUpButton) {
-            google.accounts.id.renderButton(signUpButton, {
-                theme: "outline",
-                size: "large",
-                type: "standard",
-                text: "signup_with"
-            });
+            google.accounts.id.renderButton(signUpButton, { theme: "outline", size: "large", type: "standard", text: "signup_with" });
         }
 
         if (loginButton) {
-            google.accounts.id.renderButton(loginButton, {
-                theme: "outline",
-                size: "large",
-                type: "standard",
-                text: "signin_with"
-            });
+            google.accounts.id.renderButton(loginButton, { theme: "outline", size: "large", type: "standard", text: "signin_with" });
         }
     } else {
         console.error('Google Identity Services not loaded');
@@ -43,10 +79,10 @@ function handleCredentialResponse(response) {
         console.error("Login failed: No credential received");
         return;
     }
-    
+
     console.log("Encoded JWT ID token: " + response.credential);
 
-    // Decode the Google JWT token (this is for debugging; in production, verify it server-side)
+    // Decode the Google JWT token (for debugging; in production, verify server-side)
     const payload = JSON.parse(atob(response.credential.split(".")[1]));
     const email = payload.email;
     const name = payload.name;
@@ -55,7 +91,7 @@ function handleCredentialResponse(response) {
     console.log("Decoded Google User:", payload);
 
     // Send the Google user data to your backend for registration/login
-    fetch('http://127.0.0.1/CSE7_Final_Project/CSE7_Frontend/login_pro.php', {
+    fetch('/CSE-7/CSE7_Frontend/login_pro.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -70,93 +106,8 @@ function handleCredentialResponse(response) {
     .then(data => {
         console.log("Server Response (Google):", data);
         if(data.login === "success"){
-            window.location.href = "/CSE7_Frontend/homepage.html";
+            window.location.href = "/CSE-7/CSE7_Frontend/homepage.html";  // Fixed URL
         }
     })
     .catch(error => console.error("Error:", error));
-}
-
-// Manual Sign-Up Form Submission
-document.getElementById("signupForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    // Get form values
-    const form = e.target;
-    const email = form.querySelector("input[name='email']").value;
-    const password = form.querySelector("input[name='password']").value;
-    const name = form.querySelector("input[name='name']").value || email.split("@")[0];
-
-    // Send data to backend
-    fetch('http://127.0.0.1/CSE7_Final_Project/CSE7_Frontend/login_pro.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password,
-            name: name
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Server Response (Sign-Up):", data);
-        if(data.login === "success"){
-            window.location.href = "/CSE7_Frontend/homepage.html";
-        }
-    })
-    .catch(error => console.error("Error:", error));
-});
-
-// Manual Log-In Form Submission
-document.getElementById("loginUserForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    // Get form values
-    const form = e.target;
-    const email = form.querySelector("input[name='email']").value;
-    const password = form.querySelector("input[name='password']").value;
-
-    // Send data to backend
-    fetch('http://127.0.0.1/CSE7_Final_Project/CSE7_Frontend/login_pro.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            password: password
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Server Response (Log-In):", data);
-        if(data.login === "success"){
-            window.location.href = "/CSE7_Frontend/homepage.html";
-        }
-    })
-    .catch(error => console.error("Error:", error));
-});
-
-function socialLogin(provider) {
-    if (provider === 'google') {
-        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-            google.accounts.id.prompt((notification) => {
-                if (notification.isNotDisplayed()) {
-                    console.error('Google Sign In error:', notification.getNotDisplayedReason());
-                } else if (notification.isSkippedMoment()) {
-                    console.log('User skipped Google Sign In');
-                }
-            });
-        } else {
-            console.error('Google Identity Services not loaded');
-        }
-    } else if (provider === 'facebook') {
-        console.log('Facebook login clicked');
-    } else if (provider === 'apple') {
-        console.log('Apple login clicked');
-    }
-}
-
-function toggleMenu() {
-    const navLinks = document.querySelector('.nav_links');
-    navLinks.classList.toggle('active');
 }

@@ -1,0 +1,183 @@
+
+* {
+    font-family: Roboto, sans-serif;
+}
+
+/* Logo Container */
+.logo_container {
+    padding-left: 2%;
+}
+
+/* Fixed Header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    padding: 15px 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Highest z-index */
+}
+
+.search_container {
+    width: 17%;
+    padding-left: 5%;
+    position: relative; /* Add this to position the icon */
+}
+
+.search-box {
+    width: 100%;
+    padding: 10px 35px 10px 35px; /* Increase left padding to make room for the icon */
+    border-radius: 30px;
+    border: 1.5px solid #00000072;
+    background: url('../CSE7_Frontend/Assets/search.svg') no-repeat 10px center; /* Add this line */
+    background-size: 18px; /* Adjust icon size */
+}
+
+/* Optional: Add hover and focus effects */
+.search-box:hover,
+.search-box:focus {
+    border-color: rgb(0, 70, 32);
+    outline: none;
+}
+
+.buttons_sets {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+    align-self: flex-end;
+    padding-right: 5%;
+}
+
+.button1 {
+    background-color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+/* Sidebar Navigation */
+nav {
+    position: fixed;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background: #ffffff;
+    padding-top: 5%;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
+    overflow: visible; /* Allow items to overflow on hover */
+    z-index: 999; /* Just below header */
+    isolation: isolate; /* Add this to create new stacking context */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Remove list default styles */
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Navigation List Items */
+nav ul li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 13px 15px;
+    cursor: pointer; /* Makes it clickable */
+    transition: all 0.3s ease;
+    position: relative;
+    margin: 5px 0;
+    z-index: 1000; /* Increased z-index */
+    transform-style: preserve-3d; /* Add this */
+    will-change: transform; /* Add this for performance */
+}
+
+/* Add this: Default SVG color */
+nav ul li img {
+    width: 20px; /* Adjust size as needed */
+    height: 20px;
+    filter: none; /* Default state */
+    transition: all 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Hover Effect */
+nav ul li:hover {
+    background-color: rgb(0, 70, 32);
+    color: #ffffff;
+    transform: translateX(10px);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    width: calc(100% - 20px);
+}
+
+/* Add this: Change SVG color to white on hover */
+nav ul li:hover img {
+    filter: brightness(0) invert(1); /* This makes the SVG white */
+}
+
+/* Active (Clicked) Effect */
+nav ul li.active {
+    background-color: rgb(0, 70, 32);
+    color: #ffffff;
+    transform: translateX(10px);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    width: calc(100% - 20px);
+}
+
+/* Add this: Change SVG color to white when active */
+nav ul li.active img {
+    filter: brightness(0) invert(1);
+}
+
+/* Links inside Navigation */
+nav ul li a {
+    text-decoration: none;
+    color: inherit; /* Keeps text color the same */
+    font-size: 18px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Update the sidebar links container */
+.sidebar_links {
+    padding: 10px;
+    margin: 0;
+}
+
+.main-content {
+    margin-top: 90px;
+    width: calc(100% - 250px); /* Adjust width to account for sidebar */
+    height: calc(100% - 100px);
+    background-color: rgb(255, 255, 255);
+    margin-left: 250px; /* Add margin to prevent overlap */
+    overflow: visible; /* Change from auto to visible */
+    position: relative; /* Add this */
+    z-index: 1; /* Lowest z-index */
+    transform: translateZ(0); /* Add this to create new stacking context */
+    pointer-events: none; /* Add this */
+}
+
+.dashboard_sect {
+    display: flex;
+    height: 100vh; /* Ensure the section takes full height */
+}
+
+.content-wrapper {
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px;
+    position: relative; /* Add this */
+    z-index: 2; /* Add this */
+    pointer-events: auto; /* Add this */
+}

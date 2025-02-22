@@ -4,331 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@350&display=swap" />
-    <link rel="stylesheet" href="/CSE7_Frontend/css/styles.css">
-    <style>
-        /* Apply Roboto font to all elements */
-        * {
-            font-family: Roboto, sans-serif;
-        }
-
-        /* Logo Container */
-        .logo_container {
-            padding-left: 2%;
-        }
-
-        /* Fixed Header */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #ffffff;
-            padding: 15px 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000; /* Highest z-index */
-        }
-
-        .search_container {
-            width: 17%;
-            padding-left: 5%;
-            position: relative; /* Add this to position the icon */
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 10px 35px 10px 35px; /* Increase left padding to make room for the icon */
-            border-radius: 30px;
-            border: 1.5px solid #00000072;
-            background: url('/CSE7_Frontend/Assets/search.svg') no-repeat 10px center; /* Add this line */
-            background-size: 18px; /* Adjust icon size */
-        }
-
-        /* Optional: Add hover and focus effects */
-        .search-box:hover,
-        .search-box:focus {
-            border-color: rgb(0, 70, 32);
-            outline: none;
-        }
-
-        .buttons_sets {
-            display: flex;
-            gap: 10px;
-            margin-left: auto;
-            align-self: flex-end;
-            padding-right: 5%;
-        }
-
-        .button1 {
-            background-color: #ffffff;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 50%;
-        }
-
-        /* Sidebar Navigation */
-        nav {
-            position: fixed;
-            left: 0;
-            width: 250px;
-            height: 100vh;
-            background: #ffffff;
-            padding-top: 5%;
-            box-shadow: 5px 0 10px rgba(0, 0, 0, 0.1);
-            overflow: visible; /* Allow items to overflow on hover */
-            z-index: 999; /* Just below header */
-            isolation: isolate; /* Add this to create new stacking context */
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        /* Remove list default styles */
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        /* Navigation List Items */
-        nav ul li {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            padding: 13px 15px;
-            cursor: pointer; /* Makes it clickable */
-            transition: all 0.3s ease;
-            position: relative;
-            margin: 5px 0;
-            z-index: 1000; /* Increased z-index */
-            transform-style: preserve-3d; /* Add this */
-            will-change: transform; /* Add this for performance */
-        }
-
-        /* Add this: Default SVG color */
-        nav ul li img {
-            width: 20px; /* Adjust size as needed */
-            height: 20px;
-            filter: none; /* Default state */
-            transition: all 0.3s ease; /* Smooth transition for color change */
-        }
-
-        /* Hover Effect */
-        nav ul li:hover {
-            background-color: rgb(0, 70, 32);
-            color: #ffffff;
-            transform: translateX(10px);
-            border-radius: 0 10px 10px 0;
-            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-            width: calc(100% - 20px);
-        }
-
-        /* Add this: Change SVG color to white on hover */
-        nav ul li:hover img {
-            filter: brightness(0) invert(1); /* This makes the SVG white */
-        }
-
-        /* Active (Clicked) Effect */
-        nav ul li.active {
-            background-color: rgb(0, 70, 32);
-            color: #ffffff;
-            transform: translateX(10px);
-            border-radius: 0 10px 10px 0;
-            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-            width: calc(100% - 20px);
-        }
-
-        /* Add this: Change SVG color to white when active */
-        nav ul li.active img {
-            filter: brightness(0) invert(1);
-        }
-
-        /* Links inside Navigation */
-        nav ul li a {
-            text-decoration: none;
-            color: inherit; /* Keeps text color the same */
-            font-size: 18px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        /* Update the sidebar links container */
-        .sidebar_links {
-            padding: 10px;
-            margin: 0;
-        }
-
-        .main-content {
-            margin-top: 90px;
-            width: calc(100% - 250px); /* Adjust width to account for sidebar */
-            height: calc(100% - 100px);
-            background-color: rgb(255, 255, 255);
-            margin-left: 250px; /* Add margin to prevent overlap */
-            overflow: visible; /* Change from auto to visible */
-            position: relative; /* Add this */
-            z-index: 1; /* Lowest z-index */
-            transform: translateZ(0); /* Add this to create new stacking context */
-            pointer-events: none; /* Add this */
-        }
-
-        .dashboard_sect {
-            display: flex;
-            height: 100vh; /* Ensure the section takes full height */
-        }
-
-        .content-wrapper {
-            height: 100%;
-            overflow-y: auto;
-            padding: 20px;
-            position: relative; /* Add this */
-            z-index: 2; /* Add this */
-            pointer-events: auto; /* Add this */
-        }
-
-        
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            }
-            
-            .modal-content {
-                background-color: #fefefe;
-                margin: 15% auto; /* 15% from the top and centered */
-                padding: 20px;
-                border: 1px solid #888;
-                width: 80%; /* Could be more or less, depending on screen size */
-            }
-            
-            .close, .cancel {
-                color: #aaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-            }
-            
-            .close:hover,
-            .cancel:hover {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
-            }
-    </style>
+    <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/homepage.css">
+    <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/modal.css">
+    <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/content.css">
     <title>Document</title>
 </head>
 <body>
     <header>
         <div class="logo_container">
-            <img src="/CSE7_Frontend/Assets/logo.png" alt="Logo" class="logo_dashboard">
+            <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" class="logo_dashboard">
         </div>
         <div class="search_container">
             <input type="text" class="search-box" placeholder="Search">
         </div>
         <div class="buttons_sets">
-            <button class="button1"><img src="/CSE7_Frontend/Assets/plus-circle.svg" alt="addbutton"></button>
-            <button class="button1"><img src="/CSE7_Frontend/Assets/settings.svg" alt="settings"></button>
-            <button class="button1"><img src="/CSE7_Frontend/Assets/user.svg" alt=""></button>
+            <button class="button1" id="addCropBtn">
+                <img src="/CSE-7/CSE7_Frontend/Assets/plus-circle.svg" alt="addbutton">
+            </button>
+            <button class="button1"><img src="/CSE-7/CSE7_Frontend/Assets/settings.svg" alt="settings"></button>
+            <button class="button1"><img src="/CSE-7/CSE7_Frontend/Assets/user.svg" alt=""></button>
         </div>
     </header>
     <section class="dashboard_sect">
         <aside class="sidebar">
             <nav>
                 <ul class="sidebar_links">
-                    <li><img src="/CSE7_Frontend/Assets/brand logos/Vector.svg" alt="">
-                        <a href="#" onclick="loader('/CSE7_Frontend/contents/schedulecontent.html')">Task</a></li>
-                    <li><img src="/CSE7_Frontend/Assets/brand logos/Group.svg" alt="">
-                        <a href="#" onclick="loader('/CSE7_Frontend/contents/schedule.html')">Schedule</a></li>
-                    <li><img src="/CSE7_Frontend/Assets/brand logos/game-icons_plants-and-animals.svg" alt="">
-                        <a href="#" onclick="loader('/CSE7_Frontend/contents/crops.html')">Crops</a></li>
-                    <li><img src="/CSE7_Frontend/Assets/brand logos/pepicons-pencil_persons.svg" alt="">
-                        <a href="#" onclick="loader('/CSE7_Frontend/contents/Employee.html')">Employee</a></li>
-                    <li><img src="/CSE7_Frontend/Assets/brand logos/Group 12.svg" alt="">
-                        <a href="#" onclick="loader('/CSE7_Frontend/contents/Sales.html')">Sales</a></li>
-                    <li><img src="/CSE7_Frontend/Assets/brand logos/Group 13.svg" alt="">
-                        <a href="#" onclick="loader('/CSE7_Frontend/contents/Production.html')">Production</a></li>
-                    <li><img src="/CSE7_Frontend/Assets/brand logos/carbon_tools.svg" alt="">
-                        <a href="#" onclick="loader('/CSE7_Frontend/contents/Resources.html')">Resources</a></li>
+                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Vector.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/schedulecontent.html')">Task</a></li>
+                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/schedule.html')">Schedule</a></li>
+                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/game-icons_plants-and-animals.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/crops.html')">Crops</a></li>
+                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/pepicons-pencil_persons.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Employee.html')">Employee</a></li>
+                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group 12.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Sales.html')">Sales</a></li>
+                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group 13.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Production.html')">Production</a></li>
+                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/carbon_tools.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Resources.html')">Resources</a></li>
                 </ul>
             </nav>
         </aside>
         <div class="main-content" id="main-content">
             <div class="content-wrapper" id="content-wrapper">
                 <!-- Add this inside the content-wrapper div -->
-                <div id="addCropModal" class="modal">
-                    <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2>Add Crop</h2>
-                    <form id="addCropForm">
-                        <label for="cropName">Crop Name:</label>
-                        <input type="text" id="cropName" name="cropName" required>
-                        <br><br>
-                        <label for="cropType">Crop Type:</label>
-                        <input type="text" id="cropType" name="cropType" required>
-                        <br><br>
-                        <label for="plantingDate">Planting Date:</label>
-                        <input type="date" id="plantingDate" name="plantingDate" required>
-                        <br><br>
-                        <label for="location">Location:</label>
-                        <input type="text" id="location" name="location" required>
-                        <br><br>
-                        <label for="expectedHarvestDate">Expected Harvest Date:</label>
-                        <input type="date" id="expectedHarvestDate" name="expectedHarvestDate" required>
-                        <br><br>
-                        <button type="submit">Add Crop</button>
-                        <button type="button" class="cancel">Cancel</button>
-                    </form>
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>
 
-    
-    <!-- Update Modal Structure -->
     <div id="addCropModal" class="modal">
         <div class="modal-content">
             <button class="close">&times;</button>
             <div class="modal-header">
-                <img src="/CSE7_Frontend/Assets/logo.png" alt="Logo" width="243" height="44">
-               <h2>Add New Crop</h2>
+                <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+                <h2>Add Crop</h2>
             </div>
-            <form id="addCropForm">
-                <div class="form-group">
-                    <label for="cropName">Crop Name</label>
-                    <input type="text" id="cropName" name="cropName" required>
+            <form id="addCropForm" method="POST">
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="cropName">Crop Name</label>
+                        <input type="text" id="cropName" name="cropName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="plantingDate">Planting Date</label>
+                        <input type="date" id="plantingDate" name="plantingDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cropType">Crop Type</label>
+                        <input type="text" id="cropType" name="cropType" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expectedHarvestDate">Expected Harvest Date</label>
+                        <input type="date" id="expectedHarvestDate" name="expectedHarvestDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="variety">Variety</label>
+                        <input type="text" id="variety" name="variety" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="text" id="quantity" name="quantity" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="cropType">Crop Type</label>
-                    <input type="text" id="cropType" name="cropType" required>
-                </div>
-                <div class="form-group">
-                    <label for="plantingDate">Planting Date</label>
-                    <input type="date" id="plantingDate" name="plantingDate" required>
-                </div>
-                <div class="form-group">
-                    <label for="location">Location</label>
-                    <input type="text" id="location" name="location" required>
-                </div>
-                <div class="form-group">
-                    <label for="expectedHarvestDate">Expected Harvest Date</label>
-                    <input type="date" id="expectedHarvestDate" name="expectedHarvestDate" required>
-                </div>
-                <!-- Add this new checkbox group -->
                 <div class="checkbox-group">
-                    <input type="checkbox" id="autoTask" name="autoTask">
-                    <label for="autoTask">Generate Tasks Automatically</label>
+                    <input type="checkbox" id="automateTask" name="automateTask">
+                    <label for="automateTask">Automate Task</label>
                 </div>
                 <div class="form-buttons">
                     <button type="submit" class="submit-btn">Add Crop</button>
@@ -338,8 +104,8 @@
         </div>
     </div>
 
-    <script src="/CSE7_Frontend/javascripts/sidebar.js"></script>
-    <script src="/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
-    <script src="/CSE7_Frontend/javascripts/modal.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/sidebar.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/modal.js"></script>
 </body>
 </html>

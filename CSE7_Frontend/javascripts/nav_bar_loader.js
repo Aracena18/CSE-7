@@ -8,7 +8,7 @@ function loader(url) {
         })
         .then(content => {
             document.getElementById('content-wrapper').innerHTML = content;
-            // Wait for DOM to update before initializing modal
+            // Initialize modal after content is loaded
             setTimeout(() => {
                 if (typeof initializeModal === 'function') {
                     initializeModal();

@@ -41,22 +41,3 @@ async function toggleSignup(content) {
         console.error('Error loading the content:', error);
     }
 }
-
-document.getElementById('loginUserForm').addEventListener("submit", function(event){
-    event.preventDefault();
-
-    let email= document.getElementById("userEmail").value;
-    let password= document.getElementById("userPassword").value;
-
-    let formdata= new formdata();
-    formdata.append("email", email);
-    formdata.append("password", password);
-
-    fetch("login_pro.php",{
-
-        method:"POST",
-        body: formdata
-    })
-    .then( response => response.text())
-
-})

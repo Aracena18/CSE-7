@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arciculture</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="/CSE7_Frontend/css/styles.css">
+  <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="/CSE7_Frontend/css/index.css" />
+  <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/index.css" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">
+  <meta name="google-signin-client_id" content="1052567040007-ji9inkp7s35stbg8pljaeil49i3clvu0.apps.googleusercontent.com">
+  <meta name="google-signin-scope" content="profile email">
+  <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
 </head>
 <body>
 
 <header>
-  <nav class="navigation_bar">
+  <nav class="navigation_bar">s
     <!-- Logo -->
     <div class="logo_container">
       <img src="/CSE7_Frontend/Assets/logo.png" alt="logo">
@@ -34,8 +37,8 @@
     </ul>
     <!-- Desktop Authentication Buttons -->
     <div class="auth_buttons">
-      <button class="login_button" onclick="toggleLogin('./authentication/login.htm')">Log in</button>
-      <button class="sign_up_button" onclick="toggleSignup('./authentication/signup.html')">Sign up</button>
+      <button class="login_button" onclick="toggleLogin('/CSE-7/CSE7_Frontend/authentication/login.htm')">Log in</button>
+      <button class="sign_up_button" onclick="toggleSignup('/CSE-7/CSE7_Frontend/authentication/signup.html')">Sign up</button>
     </div>
   </nav>
 </header>
@@ -114,8 +117,8 @@
 <!-- Load Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-<script src="/CSE7_Frontend\javascripts\login_signup_script.js"></script>
-<script src="/CSE7_Frontend\javascripts\authentication.js"></script>
+<script src="/CSE-7/CSE7_Frontend/javascripts/login_signup_script.js"></script>
+<script src="/CSE-7/CSE7_Frontend/javascripts/authentication.js"></script>
 
 </body>
 </html>
