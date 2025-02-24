@@ -1,6 +1,6 @@
 function initializeModal() {
     var modal = document.getElementById("addCropModal");
-    var btn = document.querySelector(".add_btn");
+    var btn = document.querySelector(".add_btn-crops");
     var closeBtn = document.querySelector(".close");
     var cancelBtn = document.querySelector(".cancel");
     var form = document.getElementById("addCropForm");

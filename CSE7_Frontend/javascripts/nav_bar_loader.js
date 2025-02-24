@@ -14,7 +14,7 @@ function loader(url) {
             document.dispatchEvent(new CustomEvent('taskloaded'));
             console.log("Okeyy");
             // Reinitialize functionality based on loaded content
-            if (url.includes('crops.html')) {
+            if (url.includes('crops.php')) {
                 fetchCrops();
                 initializeModal()
 

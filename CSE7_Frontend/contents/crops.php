@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <button class="add_btn" style="cursor: pointer;" type="button" onclick="initializeModal()">Add Crops</button>
+            <button class="add_btn-crops" style="cursor: pointer;" type="button" onclick="initializeModal()">Add Crops</button>
             <div class="table-container">
                 <table>
                     <thead>
@@ -58,8 +58,8 @@
                             <td>Roma</td>
                             <td>100</td>
                             <td>
-                                <button class="edit-btn" style="cursor: pointer;" type="button">Edit</button>
-                                <button class="delete_btn" style="cursor: pointer;" type="button">Delete</button>
+                                <button class="button5">Edit</button>
+                                <button class="button6">Delete</button>
                             </td>
                         </tr>
                         
