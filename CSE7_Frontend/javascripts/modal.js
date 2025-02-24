@@ -5,11 +5,6 @@ function initializeModal() {
     var cancelBtn = document.querySelector(".cancel");
     var form = document.getElementById("addCropForm");
 
-    // Debug logs to check elements
-    console.log('Modal:', modal);
-    console.log('Button:', btn);
-    console.log('Close button:', closeBtn);
-    console.log('Form:', form);
 
     if (modal && btn && closeBtn && form) {
         // Show modal when button is clicked
@@ -49,7 +44,7 @@ function initializeModal() {
             event.preventDefault();
             const formData = new FormData(form);
 
-            fetch("/CSE-7/CSE7_Frontend/add_crop.php", {
+            fetch("/CSE-7/CSE7_Frontend/crops_folder/add_crop.php", {
                 method: "POST",
                 body: formData
             })
@@ -59,6 +54,9 @@ function initializeModal() {
                     alert("Crop added successfully!");
                     form.reset();
                     modal.style.display = "none";
+
+                    document.dispatchEvent(new CustomEvent('cropAdded'));
+                    
                 } else {
                     alert("Error: " + data.message);
                 }
@@ -70,5 +68,24 @@ function initializeModal() {
     }
 }
 
+// Add these functions to your existing modal.js
+function changePriorityColor(select) {
+    select.classList.remove('high', 'medium', 'low');
+    select.classList.add(select.value);
+}
+
+function changeStatusColor(select) {
+    select.classList.remove('todo', 'inprogress', 'completed', 'onhold');
+    select.classList.add(select.value);
+}
+
+// Initialize dropdowns when modal is opened
+document.addEventListener('DOMContentLoaded', function() {
+    const prioritySelects = document.querySelectorAll('.priority-select');
+    const statusSelects = document.querySelectorAll('.status-select');
+    
+    prioritySelects.forEach(select => changePriorityColor(select));
+    statusSelects.forEach(select => changeStatusColor(select));
+});
 // Initialize modal after the content is loaded
 window.addEventListener('load', initializeModal);

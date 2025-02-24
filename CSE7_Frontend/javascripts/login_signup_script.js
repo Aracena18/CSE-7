@@ -33,9 +33,15 @@ window.onload = function() {
             .then(data => {
                 console.log("Server Response:", data);
 
-                if (data.login === "success") {
-                    window.location.href = "/CSE-7/CSE7_Frontend/homepage.html";  // Fixed URL
-                } else {
+                if (data.success) { // Changed from data.login to match PHP response
+                    const name = data.user.name; // Access name from user object
+                    const message = "Welcome " + name;
+                    alert(message);
+                    setTimeout(() => {
+                        window.location.href = "/CSE-7/CSE7_Frontend/homepage.php"; // Use URL from response
+                    }, 500); // Small delay to ensure alert is seen
+                } 
+                else {
                     alert("Login failed: " + (data.message || "Invalid credentials"));
                 }
             })
@@ -81,33 +87,36 @@ function handleCredentialResponse(response) {
     }
 
     console.log("Encoded JWT ID token: " + response.credential);
-
-    // Decode the Google JWT token (for debugging; in production, verify server-side)
     const payload = JSON.parse(atob(response.credential.split(".")[1]));
-    const email = payload.email;
-    const name = payload.name;
-    const google_id = payload.sub; // Unique Google user ID
-
-    console.log("Decoded Google User:", payload);
-
-    // Send the Google user data to your backend for registration/login
+    
     fetch('/CSE-7/CSE7_Frontend/login_pro.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: email,
-            name: name,
-            google_id: google_id
+            email: payload.email,
+            name: payload.name,
+            google_id: payload.sub
         })
     })
     .then(response => response.json())
     .then(data => {
         console.log("Server Response (Google):", data);
-        if(data.login === "success"){
-            window.location.href = "/CSE-7/CSE7_Frontend/homepage.html";  // Fixed URL
+        if (data.success) {
+            const name = data.user.name;
+            alert("Welcome " + name);
+            // Allow alert to be shown before redirect
+            setTimeout(() => {
+                // Use the redirect URL from server response
+                window.location.href = data.redirect_url;
+            }, 500);
+        } else {
+            alert(data.error || "Authentication failed");
         }
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("An error occurred during authentication");
+    });
 }

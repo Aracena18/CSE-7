@@ -62,7 +62,7 @@
     </div>
     <button class="google" onclick="socialLogin('facebook')">
       <div class="phgoogle-logo-bold-wrapper">
-        <img class="phgoogle-logo-bold-icon" alt="" src="/CSE7_Frontend/Assets/ic_sharp-facebook.svg">
+        <img class="phgoogle-logo-bold-icon" alt="" src="../CSE7_Frontend/Assets/ic_sharp-facebook.svg">
       </div>
     </button>
     <button class="google" onclick="socialLogin('apple')">
@@ -73,7 +73,7 @@
   </div>
   <div class="already-have-an-container">
     <span class="already-have-an">Already have an account? </span>
-    <a href="login.html" class="login1">Login</a>
+    <a href="login.php" class="login1">Login</a>
     <span class="already-have-an"> here</span>
   </div>
 </div>

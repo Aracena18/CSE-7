@@ -1,7 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     http_response_code(200);
@@ -10,120 +8,93 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
 // Database connection settings
 $servername = "localhost";
-$username = "root";  // Change if needed
-$password = "";      // Change if needed
-$dbname = "farm_management";  // Replace with your actual database name
+$username = "root";
+$password = "";
+$dbname = "farm_management";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     http_response_code(500);
     echo json_encode(["error" => "Database connection failed: " . $conn->connect_error]);
     exit();
 }
 
-// Process POST request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $json = file_get_contents('php://input');
     $data = json_decode($json, true);
 
     if ($data === null) {
         http_response_code(400);
-        echo json_encode([
-            "error" => "Invalid JSON",
-            "received" => $json // Debugging output
-        ]);
+        echo json_encode(["error" => "Invalid JSON"]);
         exit();
     }
 
-    // Extract incoming data
+    // Extract Google sign-in data
     $email = $data['email'] ?? '';
-    $password = $data['password'] ?? null; // For manual login; can be null for Google login
     $google_id = $data['google_id'] ?? null;
     $name = $data['name'] ?? '';
 
-    if (empty($email)) {
+    if (empty($email) || empty($google_id)) {
         http_response_code(400);
-        echo json_encode(["error" => "Email is required"]);
+        echo json_encode(["error" => "Email and Google ID are required"]);
         exit();
     }
 
-    // Check if the user exists by email
-    $stmt = $conn->prepare("SELECT id, name, email, password, google_id, remember_token FROM users WHERE email = ?");
+    // Check if user exists
+    $stmt = $conn->prepare("SELECT id, name, email, google_id FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        // User exists—fetch details
-        $stmt->bind_result($user_id, $db_name, $db_email, $hashedPassword, $db_google_id, $remember_token);
+        // User exists - verify Google ID
+        $stmt->bind_result($user_id, $db_name, $db_email, $db_google_id);
         $stmt->fetch();
 
-        if ($google_id) {
-            // Google Login: No password verification, just check that the provided google_id matches
-            if ($db_google_id === $google_id) {
-                http_response_code(200);
-                echo json_encode([
-                    "login" => "success",
-                    "user_id" => $user_id,
+        if ($db_google_id === $google_id) {
+            // Set session variables
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['user_name'] = $db_name;
+            $_SESSION['user_email'] = $db_email;
+            $_SESSION['logged_in'] = true;
+
+            echo json_encode([
+                "success" => true,
+                "user" => [
+                    "id" => $user_id,
                     "name" => $db_name,
-                    "email" => $db_email,
-                    "google_id" => $db_google_id,
-                    "remember_token" => $remember_token,
-                    "redirect_url" => "/CSE-7/CSE7_Frontend/homepage.html"
-                ]);
-            } else {
-                http_response_code(401);
-                echo json_encode(["error" => "Google authentication failed"]);
-            }
+                    "email" => $db_email
+                ],
+                "redirect_url" => "/CSE-7/CSE7_Frontend/homepage.php"
+            ]);
         } else {
-            // Manual Login: Verify the password
-            if ($password && password_verify($password, $hashedPassword)) {
-                http_response_code(200);
-                echo json_encode([
-                    "login" => "success",
-                    "user_id" => $user_id,
-                    "name" => $db_name,
-                    "email" => $db_email,
-                    "remember_token" => $remember_token,
-                    "redirect_url" => "/CSE-7/CSE7_Frontend/homepage.html"
-                ]);
-            } else {
-                http_response_code(401);
-                echo json_encode(["error" => "Invalid credentials"]);
-            }
+            http_response_code(401);
+            echo json_encode(["error" => "Google authentication failed"]);
         }
     } else {
-        // User does not exist—register them
-        if ($google_id) {
-            // Google Registration: No password needed
-            $insertStmt = $conn->prepare("INSERT INTO users (name, email, google_id, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())");
-            $insertStmt->bind_param("sss", $name, $email, $google_id);
-        } else {
-            // Manual Registration: Password is required
-            if (!$password) {
-                http_response_code(400);
-                echo json_encode(["error" => "Password is required for manual registration"]);
-                exit();
-            }
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            // Default the name to the part of the email before the "@" if not provided
-            $name = empty($name) ? explode('@', $email)[0] : $name;
-            $insertStmt = $conn->prepare("INSERT INTO users (name, email, password, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())");
-            $insertStmt->bind_param("sss", $name, $email, $hashedPassword);
-        }
+        // New user - register with Google
+        $insertStmt = $conn->prepare("INSERT INTO users (name, email, google_id, created_at, updated_at) VALUES (?, ?, ?, NOW(), NOW())");
+        $insertStmt->bind_param("sss", $name, $email, $google_id);
 
         if ($insertStmt->execute()) {
             $newUserId = $insertStmt->insert_id;
-            http_response_code(201);
+            
+            // Set session variables for new user
+            $_SESSION['user_id'] = $newUserId;
+            $_SESSION['user_name'] = $name;
+            $_SESSION['user_email'] = $email;
+            $_SESSION['logged_in'] = true;
+
             echo json_encode([
-                "login" => "success",
-                "user_id" => $newUserId,
-                "name" => $name,
-                "email" => $email,
-                "google_id" => $google_id,
-                "message" => "New user created"
+                "success" => true,
+                "message" => "New user created",
+                "user" => [
+                    "id" => $newUserId,
+                    "name" => $name,
+                    "email" => $email
+                ],
+                "redirect_url" => "/CSE-7/CSE7_Frontend/homepage.php"
             ]);
         } else {
             http_response_code(500);

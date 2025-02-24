@@ -1,7 +1,7 @@
 <?php
 header("Content-Type: application/json"); // Set response type to JSON
 
-require_once("db_config.php"); // Import database connection settings
+require_once "db_config.php"; // Import database connection settings
 
 
 // Retrieve form data from POST request

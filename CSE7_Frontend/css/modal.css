@@ -13,6 +13,19 @@
     
 }
 
+#addTaskModal {
+    position: fixed;
+    z-index: 2000; /* Increased to be above everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    
+}
 /* Remove this block as it's causing conflicts */
 /*
 #addCropModal.active,
@@ -137,3 +150,4 @@
 .cancel:hover {
     background-color: #d87a07;
 }
+

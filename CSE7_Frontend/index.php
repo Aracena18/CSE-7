@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Arciculture</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/styles.css">
+  <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/index.css" />
+  <link rel="stylesheet" href="/CSE7_Frontend/css/index.css" />
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin-allow-popups">
   <meta name="google-signin-client_id" content="1052567040007-ji9inkp7s35stbg8pljaeil49i3clvu0.apps.googleusercontent.com">
@@ -18,10 +18,10 @@
 <body>
 
 <header>
-  <nav class="navigation_bar">s
+  <nav class="navigation_bar">
     <!-- Logo -->
     <div class="logo_container">
-      <img src="/CSE7_Frontend/Assets/logo.png" alt="logo">
+      <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="logo">
     </div>
     <!-- Hamburger Menu Icon -->
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
@@ -37,15 +37,15 @@
     </ul>
     <!-- Desktop Authentication Buttons -->
     <div class="auth_buttons">
-      <button class="login_button" onclick="toggleLogin('/CSE-7/CSE7_Frontend/authentication/login.htm')">Log in</button>
-      <button class="sign_up_button" onclick="toggleSignup('/CSE-7/CSE7_Frontend/authentication/signup.html')">Sign up</button>
+      <button class="login_button" onclick="toggleLogin('/CSE-7/CSE7_Frontend/authentication/login.php')">Log in</button>
+      <button class="sign_up_button" onclick="toggleSignup('/CSE-7/CSE7_Frontend/authentication/signup.php')">Sign up</button>
     </div>
   </nav>
 </header>
 
 <section class="hero_sect">
   <div class="background-container">
-    <img src="/CSE7_Frontend/Assets/Polygon 1.png" alt="Img">
+    <img src="/CSE-7/CSE7_Frontend/Assets/Polygon 1.png" alt="Img">
   </div>
 
   <div class="header-container">
@@ -54,7 +54,7 @@
         <h4 class="lets-grow-your">Let’s Grow Your Farm Together</h4>
       </b>
       <p class="body_text">You don’t have to be a digital marketing pro to know how important a website is to modern business. As both a digital interface for delivering products and services and a vehicle for generating leads, your website needs to look good. If you want to deliver a smooth customer experience and look good while doing it, a web designer can help.</p>
-      <button class="buttonmore" onclick="toggleSignup('./authentication/signup.html')">Get Started</button>
+      <button class="buttonmore" onclick="toggleSignup('./authentication/signup.php')">Get Started</button>
     </div>
 
     <div class="login_container">
@@ -76,7 +76,7 @@
       <div class="modal-content">
           <button class="close">&times;</button>
           <div class="modal-header">
-              <img src="/CSE7_Frontend/Assets/logo.png" alt="Logo" width="243" height="44">
+              <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="243" height="44">
              <h2>Add New Crop</h2>
           </div>
           <form id="addCropForm">
