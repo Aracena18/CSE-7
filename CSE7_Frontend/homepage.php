@@ -226,6 +226,62 @@
     </div>
 
 
+    <!-- Replace the existing addTaskModal content -->
+    <div id="EditTaskModal" class="modal">
+    <div class="modal-content">
+        <button class="close">&times;</button>
+        <div class="modal-header">
+            <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+            <h2>Add Task</h2>
+        </div>
+        <form id="EditTaskForm" method="POST">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="taskDescription">Description</label>
+                    <input type="text" id="taskDescription" name="taskDescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="assignedTo">Assigned to</label>
+                    <input type="text" id="assignedTo" name="assignedTo" required>
+                </div>
+                <div class="form-group">
+                    <label for="startDate">Start Date</label>
+                    <input type="date" id="startDate" name="startDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="endDate">End Date</label>
+                    <input type="date" id="endDate" name="endDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priority</label>
+                    <select id="priority" name="priority" class="priority-select" onchange="changePriorityColor(this)" required>
+                        <option value="high" class="high">High</option>
+                        <option value="medium" class="medium">Medium</option>
+                        <option value="low" class="low">Low</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="status-select" onchange="changeStatusColor(this)" required>
+                        <option value="todo" class="todo">To Do</option>
+                        <option value="inprogress" class="inprogress">In Progress</option>
+                        <option value="completed" class="completed">Completed</option>
+                        <option value="onhold" class="onhold">On Hold</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="taskLocation">Location</label>
+                    <input type="text" id="taskLocation" name="taskLocation" required>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn-edit-task">Edit Task</button>
+                <button type="button" class="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
     <script src="/CSE-7/CSE7_Frontend/javascripts/modal.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/sidebar.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>

@@ -40,6 +40,19 @@
     justify-content: center;
 }
 
+#EditTaskModal {
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Remove this block as it's causing conflicts */
 /*
 #addCropModal.active,
@@ -176,6 +189,20 @@
 }
 
 .submit-btn-Edit:hover {
+    background-color: #1e5a0b;
+}
+
+.submit-btn-edit-task {
+    background-color: #28730d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.submit-btn-edit-task:hover {
     background-color: #1e5a0b;
 }
 
