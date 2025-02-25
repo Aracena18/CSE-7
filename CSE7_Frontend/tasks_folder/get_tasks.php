@@ -1,18 +1,30 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Unauthorized']);
+    exit();
+}
+
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 
 require_once "db_config_task.php";
 
+$user_id= $_SESSION['user_id'];
 try {
     // Prepare SQL query to get all tasks
     $sql = "SELECT id, description, assigned_to, location, start_date, end_date, 
             priority, status, completed, created_at, updated_at 
-            FROM tasks 
+            FROM tasks WHERE user_id = ?
             ORDER BY created_at DESC";
             
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if (!$result) {
         throw new Exception("Query failed: " . $conn->error);

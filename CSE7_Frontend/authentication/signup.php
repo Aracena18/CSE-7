@@ -28,6 +28,10 @@
   <form id="signupForm" class="frame-container">
     <div class="frame-div">
       <div class="username-parent">
+        <div class="username">Name</div>
+        <input type="text" name="name" class="enter-your-email-wrapper" placeholder="Enter your name" required>
+      </div>
+      <div class="username-parent">
         <div class="username">Email</div>
         <input type="email" name="email" class="enter-your-email-wrapper" placeholder="Enter your email" required>
       </div>
@@ -35,8 +39,6 @@
         <div class="password">Password</div>
         <input type="password" name="password" class="enter-your-password-wrapper" placeholder="Enter your password" required>
       </div>
-      <!-- Optional: A field for the name -->
-      
     </div>
     <button type="submit" class="sign-up-wrapper">
       <div class="sign-up">Sign up</div>

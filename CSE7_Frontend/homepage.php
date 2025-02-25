@@ -22,7 +22,18 @@
                 <img src="/CSE-7/CSE7_Frontend/Assets/plus-circle.svg" alt="addbutton">
             </button>
             <button class="button1"><img src="/CSE-7/CSE7_Frontend/Assets/settings.svg" alt="settings"></button>
-            <button class="button1"><img src="/CSE-7/CSE7_Frontend/Assets/user.svg" alt=""></button>
+            <div class="user-dropdown">
+                <button class="button1" id="userDropdownBtn">
+                    <img src="/CSE-7/CSE7_Frontend/Assets/user.svg" alt="user">
+                </button>
+                <div class="dropdown-content" id="userDropdown">
+                    <a href="profile.php">Profile</a>
+                    <hr>
+                    <a href="#settings">Settings</a>
+                    <hr>
+                    <a href="/CSE-7/CSE7_Frontend/authentication/logout.php">Logout</a>
+                </div>
+            </div>
         </div>
     </header>
     <section class="dashboard_sect">
@@ -63,6 +74,7 @@
             </div>
             <form id="addCropForm" method="POST">
                 <div class="form-container">
+                    <input type="hidden" id="cropId" name="cropId">
                     <div class="form-group">
                         <label for="cropName">Crop Name</label>
                         <input type="text" id="cropName" name="cropName" required>
@@ -97,7 +109,7 @@
                     <label for="automateTask">Automate Task</label>
                 </div>
                 <div class="form-buttons">
-                    <button type="submit" class="submit-btn">Add Crop</button>
+                    <button type="submit" class="submit-btn" id="submitButton">Add Crop</button>
                     <button type="button" class="cancel">Cancel</button>
                 </div>
             </form>
@@ -159,6 +171,60 @@
         </form>
     </div>
 </div>
+
+/*this is the modal for the editing of the crops*/
+
+<div id="EditCropModal" class="modal">
+        <div class="modal-content">
+            <button class="close">&times;</button>
+            <div class="modal-header">
+                <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+                <h2>Edit Crop</h2>
+            </div>
+            <form id="editCropForm" method="POST">
+                <div class="form-container">
+                    <input type="hidden" id="cropId" name="cropId">
+                    <div class="form-group">
+                        <label for="cropName">Crop Name</label>
+                        <input type="text" id="cropName" name="cropName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="plantingDate">Planting Date</label>
+                        <input type="date" id="plantingDate" name="plantingDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cropType">Crop Type</label>
+                        <input type="text" id="cropType" name="cropType" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expectedHarvestDate">Expected Harvest Date</label>
+                        <input type="date" id="expectedHarvestDate" name="expectedHarvestDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="variety">Variety</label>
+                        <input type="text" id="variety" name="variety" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="text" id="quantity" name="quantity" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="automateTask" name="automateTask">
+                    <label for="automateTask">Automate Task</label>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn-Edit" id="submitButtonEdit">Update Crop</button>
+                    <button type="button" class="cancel">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <script src="/CSE-7/CSE7_Frontend/javascripts/modal.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/sidebar.js"></script>

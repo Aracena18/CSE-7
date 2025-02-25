@@ -120,3 +120,52 @@ function handleCredentialResponse(response) {
         alert("An error occurred during authentication");
     });
 }
+
+function toggleLogin(url) {
+    const container = document.querySelector('.login_container');
+    const loginForm = document.getElementById('loginForm');
+    
+    if (!container.classList.contains('active')) {
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                loginForm.innerHTML = data;
+                container.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+    } else {
+        container.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function toggleSignup(url) {
+    const container = document.querySelector('.Sign-up-container');
+    const signupForm = document.getElementById('SignUpForm');
+    
+    if (!container.classList.contains('active')) {
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+                signupForm.innerHTML = data;
+                container.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+    } else {
+        container.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modal when clicking outside
+document.addEventListener('click', (e) => {
+    const loginContainer = document.querySelector('.login_container');
+    const signupContainer = document.querySelector('.Sign-up-container');
+    
+    if (e.target === loginContainer) {
+        toggleLogin();
+    }
+    if (e.target === signupContainer) {
+        toggleSignup();
+    }
+});

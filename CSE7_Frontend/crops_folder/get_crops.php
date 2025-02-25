@@ -1,10 +1,23 @@
 <?php
-header("Content-Type: application/json"); // Set response type to JSON
+session_start();
 
-require_once "db_config.php"; // Import database connection settings
+if (!isset($_SESSION['user_id'])) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Unauthorized']);
+    exit();
+}
 
-$sql = "SELECT id, crop_name, location, crop_type, planting_date, expected_harvest_date, variety, quantity FROM crops";
-$result = $conn->query($sql);
+header("Content-Type: application/json");
+
+require_once "db_config.php";
+
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT id, crop_name, location, crop_type, planting_date, expected_harvest_date, variety, quantity FROM crops WHERE user_id = ?";
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 $crops = [];
 
@@ -14,8 +27,8 @@ if ($result->num_rows > 0) {
     }
 }
 
-// Return data as JSON
 echo json_encode($crops);
 
+$stmt->close();
 $conn->close();
 ?>
