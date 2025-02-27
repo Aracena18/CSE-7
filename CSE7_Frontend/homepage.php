@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        http_response_code(401);
+        echo json_encode(['error' => 'Unauthorized']);
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +16,8 @@
     <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/homepage.css">
     <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/modal.css">
     <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/content.css">
+    <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/employee.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Document</title>
 </head>
 <body>
@@ -282,10 +293,104 @@
     </div>
 </div>
 
+
+<!-- Add Employee Modal -->
+<div id="addEmployeeModal" class="modal">
+    <div class="modal-content">
+        <button class="close">&times;</button>
+        <div class="modal-header">
+            <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+            <h2>Add Employee</h2>
+        </div>
+        <form id="addEmployeeForm">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">Position</label>
+                    <select id="position" name="position" required>
+                        <option value="">Select Position</option>
+                        <option value="Fruit Picker">Fruit Picker</option>
+                        <option value="Farm Worker">Farm Worker</option>
+                        <option value="Farm Supervisor">Farm Supervisor</option>
+                        <option value="Manager">Manager</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="dailyRate">Daily Rate (₱)</label>
+                    <input type="number" id="dailyRate" name="dailyRate" required>
+                </div>
+                <div class="form-group">
+                    <label for="daysWorked">Days Worked</label>
+                    <input type="number" id="daysWorked" name="daysWorked" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input type="tel" id="contact" name="contact" pattern="[0-9]+" required>
+                </div>
+                <div class="form-group">
+                    <label for="employeeStatus">Status</label>
+                    <select id="employeeStatus" name="employeeStatus" class="status-select" required>
+                        <option value="active" class="status-option-active">Active</option>
+                        <option value="onleave" class="status-option-leave">On Leave</option>
+                        <option value="inactive" class="status-option-inactive">Inactive</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Add Employee</button>
+                <button type="button" class="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Add Payroll Modal -->
+<div id="payrollModal" class="modal">
+    <div class="modal-content payroll-modal">
+        <button class="close">&times;</button>
+        <div class="modal-header">
+            <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+            <h2>Employee Payroll</h2>
+        </div>
+        <div class="payroll-container">
+            <div class="payroll-header">
+                <div class="employee-info">
+                    <div id="employeeAvatar"></div>
+                    <div class="employee-details">
+                        <h3 id="employeeName">Loading...</h3>
+                        <p id="employeePosition">Loading...</p>
+                    </div>
+                </div>
+                <div class="payroll-actions">
+                    <select id="payrollPeriod" class="period-select">
+                        <option value="">Select Pay Period</option>
+                    </select>
+                    <button class="btn-print" onclick="printPayroll()">
+                        <i class="fas fa-print"></i> Print Payroll
+                    </button>
+                </div>
+            </div>
+            <div id="payrollContent" class="payroll-content">
+                <!-- Payroll details will be populated here -->
+            </div>
+        </div>
+    </div>
+</div>
+
     <script src="/CSE-7/CSE7_Frontend/javascripts/modal.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/sidebar.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/task.js"></script>
-    
+    <script src="/CSE-7/CSE7_Frontend/javascripts/employee.js"></script>
+
+
+
 </body>
 </html>

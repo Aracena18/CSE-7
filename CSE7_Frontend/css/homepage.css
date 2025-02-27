@@ -249,3 +249,7 @@ nav ul li a {
 .show {
     display: block;
 }
+
+#addEmployeeModal {
+    display: none; /* Hide modal by default */
+}

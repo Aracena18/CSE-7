@@ -39,6 +39,7 @@ function loader(url) {
             document.getElementById('content-wrapper').innerHTML = html;
             console.log("Taskloade SUCCESSFully");
             document.dispatchEvent(new CustomEvent('taskloaded'));
+            document.dispatchEvent(new CustomEvent('Employeeloaded'));
             console.log("Okeyy");
             // Reinitialize functionality based on loaded content
             if (url.includes('crops.php')) {

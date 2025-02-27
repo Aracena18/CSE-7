@@ -546,3 +546,20 @@ tbody tr:hover {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.add_btn_employee {
+    margin-top: 20px;
+    border: none;
+    background: linear-gradient(90deg, #ffe959, #fda900);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.add_btn_employee:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
