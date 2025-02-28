@@ -54,7 +54,8 @@
         <div class="employee-filters">
             <div class="search-wrapper">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" placeholder="Search employees...">
+                <input type="text" id="employeeSearch"  placeholder="Search employees...">
+                <div    id="searchResults" class="search-results-container"></div>
             </div>
             <div class="filter-controls">
                 <div class="filter-group">
@@ -108,16 +109,6 @@
         </div>
     </div>
 
-    <!-- Modal template remains the same -->
-    <!-- ... existing modal code ... -->
-
-    <!-- Payroll Modal -->
-    <div id="payrollModal" class="modal">
-        <div class="modal-content payroll-modal">
-            <button class="close">&times;</button>
-            <div class="modal-header">
-                <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
-                <h2>Employee Payroll</h2>
-            </div>
-            <div class="payroll-container">
-                <div class="payroll-header">
+    <script src="/CSE-7/CSE7_Frontend/javascripts/employee.js"></script>
+</body>
+</html>

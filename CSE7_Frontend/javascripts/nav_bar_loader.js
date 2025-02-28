@@ -37,7 +37,7 @@ function loader(url) {
         .then(response => response.text())
         .then(html => {
             document.getElementById('content-wrapper').innerHTML = html;
-            console.log("Taskloade SUCCESSFully");
+            console.log("Taskloaded SUCCESSFully");
             document.dispatchEvent(new CustomEvent('taskloaded'));
             document.dispatchEvent(new CustomEvent('Employeeloaded'));
             console.log("Okeyy");
@@ -45,16 +45,11 @@ function loader(url) {
             if (url.includes('crops.php')) {
                 fetchCrops();
                 initializeModal()
-
+                initializeEditModal();
             }
-
-            
-            
         })
         .catch(error => console.error('Error loading content:', error));
 }
-
-
 
 function fetchCrops() {
     fetch("/CSE-7/CSE7_Frontend/crops_folder/get_crops.php")  // Call the PHP script
@@ -107,104 +102,138 @@ function deleteCrop(id) {
 
 function editCrop(id) {
     fetch(`/CSE-7/CSE7_Frontend/crops_folder/get_single_crop.php?id=${id}`)
-        .then(async response => {
-            if (!response.ok) {
-                const text = await response.text();
-                try {
-                    const json = JSON.parse(text);
-                    throw new Error(json.message || 'Server error');
-                } catch (e) {
-                    throw new Error(text || 'Server error');
-                }
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            if (!data || !data.success) {
-                throw new Error(data?.message || 'Failed to fetch crop data');
+            if (!data.success) {
+                throw new Error(data.message || 'Failed to fetch crop data');
             }
             populateEditForm(data.data);
-            document.getElementById('EditCropModal').style.display = 'flex';
+            openEditModal();
         })
         .catch(error => {
-            console.error('Error details:', error);
+            console.error('Error:', error);
             alert('Error fetching crop data: ' + error.message);
         });
 }
 
 function populateEditForm(crop) {
     const form = document.getElementById('editCropForm');
-    form.cropId.value = crop.id;
-    form.cropName.value = crop.crop_name;
-    form.location.value = crop.location;
-    form.cropType.value = crop.crop_type;
-    form.plantingDate.value = crop.planting_date;
-    form.expectedHarvestDate.value = crop.expected_harvest_date;
-    form.variety.value = crop.variety;
-    form.quantity.value = crop.quantity;
-}
-
-// Split the form submit handler into two separate functions
-document.getElementById('addCropForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = new FormData(this);
-    const cropId = formData.get('cropId');
+    if (!form) return;
     
-    if (cropId) {
-        // This is an update operation
-        updateCrop(formData);
-    } else {
-        // This is an add operation
-        addCrop(formData);
-    }
-});
-
-function updateCrop(formData) {
-    fetch('/CSE-7/CSE7_Frontend/crops_folder/update_crop.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert(data.message);
-            // Reset form and close modal
-            document.getElementById('addCropForm').reset();
-            document.getElementById('addCropModal').style.display = 'none';
-            // Refresh table
-            fetchCrops();
-        } else {
-            throw new Error(data.message || 'Update failed');
+    // Map crop data to form fields
+    const fields = ['cropId', 'cropName', 'location', 'cropType', 'plantingDate', 
+                   'expectedHarvestDate', 'variety', 'quantity'];
+    
+    fields.forEach(field => {
+        const input = form[field];
+        if (input) {
+            const cropField = field === 'cropId' ? 'id' : 
+                            field.replace(/([A-Z])/g, '_$1').toLowerCase();
+            input.value = crop[cropField] || '';
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error updating crop: ' + error.message);
     });
 }
 
-function addCrop(formData) {
-    fetch('/CSE-7/CSE7_Frontend/crops_folder/add_crop.php', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert(data.message);
-            document.getElementById('addCropForm').reset();
-            document.getElementById('addCropModal').style.display = 'none';
-            fetchCrops();
-        } else {
-            throw new Error(data.message || 'Add failed');
+function openEditModal() {
+    const modal = document.getElementById("EditCropModal");
+    if (!modal) return;
+    
+    modal.style.display = "flex";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
+    modal.style.opacity = "1";
+    modal.style.visibility = "visible";
+}
+
+function closeEditModal() {
+    const modal = document.getElementById("EditCropModal");
+    if (!modal) return;
+    
+    modal.style.display = "none";
+    document.getElementById('editCropForm')?.reset();
+}
+
+// Initialize edit modal functionality
+function initializeEditModal() {
+    const modal = document.getElementById("EditCropModal");
+    const closeBtn = modal?.querySelector(".close");
+    const cancelBtn = modal?.querySelector(".cancel");
+    const form = document.getElementById("editCropForm");
+
+    if (!modal || !form) return;
+
+    // Close button handler
+    closeBtn?.addEventListener('click', closeEditModal);
+    
+    // Cancel button handler
+    cancelBtn?.addEventListener('click', closeEditModal);
+
+    // Form submission handler
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        
+        fetch('/CSE-7/CSE7_Frontend/crops_folder/update_crop.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                closeEditModal();
+                fetchCrops();
+            } else {
+                throw new Error(data.message || 'Update failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error updating crop: ' + error.message);
+        });
+    });
+
+    // Close modal on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeEditModal();
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error adding crop: ' + error.message);
     });
 }
 
+function showEditModal(){
+    
+    var modal = document.getElementById("EditCropModal");
+    var btn = document.querySelector(".edit-btn");
+    var closeBtn = document.querySelector(".close");
+    var cancelBtn = document.querySelector(".cancel");
+    var form = document.getElementById("editCropForm");
+
+    if (modal && btn && closeBtn && form) {
+        // Show modal when button is clicked
+        btn.onclick = function () {
+            console.log('Button clicked');
+            modal.style.display= "flex";
+            modal.style.justifyContent = "center";
+            modal.style.alignItems = "center";
+            modal.style.opacity = 1;
+            modal.style.visibility = "visible";
+        };
+
+        // Close modal when close button (X) is clicked
+        closeBtn.onclick = function () {
+            modal.style.display = "none";
+            form.reset();
+        };
+
+        // Close modal when cancel button is clicked
+        if (cancelBtn) {
+            cancelBtn.onclick = function () {
+                modal.style.display = "none";
+                form.reset();
+            };
+        }
+}
 // Update the modal handlers
 function showAddModal() {
     const form = document.getElementById('addCropForm');
@@ -215,25 +244,6 @@ function showAddModal() {
     document.getElementById('addCropModal').style.display = 'flex';
 }
 
-function showEditModal(cropData) {
-    const form = document.getElementById('addCropForm');
-    form.reset();
-    populateForm(cropData);
-    document.querySelector('.modal-header h2').textContent = 'Edit Crop';
-    document.getElementById('submitButton').textContent = 'Update Crop';
-    document.getElementById('addCropModal').style.display = 'flex';
-}
-
-function populateForm(crop) {
-    document.getElementById('cropId').value = crop.id;
-    document.getElementById('cropName').value = crop.crop_name;
-    document.getElementById('location').value = crop.location;
-    document.getElementById('cropType').value = crop.crop_type;
-    document.getElementById('plantingDate').value = crop.planting_date;
-    document.getElementById('expectedHarvestDate').value = crop.expected_harvest_date;
-    document.getElementById('variety').value = crop.variety;
-    document.getElementById('quantity').value = crop.quantity;
-}
 
 // Update the button click handlers
 document.getElementById('addCropBtn').onclick = showAddModal;
@@ -277,4 +287,4 @@ document.querySelector('#EditCropModal .close').addEventListener('click', functi
 });
 
 
-
+}

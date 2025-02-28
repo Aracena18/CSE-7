@@ -87,5 +87,4 @@ document.addEventListener('DOMContentLoaded', function() {
     prioritySelects.forEach(select => changePriorityColor(select));
     statusSelects.forEach(select => changeStatusColor(select));
 });
-// Initialize modal after the content is loaded
-window.addEventListener('load', initializeModal);
+

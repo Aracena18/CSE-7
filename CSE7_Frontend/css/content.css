@@ -563,3 +563,18 @@ tbody tr:hover {
     transform: translateY(-2px);
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
+
+.close_task {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close_task:hover,
+.close_task:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}

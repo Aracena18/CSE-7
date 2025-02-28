@@ -154,7 +154,7 @@ function fetchEmployees() {
                 <td>${emp.daysWorked}</td>
                 <td>${emp.contact}</td>
                 <td class="status-cell">
-                    ${renderStatusDropdown(emp.status, emp.emp_id)}
+                    ${renderStatusDropdown(emp.status, emp.emp_id)} 
                 </td>
                 <td>
                     <div class="dropdown">
@@ -410,6 +410,16 @@ function showStatusUpdateToast(status) {
     }, 3000);
 }
 
+// Move closeModal outside of initializeEmployeeModal
+function closeModal() {
+    const modal = document.getElementById("addEmployeeModal");
+    const form = document.getElementById("addEmployeeForm");
+    if (modal && form) {
+        modal.style.display = "none";
+        form.reset();
+    }
+}
+
 function initializeEmployeeModal() {
     var modal = document.getElementById("addEmployeeModal");
     var btn = document.querySelector(".add_btn_employee");
@@ -427,12 +437,7 @@ function initializeEmployeeModal() {
             modal.style.visibility = "visible";
         };
 
-        // Close modal functionality
-        const closeModal = () => {
-            modal.style.display = "none";
-            form.reset();
-        };
-
+        // Use the global closeModal function
         closeBtn.onclick = closeModal;
         if (cancelBtn) {
             cancelBtn.onclick = closeModal;

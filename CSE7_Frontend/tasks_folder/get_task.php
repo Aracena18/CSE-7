@@ -9,11 +9,15 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 try {
-    if (!isset($_GET['id'])) {
+    if (!isset($_GET['id']) || empty($_GET['id'])) {
         throw new Exception("Task ID is required");
     }
 
-    $taskId = $_GET['id'];
+    $taskId = intval($_GET['id']);
+    if ($taskId <= 0) {
+        throw new Exception("Invalid Task ID");
+    }
+
     $userId = $_SESSION['user_id'];
 
     $stmt = $conn->prepare("SELECT * FROM tasks WHERE id = ? AND user_id = ?");
@@ -32,7 +36,8 @@ try {
 
     echo json_encode([
         "success" => true,
-        "task" => $task
+        "task" => $task,
+        "message" => "Task found successfully"
     ]);
 
 } catch (Exception $e) {

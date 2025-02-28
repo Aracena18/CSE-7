@@ -130,7 +130,7 @@
     <!-- Replace the existing addTaskModal content -->
 <div id="addTaskModal" class="modal">
     <div class="modal-content">
-        <button class="close">&times;</button>
+        <button class="close_task">&times;</button>
         <div class="modal-header">
             <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
             <h2>Add Task</h2>
@@ -183,7 +183,7 @@
     </div>
 </div>
 
-/*this is the modal for the editing of the crops*/
+
 
 <div id="EditCropModal" class="modal">
         <div class="modal-content">
@@ -243,9 +243,11 @@
         <button class="close">&times;</button>
         <div class="modal-header">
             <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
-            <h2>Add Task</h2>
+            <h2>Edit Task</h2>
         </div>
         <form id="EditTaskForm" method="POST">
+            <!-- Ensure hidden input is at the top of the form -->
+            <input type="hidden" id="taskId" name="taskId">
             <div class="form-container">
                 <div class="form-group">
                     <label for="taskDescription">Description</label>
@@ -384,11 +386,12 @@
     </div>
 </div>
 
+    <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/modal.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/sidebar.js"></script>
-    <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/task.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/employee.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/search_employee.js"></script>
 
 
 

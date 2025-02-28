@@ -11,17 +11,24 @@
 /* Remove the outline used for debugging */
 * { outline: none; }
 
-.status-active {
+.status-active,
+.status-select-inline.status-active,
+.status-select-employee.active {
     background: rgba(0, 70, 32, 0.1);
     color: rgb(0, 70, 32);
 }
 
-.status-inactive {
+.status-inactive,
+.status-select-inline.status-inactive,
+.status-select-employee.inactive {
     background-color: #ffebee;
-    color: #d32f2f;
+    color: #b91c1c;
 }
 
-.status-leave {
+.status-leave,
+.status-onleave,
+.status-select-inline.status-onleave,
+.status-select-employee.onleave {
     background-color: #fff3e0;
     color: #f57c00;
 }
@@ -358,11 +365,10 @@
 }
 
 .search-wrapper {
+    position: relative;
     flex: 1;
     min-width: 280px;
-    position: relative;
     max-width: 400px;
-    width: 100%;
 }
 
 .search-wrapper input {
@@ -409,20 +415,17 @@
     background: white;
     border-radius: 12px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.04);
-    overflow: visible; /* Change from hidden to visible */
-    position: relative; /* Add this */
-    isolation: isolate; /* Create new stacking context */
-    z-index: 1;
+    overflow: visible;
     position: relative;
     isolation: isolate;
-    z-index: 0; /* Base level */
+    z-index: 0;
 }
 
 .employee-table table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    position: relative; /* Add this */
+    position: relative;
 }
 
 .employee-table th {
@@ -440,19 +443,13 @@
     font-size: 0.875rem;
     color: #334155;
     border-bottom: 1px solid #f1f5f9;
-    position: static; /* Change from relative to static */
+    position: static;
     z-index: auto;
-    background: transparent; /* Ensure background is transparent */
-}
-
-.employee-table td:last-child {
-    position: relative;
-    z-index: 1; /* Just enough to be above other cells */
+    background: transparent;
 }
 
 .employee-table tr:hover {
     background: #f8f9fa;
-    /* Remove position and z-index to prevent stacking context issues */
 }
 
 .status-badge {
@@ -463,21 +460,6 @@
     display: inline-block;
     text-align: center;
     min-width: 80px;
-}
-
-.status-active {
-    background: rgba(0, 70, 32, 0.1);
-    color: rgb(0, 70, 32);
-}
-
-.status-leave {
-    background: #fff7ed;
-    color: #c2410c;
-}
-
-.status-inactive {
-    background: #fef2f2;
-    color: #b91c1c;
 }
 
 .action-buttons {
@@ -904,104 +886,6 @@
 .dropdown {
     position: relative;
     display: inline-block;
-    z-index: 10000; /* Very high z-index */
-}
-
-.dropdown-trigger {
-    background: rgb(8 106 4);
-    color: white;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    transition: all 0.2s ease;
-}
-
-.dropdown-trigger:hover {
-    background: rgba(8, 106, 4, 0.9);
-}
-
-.dropdown-menu {
-    position: absolute;
-    /* ...existing styles... */
-    z-index: 10001; /* One higher than the dropdown container */
-    right: 0;
-    top: calc(100% + 4px);
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    padding: 6px;
-    min-width: 200px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    border: 1px solid #e2e8f0;
-}
-
-/* Ensure the dropdown container cell has proper positioning */
-.employee-table td:last-child {
-    position: relative;
-    z-index: 999; /* Lower than dropdown but higher than regular content */
-}
-
-/* Update backdrop z-index */
-.dropdown-backdrop {
-    z-index: 9998; /* Just below dropdown-menu */
-}
-
-.dropdown-menu.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.dropdown-menu button {
-    width: 100%;
-    text-align: left;
-    padding: 8px 12px;
-    border: none;
-    background: none;
-    color: #333;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s ease;
-}
-
-.dropdown-menu button:hover {
-    background: #f8f9fa;
-}
-
-.dropdown-menu button.delete-btn {
-    color: #dc2626;
-}
-
-.dropdown-menu button.delete-btn:hover {
-    background: #fee2e2;
-}
-
-.dropdown-menu i {
-    font-size: 14px;
-    opacity: 0.7;
-}
-
-/* Ensure dropdown is above other elements */
-.dropdown {
-    z-index: 100;
-}
-
-/* Enhanced Dropdown Styles */
-.dropdown {
-    position: relative;
-    display: inline-block;
 }
 
 .dropdown-trigger {
@@ -1017,6 +901,8 @@
     font-size: 14px;
     transition: all 0.2s ease;
     font-weight: 500;
+    position: relative;
+    z-index: 1;
 }
 
 .dropdown-trigger i {
@@ -1040,12 +926,13 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     padding: 6px;
     min-width: 200px;
-    z-index: 1001; /* Higher than the dropdown container */
+    z-index: 2;
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     border: 1px solid #e2e8f0;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
 }
 
 .dropdown-menu.show {
@@ -1152,26 +1039,8 @@
     z-index: auto;
 }
 
-/* Dropdown container */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
 
-/* Action button styles */
-.dropdown-trigger {
-    /* ...existing styles... */
-    position: relative;
-    z-index: 1;
-}
 
-/* Menu styles - ensure it's always on top */
-.dropdown-menu {
-    /* ...existing styles... */
-    position: absolute;
-    z-index: 99999;
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
-}
 
 /* Active states */
 .dropdown.active .dropdown-trigger {
@@ -1196,37 +1065,84 @@
     transition: all 0.2s ease;
 }
 
-/* Fix table cell and dropdown stacking */
-.employee-table td:last-child {
-    position: relative;
-    z-index: 1; /* Reduce z-index to be lower than dropdown */
-}
 
-.dropdown {
-    position: relative;
-    display: inline-block;
-    z-index: 2; /* Higher than td:last-child but lower than menu */
-}
-
-.dropdown-trigger {
-    position: relative;
-    z-index: 1; /* Lower than dropdown menu */
-    /* ...existing styles... */
-}
-
-.dropdown-menu {
-    position: absolute;
-    z-index: 99999; /* Much higher than everything else */
-    /* ...existing styles... */
-}
-
-/* Active state handling */
-.dropdown.active {
-    z-index: 99999; /* Match menu z-index when active */
-}
 
 /* Remove any other competing z-index values */
 .employee-table {
-    /* ...existing styles... */
     z-index: 0;
 }
+
+/* Add these styles to your existing CSS file */
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+#employeeSearch {
+    padding-left: 35px;
+}
+
+#searchResults {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    display: none;
+}
+
+.search-result-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result-item:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.employee-name {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.employee-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.status {
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8em;
+}
+
+.status.active { background: #e8f5e9; color: #2e7d32; }
+.status.inactive { background: #ffebee; color: #c62828; }
+.status.onleave { background: #fff3e0; color: #ef6c00; }
+
+.no-results, .search-error {
+    padding: 15px;
+    text-align: center;
+    color: #666;
+}
+
+.search-error {
+    color: #c62828;
+}
+

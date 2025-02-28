@@ -3,7 +3,7 @@ console.log('Task.js loaded');
 function initializeTaskModal() {
     var modal = document.getElementById("addTaskModal");
     var btn = document.querySelector(".add_btn");
-    var closeBtn = document.querySelector(".close");
+    var closeBtn = document.querySelector(".close_task");
     var cancelBtn = document.querySelector(".cancel");
     var form = document.getElementById("addTaskForm");
 
@@ -82,6 +82,7 @@ document.addEventListener('taskloaded', function() {
     
     // Initialize task modal
     initializeTaskModal();
+    initializeEditTaskModal(); // Add this line
     fetchTask();
     // Initialize priority dropdowns
     const prioritySelects = document.querySelectorAll('.priority-select');
@@ -354,120 +355,173 @@ function deleteTask(id) {
 }
 
 function editTask(taskId) {
-    // Fetch the task data first
+    if (!taskId) {
+        console.error('Task ID is required');
+        return;
+    }
+
+    console.log('Fetching task with ID:', taskId); // Debug log
+
     fetch(`/CSE-7/CSE7_Frontend/tasks_folder/get_task.php?id=${taskId}`)
         .then(response => response.json())
         .then(data => {
-            if (!data.success) {
-                throw new Error(data.message);
-            }
-
-            const task = data.task;
-            const modal = document.getElementById("EditTaskModal");
-            const form = document.getElementById("EditTaskForm");
-
-            // Populate the form fields
-            form.querySelector('#taskDescription').value = task.description;
-            form.querySelector('#assignedTo').value = task.assigned_to;
-            form.querySelector('#startDate').value = task.start_date.split(' ')[0]; // Get only the date part
-            form.querySelector('#endDate').value = task.end_date.split(' ')[0]; // Get only the date part
-            form.querySelector('#priority').value = task.priority;
-            form.querySelector('#status').value = task.status;
-            form.querySelector('#taskLocation').value = task.location;
-
-            // Add task ID as hidden field
-            let taskIdInput = form.querySelector('#taskId');
-            if (!taskIdInput) {
-                taskIdInput = document.createElement('input');
-                taskIdInput.type = 'hidden';
-                taskIdInput.id = 'taskId';
-                form.appendChild(taskIdInput);
-            }
-            taskIdInput.value = taskId;
-
-            // Show the modal
-            modal.style.display = "flex";
-            modal.style.justifyContent = "center";
-            modal.style.alignItems = "center";
+            console.log('Received task data:', data); // Debug log
             
-            // Update colors for dropdowns
-            const prioritySelect = form.querySelector('.priority-select');
-            const statusSelect = form.querySelector('.status-select');
-            if (prioritySelect) updatePriorityColor(prioritySelect);
-            if (statusSelect) updateStatusColor(statusSelect);
+            if (!data.success) {
+                throw new Error(data.message || 'Failed to fetch task data');
+            }
+            
+            // Ensure we're using the correct data structure
+            const taskData = data.task || data.data;
+            if (!taskData || !taskData.id) {
+                throw new Error('Invalid task data received');
+            }
+
+            populateEditTaskForm(taskData);
+            openEditTaskModal();
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Failed to load task details');
+            alert('Error fetching task data: ' + error.message);
         });
 }
 
-// Add this to your existing initialization code
-document.addEventListener('DOMContentLoaded', function() {
-    // ...existing initialization code...
-
-    const editTaskForm = document.getElementById("EditTaskForm");
-    const editTaskModal = document.getElementById("EditTaskModal");
-
-    if (editTaskForm && editTaskModal) {
-        // Close modal when clicking close button or outside
-        const closeBtn = editTaskModal.querySelector('.close');
-        const cancelBtn = editTaskModal.querySelector('.cancel');
-
-        if (closeBtn) {
-            closeBtn.onclick = function() {
-                editTaskModal.style.display = "none";
-            }
-        }
-
-        if (cancelBtn) {
-            cancelBtn.onclick = function() {
-                editTaskModal.style.display = "none";
-            }
-        }
-
-        window.onclick = function(event) {
-            if (event.target === editTaskModal) {
-                editTaskModal.style.display = "none";
-            }
-        }
-
-        // Handle form submission
-        editTaskForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            const formData = {
-                taskId: this.querySelector('#taskId').value,
-                description: this.querySelector('#taskDescription').value,
-                assignedTo: this.querySelector('#assignedTo').value,
-                startDate: this.querySelector('#startDate').value,
-                endDate: this.querySelector('#endDate').value,
-                priority: this.querySelector('#priority').value,
-                status: this.querySelector('#status').value,
-                location: this.querySelector('#taskLocation').value
-            };
-
-            fetch('/CSE-7/CSE7_Frontend/tasks_folder/edit_task.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Task updated successfully!');
-                    editTaskModal.style.display = "none";
-                    fetchTask(); // Refresh the task list
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to update task');
-            });
-        });
+function populateEditTaskForm(task) {
+    const form = document.getElementById('EditTaskForm');
+    if (!form) {
+        console.error('Edit task form not found');
+        return;
     }
-});
+
+    console.log('Populating form with task:', task); // Debug log
+
+    // Create hidden input for task ID if it doesn't exist
+    let taskIdInput = form.querySelector('input[name="taskId"]');
+    if (!taskIdInput) {
+        taskIdInput = document.createElement('input');
+        taskIdInput.type = 'hidden';
+        taskIdInput.name = 'taskId';
+        taskIdInput.id = 'taskId';
+        form.appendChild(taskIdInput);
+    }
+
+    // Set task ID value
+    taskIdInput.value = task.id;
+    console.log('Set task ID to:', task.id); // Debug log
+
+    // Map and update form fields
+    const fieldMappings = {
+        'taskDescription': task.description,
+        'assignedTo': task.assigned_to,
+        'startDate': task.start_date?.split(' ')[0],
+        'endDate': task.end_date?.split(' ')[0],
+        'priority': task.priority,
+        'status': task.status,
+        'taskLocation': task.location
+    };
+
+    // Update each field and log the values
+    Object.entries(fieldMappings).forEach(([fieldId, value]) => {
+        const input = form.querySelector(`#${fieldId}`);
+        if (input) {
+            input.value = value || '';
+            console.log(`Set ${fieldId} to:`, value); // Debug log
+        } else {
+            console.warn(`Field ${fieldId} not found`);
+        }
+    });
+
+    // Update dropdown colors
+    const prioritySelect = form.querySelector('.priority-select');
+    const statusSelect = form.querySelector('.status-select');
+    if (prioritySelect) updatePriorityColor(prioritySelect);
+    if (statusSelect) updateStatusColor(statusSelect);
+}
+
+function openEditTaskModal() {
+    const modal = document.getElementById("EditTaskModal");
+    if (!modal) return;
+    
+    modal.style.display = "flex";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
+    modal.style.opacity = "1";
+    modal.style.visibility = "visible";
+}
+
+function closeEditTaskModal() {
+    const modal = document.getElementById("EditTaskModal");
+    if (!modal) return;
+    
+    modal.style.display = "none";
+    document.getElementById('EditTaskForm')?.reset();
+}
+
+function initializeEditTaskModal() {
+    const modal = document.getElementById("EditTaskModal");
+    const form = document.getElementById("EditTaskForm");
+
+    if (!modal || !form) {
+        console.error('Edit task modal or form not found');
+        return;
+    }
+
+    // Form submission handler
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const taskId = this.querySelector('input[name="taskId"]').value;
+        console.log('Submitting form with task ID:', taskId);
+
+        if (!taskId) {
+            console.error('Task ID is missing');
+            alert('Task ID is missing');
+            return;
+        }
+
+        const formData = new FormData(this);
+        
+        // Log form data for debugging
+        for (let pair of formData.entries()) {
+            console.log(pair[0], pair[1]);
+        }
+
+        fetch('/CSE-7/CSE7_Frontend/tasks_folder/edit_task.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert('Task updated successfully!');
+                closeEditTaskModal();
+                fetchTask();
+            } else {
+                throw new Error(data.message || 'Update failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error updating task: ' + error.message);
+        });
+    });
+
+    // Close button handlers
+    const closeBtn = modal.querySelector(".close");
+    const cancelBtn = modal.querySelector(".cancel");
+
+    closeBtn?.addEventListener('click', closeEditTaskModal);
+    cancelBtn?.addEventListener('click', closeEditTaskModal);
+
+    // Close on outside click
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeEditTaskModal();
+        }
+    });
+}

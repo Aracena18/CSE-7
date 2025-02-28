@@ -9,13 +9,20 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 try {
-    $data = json_decode(file_get_contents('php://input'), true);
-
-    if (!isset($data['taskId'])) {
+    // Get form data
+    $taskId = $_POST['taskId'] ?? null;
+    
+    if (!$taskId) {
         throw new Exception("Task ID is required");
     }
 
-    $taskId = $data['taskId'];
+    $description = $_POST['taskDescription'] ?? '';
+    $assignedTo = $_POST['assignedTo'] ?? '';
+    $startDate = $_POST['startDate'] ?? '';
+    $endDate = $_POST['endDate'] ?? '';
+    $priority = $_POST['priority'] ?? '';
+    $status = $_POST['status'] ?? '';
+    $location = $_POST['taskLocation'] ?? '';
     $userId = $_SESSION['user_id'];
 
     // First verify the task exists and belongs to the user
@@ -29,35 +36,34 @@ try {
     }
     $checkStmt->close();
 
-    $completed = ($data['status'] === 'completed') ? 1 : 0;
+    $stmt = $conn->prepare("UPDATE tasks SET 
+        description = ?,
+        assigned_to = ?,
+        start_date = ?,
+        end_date = ?,
+        priority = ?,
+        status = ?,
+        location = ?
+        WHERE id = ? AND user_id = ?");
 
-    $sql = "UPDATE tasks SET 
-            description = ?,
-            assigned_to = ?,
-            start_date = ?,
-            end_date = ?,
-            priority = ?,
-            status = ?,
-            location = ?,
-            completed = ?
-            WHERE id = ? AND user_id = ?";
-
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssiii", 
-        $data['description'],
-        $data['assignedTo'],
-        $data['startDate'],
-        $data['endDate'],
-        $data['priority'],
-        $data['status'],
-        $data['location'],
-        $completed,
-        $taskId,
+    $stmt->bind_param("sssssssii", 
+        $description, 
+        $assignedTo, 
+        $startDate, 
+        $endDate, 
+        $priority, 
+        $status, 
+        $location, 
+        $taskId, 
         $userId
     );
 
     if (!$stmt->execute()) {
-        throw new Exception("Failed to update task: " . $stmt->error);
+        throw new Exception("Failed to update task");
+    }
+
+    if ($stmt->affected_rows === 0) {
+        throw new Exception("No task was updated");
     }
 
     echo json_encode([
