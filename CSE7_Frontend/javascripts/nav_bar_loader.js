@@ -35,8 +35,20 @@ document.addEventListener('DOMContentLoaded', function() {
 function loader(url) {
     fetch(url)
         .then(response => response.text())
-        .then(html => {
-            document.getElementById('content-wrapper').innerHTML = html;
+        .then(content => {
+            document.getElementById('content-wrapper').innerHTML = content;
+            
+            // Dispatch appropriate events based on the loaded content
+            if (url.includes('Employee.php')) {
+                console.log('Employee.php loaded, dispatching events...');
+                // First dispatch contentLoaded
+                document.dispatchEvent(new Event('contentLoaded'));
+                // Then dispatch Employeeloaded after a small delay
+                setTimeout(() => {
+                    document.dispatchEvent(new Event('Employeeloaded'));
+                }, 100);
+            }
+            
             console.log("Taskloaded SUCCESSFully");
             document.dispatchEvent(new CustomEvent('taskloaded'));
             document.dispatchEvent(new CustomEvent('Employeeloaded'));

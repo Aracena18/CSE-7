@@ -144,6 +144,7 @@
                 <div class="form-group">
                     <label for="assignedTo">Assigned to</label>
                     <input type="text" id="assignedTo" name="assignedTo" required>
+                    <div id="assignedToResults" class="search-results"></div>
                 </div>
                 <div class="form-group">
                     <label for="startDate">Start Date</label>

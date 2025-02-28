@@ -364,11 +364,13 @@
     margin-bottom: 2rem;
 }
 
+/* Update search wrapper styles */
 .search-wrapper {
     position: relative;
     flex: 1;
     min-width: 280px;
     max-width: 400px;
+    z-index: 100; /* Ensure dropdown appears above table */
 }
 
 .search-wrapper input {
@@ -1144,5 +1146,68 @@
 
 .search-error {
     color: #c62828;
+}
+
+.search-results {
+    position: absolute;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 1000;
+    display: none;
+}
+
+.search-result-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result-item:hover {
+    background-color: #f5f5f5;
+}
+
+.search-result-item .employee-name {
+    font-weight: bold;
+}
+
+.search-result-item .employee-details {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.no-results, .search-error {
+    padding: 8px 12px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Add positioning for the assigned to field */
+.form-group {
+    position: relative;
+}
+
+#assignedToResults {
+    top: 100%;
+    left: 0;
+    width: 100%;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
 }
 

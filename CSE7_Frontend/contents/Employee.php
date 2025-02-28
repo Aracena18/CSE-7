@@ -54,8 +54,8 @@
         <div class="employee-filters">
             <div class="search-wrapper">
                 <i class="fas fa-search search-icon"></i>
-                <input type="text" id="employeeSearch"  placeholder="Search employees...">
-                <div    id="searchResults" class="search-results-container"></div>
+                <input type="text" id="employeeSearch" placeholder="Search employees..." autocomplete="off">
+                <div id="searchResults" class="search-results"></div>
             </div>
             <div class="filter-controls">
                 <div class="filter-group">
@@ -109,6 +109,32 @@
         </div>
     </div>
 
+    <!-- Add this debug element -->
+    <div id="debugInfo" style="display:none;"></div>
+
+    <!-- Make sure search_employee.js is loaded before employee.js -->
+    <script>
+        // Debug function
+        function debugSearch() {
+            const debugInfo = document.getElementById('debugInfo');
+            const searchInput = document.getElementById('employeeSearch');
+            const searchResults = document.getElementById('searchResults');
+            
+            debugInfo.innerHTML = `
+                Search Input exists: ${!!searchInput}<br>
+                Search Results exists: ${!!searchResults}<br>
+            `;
+        }
+        
+        // Run debug after a short delay
+        setTimeout(debugSearch, 1000);
+    </script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/search_employee.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/employee.js"></script>
+    
+    <!-- Trigger contentLoaded event after everything is ready -->
+    <script>
+        document.dispatchEvent(new Event('contentLoaded'));
+    </script>
 </body>
 </html>
