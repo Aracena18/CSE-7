@@ -15,43 +15,42 @@ require_once "db_config_task.php";
 
 $user_id= $_SESSION['user_id'];
 try {
-    // Prepare SQL query to get all tasks
-    $sql = "SELECT id, description, assigned_to, location, start_date, end_date, 
-            priority, status, completed, created_at, updated_at 
-            FROM tasks WHERE user_id = ?
-            ORDER BY created_at DESC";
-            
-    $stmt = $conn->prepare($sql);
+    // Use the view we created for better performance
+    $query = "SELECT 
+        t.*,
+        e.name as employee_name,
+        e.position as employee_position
+    FROM tasks t
+    LEFT JOIN employees e ON t.assigned_to = e.emp_id
+    WHERE t.user_id = ?";
+              
+    $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if (!$result) {
-        throw new Exception("Query failed: " . $conn->error);
-    }
-
     $tasks = [];
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            // Format dates for consistency
-            $row['start_date'] = date('Y-m-d', strtotime($row['start_date']));
-            $row['end_date'] = date('Y-m-d', strtotime($row['end_date']));
-            $row['created_at'] = date('Y-m-d H:i:s', strtotime($row['created_at']));
-            $row['updated_at'] = date('Y-m-d H:i:s', strtotime($row['updated_at']));
-            
-            // Convert completed to boolean for JavaScript
-            $row['completed'] = (bool)$row['completed'];
-            
-            $tasks[] = $row;
-        }
+    while ($row = $result->fetch_assoc()) {
+        // Format the output to maintain compatibility
+        $task = [
+            'id' => $row['id'],
+            'description' => $row['description'],
+            'assigned_to' => $row['employee_name'], // Use employee name for display
+            'start_date' => $row['start_date'],
+            'end_date' => $row['end_date'],
+            'priority' => $row['priority'],
+            'status' => $row['status'],
+            'location' => $row['location'],
+            'completed' => (bool)$row['completed'],
+            'created_at' => $row['created_at'],
+            'updated_at' => $row['updated_at']
+        ];
+        $tasks[] = $task;
     }
 
-    // Return success response with tasks
     echo json_encode([
         "success" => true,
-        "data" => $tasks,
-        "count" => count($tasks)
+        "data" => $tasks
     ]);
 
 } catch (Exception $e) {

@@ -26,17 +26,30 @@ try {
         throw new Exception("Invalid user ID - User does not exist in database");
     }
     
-    // Retrieve form data from POST request
+    // Get employee ID from name
+    $employeeName = $_POST["assignedTo"];
+    $stmt = $conn->prepare("SELECT emp_id FROM employees WHERE name = ? AND user_id = ?");
+    $stmt->bind_param("si", $employeeName, $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if ($result->num_rows === 0) {
+        throw new Exception("Employee not found");
+    }
+    
+    $employee = $result->fetch_assoc();
+    $employeeId = $employee['emp_id'];
+    
+    // Retrieve other form data
     $description = $_POST["taskDescription"];
-    $assignedTo = $_POST["assignedTo"];
     $startDate = $_POST["startDate"];
     $endDate = $_POST["endDate"];
     $priority = $_POST["priority"];
     $status = $_POST["status"];
     $location = $_POST["taskLocation"];
-    $completed = 0; // Default value for checkbox
+    $completed = 0;
 
-    // Prepare SQL statement to prevent SQL injection
+    // Prepare SQL statement
     $stmt = $conn->prepare("INSERT INTO tasks (description, assigned_to, start_date, end_date, priority, status, location, completed, user_id)  
                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -45,9 +58,9 @@ try {
     }
 
     // Bind parameters
-    $stmt->bind_param("sssssssii", 
+    $stmt->bind_param("sisssssii", 
         $description,
-        $assignedTo,
+        $employeeId,  // Now using employee ID instead of name
         $startDate,
         $endDate,
         $priority,

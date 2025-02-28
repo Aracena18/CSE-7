@@ -20,7 +20,13 @@ try {
 
     $userId = $_SESSION['user_id'];
 
-    $stmt = $conn->prepare("SELECT * FROM tasks WHERE id = ? AND user_id = ?");
+    // Modified query to join with employees table
+    $stmt = $conn->prepare("
+        SELECT t.*, e.name as assigned_to_name 
+        FROM tasks t 
+        LEFT JOIN employees e ON t.assigned_to = e.emp_id 
+        WHERE t.id = ? AND t.user_id = ?
+    ");
     $stmt->bind_param("ii", $taskId, $userId);
     
     if (!$stmt->execute()) {
@@ -33,6 +39,10 @@ try {
     if (!$task) {
         throw new Exception("Task not found");
     }
+
+    // Replace the numeric assigned_to with the employee name
+    $task['assigned_to'] = $task['assigned_to_name'];
+    unset($task['assigned_to_name']); // Remove the temporary name field
 
     echo json_encode([
         "success" => true,

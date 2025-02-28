@@ -96,3 +96,15 @@
 [28-Feb-2025 11:40:20 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
 [28-Feb-2025 11:40:20 Europe/Berlin] Updating employee 31 status to inprogress
 [28-Feb-2025 11:40:20 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:46:18 Europe/Berlin] Received input: {"id":"16","type":"status","value":"active"}
+[28-Feb-2025 11:46:18 Europe/Berlin] Updating employee 16 status to active
+[28-Feb-2025 11:46:18 Europe/Berlin] Executing query: UPDATE employees SET status = 'active' WHERE emp_id = '16'
+[28-Feb-2025 11:46:22 Europe/Berlin] Received input: {"id":"16","type":"status","value":"inactive"}
+[28-Feb-2025 11:46:22 Europe/Berlin] Updating employee 16 status to inactive
+[28-Feb-2025 11:46:22 Europe/Berlin] Executing query: UPDATE employees SET status = 'inactive' WHERE emp_id = '16'
+[28-Feb-2025 11:46:25 Europe/Berlin] Received input: {"id":"14","type":"status","value":"inactive"}
+[28-Feb-2025 11:46:25 Europe/Berlin] Updating employee 14 status to inactive
+[28-Feb-2025 11:46:25 Europe/Berlin] Executing query: UPDATE employees SET status = 'inactive' WHERE emp_id = '14'
+[28-Feb-2025 11:46:27 Europe/Berlin] Received input: {"id":"15","type":"status","value":"active"}
+[28-Feb-2025 11:46:27 Europe/Berlin] Updating employee 15 status to active
+[28-Feb-2025 11:46:27 Europe/Berlin] Executing query: UPDATE employees SET status = 'active' WHERE emp_id = '15'

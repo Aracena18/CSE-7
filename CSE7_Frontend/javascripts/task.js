@@ -1,5 +1,44 @@
 console.log('Task.js loaded');
 
+// Add autocomplete functionality for employee names
+function initializeEmployeeAutocomplete() {
+    const assignedToInput = document.getElementById('assignedTo');
+    const resultsDiv = document.getElementById('assignedToResults');
+    
+    if (!assignedToInput || !resultsDiv) return;
+
+    assignedToInput.addEventListener('input', function() {
+        const searchTerm = this.value;
+        if (searchTerm.length < 2) {
+            resultsDiv.innerHTML = '';
+            return;
+        }
+
+        fetch(`/CSE-7/CSE7_Frontend/employee_folder/search_employees.php?term=${encodeURIComponent(searchTerm)}`)
+            .then(response => response.json())
+            .then(data => {
+                resultsDiv.innerHTML = '';
+                data.forEach(employee => {
+                    const div = document.createElement('div');
+                    div.className = 'employee-result';
+                    div.textContent = employee.name;
+                    div.addEventListener('click', () => {
+                        assignedToInput.value = employee.name;
+                        resultsDiv.innerHTML = '';
+                    });
+                    resultsDiv.appendChild(div);
+                });
+            });
+    });
+
+    // Close results when clicking outside
+    document.addEventListener('click', function(e) {
+        if (e.target !== assignedToInput) {
+            resultsDiv.innerHTML = '';
+        }
+    });
+}
+
 function initializeTaskModal() {
     var modal = document.getElementById("addTaskModal");
     var btn = document.querySelector(".add_btn");
@@ -95,6 +134,8 @@ document.addEventListener('taskloaded', function() {
     statusSelects.forEach(select => {
         changeColor(select);
     });
+
+    initializeEmployeeAutocomplete();
 });
 
 // Listen for task added event to refresh task list
