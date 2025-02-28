@@ -51,7 +51,8 @@ function loader(url) {
             
             console.log("Taskloaded SUCCESSFully");
             document.dispatchEvent(new CustomEvent('taskloaded'));
-            document.dispatchEvent(new CustomEvent('Employeeloaded'));
+            document.dispatchEvent(new CustomEvent('ScheduleLoaded'));
+            
             console.log("Okeyy");
             // Reinitialize functionality based on loaded content
             if (url.includes('crops.php')) {

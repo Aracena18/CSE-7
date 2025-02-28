@@ -59,6 +59,8 @@
                         <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/crops.php')">Crops</a></li>
                     <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/pepicons-pencil_persons.svg" alt="">
                         <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Employee.php')">Employee</a></li>
+                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/attendance1.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Attendance.php')">Attendance</a></li>
                     <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group 12.svg" alt="">
                         <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Sales.php')">Sales</a></li>
                     <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group 13.svg" alt="">
@@ -147,6 +149,12 @@
                     <div id="assignedToResults" class="search-results"></div>
                 </div>
                 <div class="form-group">
+                    <label for="cropSelect">Crop</label>
+                    <select id="cropSelect" name="cropSelect" required>
+                        <option value="">Select Crop</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="startDate">Start Date</label>
                     <input type="date" id="startDate" name="startDate" required>
                 </div>
@@ -171,7 +179,7 @@
                         <option value="onhold" class="onhold">On Hold</option>
                     </select>
                 </div>
-                <div class="form-group full-width">
+                <div class="form-group">
                     <label for="taskLocation">Location</label>
                     <input type="text" id="taskLocation" name="taskLocation" required>
                 </div>
@@ -259,6 +267,12 @@
                     <input type="text" id="assignedTo" name="assignedTo" required>
                 </div>
                 <div class="form-group">
+                    <label for="cropSelect">Crop</label>
+                    <select id="cropSelectEdit" name="cropSelect" required>
+                        <option value="">Select Crop</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="startDate">Start Date</label>
                     <input type="date" id="startDate" name="startDate" required>
                 </div>
@@ -283,7 +297,7 @@
                         <option value="onhold" class="onhold">On Hold</option>
                     </select>
                 </div>
-                <div class="form-group full-width">
+                <div class="form-group">
                     <label for="taskLocation">Location</label>
                     <input type="text" id="taskLocation" name="taskLocation" required>
                 </div>
@@ -393,8 +407,6 @@
     <script src="/CSE-7/CSE7_Frontend/javascripts/task.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/employee.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/search_employee.js"></script>
-
-
-
+    <script src="/CSE-7/CSE7_Frontend/javascripts/populate_crops.js"></script>
 </body>
 </html>

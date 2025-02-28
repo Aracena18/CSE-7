@@ -1,15 +1,24 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Add proper CORS headers
+header("Access-Control-Allow-Origin: http://localhost"); // Or your specific domain
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+header("Content-Type: application/json");
+
+// Debug session
+error_log("Session data: " . print_r($_SESSION, true));
 
 if (!isset($_SESSION['user_id'])) {
+    error_log("User not authenticated - no user_id in session");
     http_response_code(401);
-    echo json_encode(['error' => 'Unauthorized']);
+    echo json_encode(['success' => false, 'message' => 'User not authenticated']);
     exit();
 }
-
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET");
 
 require_once "db_config_employee.php";
 

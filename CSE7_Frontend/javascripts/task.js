@@ -566,3 +566,66 @@ function initializeEditTaskModal() {
         }
     });
 }
+
+// Add this function to load crops into select fields
+function loadCrops() {
+    fetch('/CSE-7/CSE7_Backend/api/crops/get_crops.php')
+        .then(response => response.json())
+        .then(crops => {
+            const cropSelect = document.getElementById('cropSelect');
+            const cropSelectEdit = document.getElementById('cropSelectEdit');
+            
+            // Clear existing options
+            cropSelect.innerHTML = '<option value="">Select Crop</option>';
+            cropSelectEdit.innerHTML = '<option value="">Select Crop</option>';
+            
+            // Add crop options
+            crops.forEach(crop => {
+                const option = new Option(crop.crop_name, crop.id);
+                const optionEdit = new Option(crop.crop_name, crop.id);
+                cropSelect.add(option);
+                cropSelectEdit.add(optionEdit);
+            });
+        })
+        .catch(error => console.error('Error loading crops:', error));
+}
+
+// Call loadCrops when the modals are opened
+document.addEventListener('DOMContentLoaded', function() {
+    // ...existing code...
+    
+    // Add crop loading when add task modal is opened
+    document.getElementById('addTaskBtn').addEventListener('click', function() {
+        loadCrops();
+        // ...existing modal open code...
+    });
+    
+    // Add crop loading when edit task modal is opened
+    document.querySelectorAll('.edit-task-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            loadCrops();
+            // ...existing edit modal open code...
+        });
+    });
+});
+
+// Update your task submission handlers to include the crop data
+// In your addTaskForm submit handler:
+document.getElementById('addTaskForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = {
+        // ...existing form data...
+        crop_id: document.getElementById('cropSelect').value,
+    };
+    // ...rest of submission code...
+});
+
+// In your editTaskForm submit handler:
+document.getElementById('EditTaskForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = {
+        // ...existing form data...
+        crop_id: document.getElementById('cropSelectEdit').value,
+    };
+    // ...rest of submission code...
+});

@@ -59,3 +59,5 @@ try {
     if (isset($stmt)) $stmt->close();
     if (isset($conn)) $conn->close();
 }
+
+?>

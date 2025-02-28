@@ -124,73 +124,87 @@ function updateEmployeeStatus(employeeId, status) {
 
 // Modify the fetchEmployees function to pass emp_id
 function fetchEmployees() {
-    getEmployeeData().then(employeeData => {
-        employees = employeeData; // Update global employees array
-        const tbody = document.getElementById('employeeTableBody');
-        if (!tbody) return;
+    getEmployeeData()
+        .then(employeeData => {
+            employees = employeeData;
+            const tbody = document.getElementById('employeeTableBody');
+            if (!tbody) return;
 
-        tbody.innerHTML = '';
-        
-        if (employees.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="7" class="no-data">No employees found</td>
-                </tr>
-            `;
-            return;
-        }
+            tbody.innerHTML = '';
+            
+            if (employees.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="no-data">No employees found</td>
+                    </tr>
+                `;
+                return;
+            }
 
-        employees.forEach(emp => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>
-                    <div class="employee-name">
-                        <div class="employee-avatar">${emp.name.charAt(0)}</div>
-                        ${emp.name}
-                    </div>
-                </td>
-                <td>${emp.position}</td>
-                <td>₱${emp.dailyRate}</td>
-                <td>${emp.daysWorked}</td>
-                <td>${emp.contact}</td>
-                <td class="status-cell">
-                    ${renderStatusDropdown(emp.status, emp.emp_id)} 
-                </td>
-                <td>
-                    <div class="dropdown">
-                        <button class="dropdown-trigger">
-                            Actions
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="dropdown-menu">
-                            <button onclick="editEmployee('${emp.emp_id}')">
-                                <i class="fas fa-edit"></i> Edit
-                            </button>
-                            <button onclick="viewPayroll('${emp.emp_id}')">
-                                <i class="fas fa-file-invoice-dollar"></i> View Payroll
-                            </button>
-                            <button onclick="viewEmployeeTasks('${emp.emp_id}')">
-                                <i class="fas fa-tasks"></i> View Tasks
-                            </button>
-                            <button class="delete-btn" onclick="deleteEmployee('${emp.emp_id}')">
-                                <i class="fas fa-trash"></i> Delete
-                            </button>
+            employees.forEach(emp => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="employee-name">
+                            <div class="employee-avatar">${emp.name.charAt(0)}</div>
+                            ${emp.name}
                         </div>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(row);
+                    </td>
+                    <td>${emp.position}</td>
+                    <td>₱${emp.dailyRate}</td>
+                    <td>${emp.daysWorked}</td>
+                    <td>${emp.contact}</td>
+                    <td class="status-cell">
+                        ${renderStatusDropdown(emp.status, emp.emp_id)} 
+                    </td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="dropdown-trigger">
+                                Actions
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <button onclick="editEmployee('${emp.emp_id}')">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button onclick="viewPayroll('${emp.emp_id}')">
+                                    <i class="fas fa-file-invoice-dollar"></i> View Payroll
+                                </button>
+                                <button onclick="viewEmployeeTasks('${emp.emp_id}')">
+                                    <i class="fas fa-tasks"></i> View Tasks
+                                </button>
+                                <button class="delete-btn" onclick="deleteEmployee('${emp.emp_id}')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
 
-            // Initialize the status color for this row
-            const statusSelect = row.querySelector('.status-select-employee');
-            if (statusSelect) {
-                updateStatusColor(statusSelect);
+                // Initialize the status color for this row
+                const statusSelect = row.querySelector('.status-select-employee');
+                if (statusSelect) {
+                    updateStatusColor(statusSelect);
+                }
+            });
+
+            // Initialize dropdowns after adding them to the DOM
+            initializeDropdowns();
+        })
+        .catch(error => {
+            console.error('Error in fetchEmployees:', error);
+            const tbody = document.getElementById('employeeTableBody');
+            if (tbody) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="error-message">
+                            Failed to load employees. Please try refreshing the page.
+                        </td>
+                    </tr>
+                `;
             }
         });
-
-        // Initialize dropdowns after adding them to the DOM
-        initializeDropdowns();
-    });
 }
 
 // Make sure getEmployeeData is returning the correct data structure
@@ -198,35 +212,44 @@ async function getEmployeeData() {
     try {
         const response = await fetch('/CSE-7/CSE7_Frontend/employee_folder/get_employees.php', {
             method: 'GET',
-            credentials: 'include' // Important for sessions
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
         });
+
+        console.log('Response status:', response.status); // Debug log
+
+        const result = await response.json();
+        console.log('Response data:', result); // Debug log
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const result = await response.json();
-        
         if (!result.success) {
             throw new Error(result.message || 'Failed to fetch employees');
         }
 
-        // Fix: Change 'id' to 'emp_id' in all references
-        return result.data.map(emp => ({
-            id: emp.emp_id,            // This is the key fix - using emp_id from database
-            emp_id: emp.emp_id,        // Add this line to ensure both properties exist
+        return Array.isArray(result.data) ? result.data.map(emp => ({
+            id: emp.emp_id,
+            emp_id: emp.emp_id,
             name: emp.name,
             position: emp.position,
-            dailyRate: emp.daily_rate, // Match the database column name
-            daysWorked: '0', // This will need to be calculated from attendance/payroll data
+            dailyRate: emp.daily_rate,
+            daysWorked: '0',
             contact: emp.contact,
-            status: emp.status || 'active', // Provide default status if null
+            status: emp.status || 'active',
             created_at: emp.created_at
-        }));
+        })) : [];
 
     } catch (error) {
-        console.error('Error fetching employees:', error);
-        return []; // Return empty array in case of error
+        console.error('Detailed error:', error);
+        if (error.name === 'TypeError' && error.message === 'Failed to fetch') {
+            console.error('Network error or CORS issue');
+        }
+        throw error; // Re-throw to be handled by the calling function
     }
 }
 
@@ -392,11 +415,88 @@ function editEmployee(id) {
 }
 
 function deleteEmployee(id) {
-    if (confirm('Are you sure you want to delete this employee?')) {
-        // Implement delete functionality
-        console.log('Deleting employee:', id);
+    if (!confirm('Are you sure you want to delete this employee? This action cannot be undone.')) {
+        return;
     }
+
+    // Find the row and add loading state
+    const row = document.querySelector(`tr:has(button[onclick*="deleteEmployee('${id}')"])`);
+    if (row) {
+        row.classList.add('deleting');
+    }
+
+    fetch('/CSE-7/CSE7_Frontend/employee_folder/delete_employee.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: id }),
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Remove employee from local array
+            employees = employees.filter(emp => emp.emp_id !== id);
+            
+            // Animate row removal
+            if (row) {
+                row.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    row.remove();
+                    // Check if table is empty
+                    if (employees.length === 0) {
+                        const tbody = document.getElementById('employeeTableBody');
+                        if (tbody) {
+                            tbody.innerHTML = `
+                                <tr>
+                                    <td colspan="7" class="no-data">No employees found</td>
+                                </tr>
+                            `;
+                        }
+                    }
+                }, 300);
+            }
+            
+            // Show success message
+            const toast = document.createElement('div');
+            toast.className = 'status-toast status-success';
+            toast.textContent = 'Employee deleted successfully';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        } else {
+            throw new Error(data.message || 'Failed to delete employee');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error deleting employee: ' + error.message);
+        // Remove loading state if error
+        if (row) {
+            row.classList.remove('deleting');
+        }
+    });
 }
+
+// Add this CSS for delete animation
+const deleteStyle = document.createElement('style');
+deleteStyle.textContent = `
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+    
+    tr.deleting {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+    
+    .status-toast.status-success {
+        background-color: #4cd964;
+        color: white;
+    }
+`;
+document.head.appendChild(deleteStyle);
 
 function showStatusUpdateToast(status) {
     const toast = document.createElement('div');
