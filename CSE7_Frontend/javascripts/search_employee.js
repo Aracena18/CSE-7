@@ -59,6 +59,25 @@ class EmployeeSearch {
         this.searchTimeout = setTimeout(() => {
             this.performSearch(query);
         }, this.searchDebounceTime);
+
+        // Add blur event listener to validate input when focus is lost
+        this.searchInput.addEventListener('blur', () => {
+            setTimeout(() => {
+                if (!this.validateEmployeeName(this.searchInput.value.trim())) {
+                    this.searchInput.value = '';
+                }
+            }, 200);
+        });
+    }
+
+    validateEmployeeName(name) {
+        const resultItems = this.searchResults.querySelectorAll('.search-result-item');
+        for (let item of resultItems) {
+            if (item.dataset.name.toLowerCase() === name.toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     performSearch(query) {
@@ -106,6 +125,12 @@ class EmployeeSearch {
     }
 
     selectEmployee(employeeName) {
+        if (!this.validateEmployeeName(employeeName)) {
+            console.log('Invalid employee name:', employeeName);
+            this.searchInput.value = '';
+            return;
+        }
+
         this.searchInput.value = employeeName;
         this.searchResults.style.display = 'none';
         if (this.onSelect) {

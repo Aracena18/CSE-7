@@ -19,3 +19,80 @@
 [28-Feb-2025 06:54:16 Europe/Berlin] Received input: {"id":"14","type":"status","value":"inactive"}
 [28-Feb-2025 06:54:16 Europe/Berlin] Updating employee 14 status to inactive
 [28-Feb-2025 06:54:16 Europe/Berlin] Executing query: UPDATE employees SET status = 'inactive' WHERE emp_id = '14'
+[28-Feb-2025 10:28:51 Europe/Berlin] Received input: {"id":31,"type":"status","value":"completed"}
+[28-Feb-2025 10:28:51 Europe/Berlin] Updating employee 31 status to completed
+[28-Feb-2025 10:28:51 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:28:58 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
+[28-Feb-2025 10:28:58 Europe/Berlin] Updating employee 31 status to inprogress
+[28-Feb-2025 10:28:58 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:29:20 Europe/Berlin] Received input: {"id":31,"type":"status","value":"todo"}
+[28-Feb-2025 10:29:20 Europe/Berlin] Updating employee 31 status to todo
+[28-Feb-2025 10:29:20 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:29:38 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
+[28-Feb-2025 10:29:38 Europe/Berlin] Updating employee 31 status to inprogress
+[28-Feb-2025 10:29:38 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:30:17 Europe/Berlin] Received input: {"id":29,"type":"status","value":"inprogress"}
+[28-Feb-2025 10:30:17 Europe/Berlin] Updating employee 29 status to inprogress
+[28-Feb-2025 10:30:17 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:32:32 Europe/Berlin] Received input: {"id":31,"type":"status","value":"completed"}
+[28-Feb-2025 10:32:32 Europe/Berlin] Updating employee 31 status to completed
+[28-Feb-2025 10:32:32 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:34:44 Europe/Berlin] Received input: {"id":31,"type":"status","value":"completed"}
+[28-Feb-2025 10:34:44 Europe/Berlin] Updating employee 31 status to completed
+[28-Feb-2025 10:34:44 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:46:18 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
+[28-Feb-2025 10:46:18 Europe/Berlin] Updating employee 31 status to inprogress
+[28-Feb-2025 10:46:18 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:47:02 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
+[28-Feb-2025 10:47:02 Europe/Berlin] Updating employee 31 status to inprogress
+[28-Feb-2025 10:47:02 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:47:08 Europe/Berlin] Received input: {"id":31,"type":"status","value":"onhold"}
+[28-Feb-2025 10:47:08 Europe/Berlin] Updating employee 31 status to onhold
+[28-Feb-2025 10:47:08 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:49:23 Europe/Berlin] Received input: {"id":"16","type":"status","value":"inactive"}
+[28-Feb-2025 10:49:23 Europe/Berlin] Updating employee 16 status to inactive
+[28-Feb-2025 10:49:23 Europe/Berlin] Executing query: UPDATE employees SET status = 'inactive' WHERE emp_id = '16'
+[28-Feb-2025 10:49:25 Europe/Berlin] Received input: {"id":"14","type":"status","value":"onleave"}
+[28-Feb-2025 10:49:25 Europe/Berlin] Updating employee 14 status to onleave
+[28-Feb-2025 10:49:25 Europe/Berlin] Executing query: UPDATE employees SET status = 'onleave' WHERE emp_id = '14'
+[28-Feb-2025 10:49:33 Europe/Berlin] Received input: {"id":"16","type":"status","value":"onleave"}
+[28-Feb-2025 10:49:33 Europe/Berlin] Updating employee 16 status to onleave
+[28-Feb-2025 10:49:33 Europe/Berlin] Executing query: UPDATE employees SET status = 'onleave' WHERE emp_id = '16'
+[28-Feb-2025 10:52:50 Europe/Berlin] Received input: {"id":31,"type":"status","value":"todo"}
+[28-Feb-2025 10:52:50 Europe/Berlin] Updating employee 31 status to todo
+[28-Feb-2025 10:52:50 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:58:17 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
+[28-Feb-2025 10:58:17 Europe/Berlin] Updating employee 31 status to inprogress
+[28-Feb-2025 10:58:17 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 10:58:37 Europe/Berlin] Received input: 
+[28-Feb-2025 10:58:37 Europe/Berlin] Error in update_employee.php: Invalid JSON: Syntax error
+[28-Feb-2025 11:13:46 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
+[28-Feb-2025 11:13:46 Europe/Berlin] Updating employee 31 status to inprogress
+[28-Feb-2025 11:13:46 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:14:26 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
+[28-Feb-2025 11:14:26 Europe/Berlin] Updating employee 31 status to inprogress
+[28-Feb-2025 11:14:26 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:18:26 Europe/Berlin] Received input: {"id":31,"type":"status","value":"completed"}
+[28-Feb-2025 11:18:26 Europe/Berlin] Updating employee 31 status to completed
+[28-Feb-2025 11:18:26 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:22:25 Europe/Berlin] Received input: {"id":31,"type":"status","value":"onhold"}
+[28-Feb-2025 11:22:25 Europe/Berlin] Updating employee 31 status to onhold
+[28-Feb-2025 11:22:25 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:22:32 Europe/Berlin] Received input: {"id":31,"type":"status","value":"todo"}
+[28-Feb-2025 11:22:32 Europe/Berlin] Updating employee 31 status to todo
+[28-Feb-2025 11:22:32 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:28:19 Europe/Berlin] Received input: {"id":29,"type":"status","value":"inprogress"}
+[28-Feb-2025 11:28:19 Europe/Berlin] Updating employee 29 status to inprogress
+[28-Feb-2025 11:28:19 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:31:16 Europe/Berlin] Received input: {"id":29,"type":"status","value":"completed"}
+[28-Feb-2025 11:31:16 Europe/Berlin] Updating employee 29 status to completed
+[28-Feb-2025 11:31:16 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:32:58 Europe/Berlin] Received input: {"id":29,"type":"status","value":"completed"}
+[28-Feb-2025 11:32:58 Europe/Berlin] Updating employee 29 status to completed
+[28-Feb-2025 11:32:58 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:38:48 Europe/Berlin] Received input: {"id":29,"type":"status","value":"inprogress"}
+[28-Feb-2025 11:38:48 Europe/Berlin] Updating employee 29 status to inprogress
+[28-Feb-2025 11:38:48 Europe/Berlin] Error in update_employee.php: Invalid status value
+[28-Feb-2025 11:40:20 Europe/Berlin] Received input: {"id":31,"type":"status","value":"inprogress"}
+[28-Feb-2025 11:40:20 Europe/Berlin] Updating employee 31 status to inprogress
+[28-Feb-2025 11:40:20 Europe/Berlin] Error in update_employee.php: Invalid status value

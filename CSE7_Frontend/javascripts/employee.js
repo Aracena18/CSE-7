@@ -21,7 +21,7 @@ function renderStatusDropdown(currentStatus, empId) {  // Add empId parameter
 
     return `
         <select class="status-select-employee ${currentStatus}" 
-                onchange="handleStatusChange(this, '${empId}')"
+                onchange="handleEmployeeStatusChange(this, '${empId}')"
                 data-employee-id="${empId}">
             ${statusOptions.map(option => `
                 <option value="${option.value}" 
@@ -51,7 +51,7 @@ function updateStatusColor(select) {
 }
 
 // Fix the handleStatusChange function
-function handleStatusChange(select, employeeId) {
+function handleEmployeeStatusChange(select, employeeId) {
     if (!employeeId) {
         console.error('Employee ID is missing');
         return;
