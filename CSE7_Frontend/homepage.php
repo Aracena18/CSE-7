@@ -401,12 +401,70 @@
     </div>
 </div>
 
+<!-- Record Attendance Modal -->
+<div id="recordAttendanceModal" class="modal">
+    <div class="modal-content record-attendance-modal">
+        <div class="modal-header">
+            <h2>Record Attendance</h2>
+            <button class="close-btn">&times;</button>
+        </div>
+        <form id="recordAttendanceForm">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="employeeName">Employee Name</label>
+                    <input type="text" id="employeeName" name="employeeName" autocomplete="off" placeholder="Search employee...">
+                    <div id="employeeSearchResults" class="search-results"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendanceDate">Date</label>
+                    <input type="text" id="attendanceDate" name="attendanceDate" readonly>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="timeIn">Time In</label>
+                        <div class="time-input-group">
+                            <input type="text" id="timeIn" name="timeIn" placeholder="--:--:-- --" readonly>
+                            <button type="button" id="timeInBtn" class="time-btn">Record</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="timeOut">Time Out</label>
+                        <div class="time-input-group">
+                            <input type="text" id="timeOut" name="timeOut" placeholder="--:--:-- --" readonly>
+                            <button type="button" id="timeOutBtn" class="time-btn" disabled>Record</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" required>
+                        <option value="present">Present</option>
+                        <option value="late">Late</option>
+                        <option value="absent">Absent</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-buttons">
+                <button type="button" class="cancel-btn">Cancel</button>
+                <button type="submit" class="submit-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
     <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/modal.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/sidebar.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/task.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/employee.js"></script>
-    <script src="/CSE-7/CSE7_Frontend/javascripts/search_employee.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/populate_crops.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/attendance.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/search_employee.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/attendance_search.js"></script>
 </body>
 </html>

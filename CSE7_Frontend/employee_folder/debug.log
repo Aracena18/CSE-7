@@ -111,3 +111,6 @@
 [28-Feb-2025 18:06:10 Europe/Berlin] Received input: {"id":"21","type":"status","value":"inactive"}
 [28-Feb-2025 18:06:10 Europe/Berlin] Updating employee 21 status to inactive
 [28-Feb-2025 18:06:10 Europe/Berlin] Executing query: UPDATE employees SET status = 'inactive' WHERE emp_id = '21'
+[01-Mar-2025 10:39:16 Europe/Berlin] Received input: {"id":"27","type":"status","value":"onleave"}
+[01-Mar-2025 10:39:16 Europe/Berlin] Updating employee 27 status to onleave
+[01-Mar-2025 10:39:16 Europe/Berlin] Executing query: UPDATE employees SET status = 'onleave' WHERE emp_id = '27'

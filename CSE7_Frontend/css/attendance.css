@@ -213,6 +213,249 @@
     cursor: pointer;
 }
 
+/* Enhanced Modal Styles */
+.record-attendance-modal {
+    max-width: 480px !important;
+    padding: 0 !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.record-attendance-modal .modal-header {
+    background: linear-gradient(135deg, rgb(8 106 4), rgb(12 156 6));
+    padding: 1.25rem 1.5rem;
+    position: relative;
+}
+
+.record-attendance-modal .modal-header h2 {
+    color: white;
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.record-attendance-modal .modal-header img {
+    filter: brightness(0) invert(1);
+}
+
+.record-attendance-modal .close-btn {
+    color: white;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+}
+
+.record-attendance-modal .close-btn:hover {
+    opacity: 1;
+}
+
+.record-attendance-modal .form-container {
+    padding: 1.25rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.record-attendance-modal .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.record-attendance-modal .time-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    width: 100%;
+}
+
+.record-attendance-modal .time-input-group input[type="time"] {
+    flex: 1;
+}
+
+.record-attendance-modal .time-input-group input[type="text"] {
+    width: 100%;
+    background-color: #f9fafb;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.875rem;
+    padding: 0.625rem;
+    text-align: center;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+.record-attendance-modal .time-btn {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.75rem;
+    background: rgb(8 106 4);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 90px;
+    padding: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+}
+
+.record-attendance-modal .time-btn:hover {
+    background: rgba(8, 106, 4, 0.9);
+}
+
+.record-attendance-modal .time-btn:disabled {
+    background: #d1d5db;
+    cursor: not-allowed;
+}
+
+.record-attendance-modal .time-btn.recorded {
+    background-color: #059669;
+    opacity: 1;
+}
+
+.record-attendance-modal .form-buttons {
+    background: #f9fafb;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    padding: 1.5rem 2rem;
+}
+
+.record-attendance-modal .submit-btn {
+    background: rgb(8 106 4);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.95rem;
+}
+
+.record-attendance-modal .submit-btn:hover {
+    background: rgb(6, 90, 3);
+    transform: translateY(-1px);
+}
+
+.record-attendance-modal .cancel-btn {
+    background: #f3f4f6;
+    color: #4b5563;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+
+.record-attendance-modal .cancel-btn:hover {
+    background: #e5e7eb;
+}
+
+.record-attendance-modal .search-results {
+    position: absolute;
+    width: 100%;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 0.5rem;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.record-attendance-modal .search-result-item {
+    padding: 0.875rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.record-attendance-modal .search-result-item:last-child {
+    border-bottom: none;
+}
+
+.record-attendance-modal .search-result-item:hover {
+    background: #f8fafc;
+}
+
+.record-attendance-modal input[readonly] {
+    background-color: #f8fafb;
+    cursor: not-allowed;
+    background-color: #f8fafb;
+    cursor: default;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.record-attendance-modal .time-btn {
+    min-width: 120px;
+    text-align: center;
+}
+
+.record-attendance-modal .time-btn:disabled {
+    background-color: #16a34a;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.record-attendance-modal .time-input-group input[type="text"] {
+    background-color: #f9fafb;
+    font-family: monospace;
+    font-size: 1rem;
+}
+
+.record-attendance-modal #attendanceDate {
+    font-size: 1rem;
+    color: #1f2937;
+    font-weight: 500;
+    text-align: center;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    padding: 0.625rem;
+    border-radius: 10px;
+}
+
+.record-attendance-modal #status {
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 2px solid #e5e7eb;
+    background-color: white;
+    cursor: pointer;
+    font-weight: 500;
+    width: 100%;
+}
+
+.record-attendance-modal #status option[value="present"] {
+    color: #16a34a;
+}
+
+.record-attendance-modal #status option[value="late"] {
+    color: #ea580c;
+}
+
+.record-attendance-modal #status option[value="absent"] {
+    color: #dc2626;
+}
+
 /* Form Styles */
 .form-group {
     margin-bottom: 1.5rem;
@@ -313,6 +556,43 @@
 
 .search-result-item:hover {
     background: #f8fafc;
+}
+
+/* Time Input Groups */
+.time-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.time-btn {
+    padding: 0.75rem 1rem;
+    background: rgb(8 106 4);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.time-btn:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+}
+
+.time-btn:hover:not(:disabled) {
+    background: rgba(0, 70, 32, 0.9);
+}
+
+.employee-name {
+    font-weight: 500;
+    color: #1e293b;
+}
+
+.employee-position {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 2px;
 }
 
 /* Responsive Design */

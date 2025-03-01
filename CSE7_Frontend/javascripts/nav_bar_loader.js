@@ -48,17 +48,20 @@ function loader(url) {
                     document.dispatchEvent(new Event('Employeeloaded'));
                 }, 100);
             }
-            
-            console.log("Taskloaded SUCCESSFully");
-            document.dispatchEvent(new CustomEvent('taskloaded'));
-            document.dispatchEvent(new CustomEvent('ScheduleLoaded'));
-            
             console.log("Okeyy");
             // Reinitialize functionality based on loaded content
             if (url.includes('crops.php')) {
                 fetchCrops();
                 initializeModal()
                 initializeEditModal();
+            } else if (url.includes('schedulecontent.php')) {
+                document.dispatchEvent(new CustomEvent('taskloaded'));
+                
+            } else if (url.includes('schedule.php')) {
+                document.dispatchEvent(new CustomEvent('scheduleloaded'));
+            } else if (url.includes('Attendance.php')) {
+                document.dispatchEvent(new CustomEvent('AttendanceLoaded'));
+                console.log("Attendance loaded");
             }
         })
         .catch(error => console.error('Error loading content:', error));

@@ -1,0 +1,28 @@
+[01-Mar-2025 10:08:10 Europe/Berlin] Incoming POST request: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:08:07 PM
+    [timeOut] => 5:08:08 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:08:10 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php:96
+Stack trace:
+#0 C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php(96): mysqli_stmt->bind_param('isssdd', 26, '2025-03-01', '17:08:07', '17:08:08', 'late', 0.00027777777777778, 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php on line 96
+[01-Mar-2025 10:08:10 Europe/Berlin] Incoming POST request: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:08:07 PM
+    [timeOut] => 5:08:08 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:08:10 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php:96
+Stack trace:
+#0 C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php(96): mysqli_stmt->bind_param('isssdd', 26, '2025-03-01', '17:08:07', '17:08:08', 'late', 0.00027777777777778, 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php on line 96

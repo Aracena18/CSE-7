@@ -1,0 +1,590 @@
+[01-Mar-2025 10:11:51 Europe/Berlin] === New Attendance Record Request ===
+[01-Mar-2025 10:11:51 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:11:47 PM
+    [timeOut] => 5:11:48 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:11:51 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:11:51 Europe/Berlin] Looking for config file at: C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder/db_attendance.php
+[01-Mar-2025 10:11:51 Europe/Berlin] Database connection successful
+[01-Mar-2025 10:11:51 Europe/Berlin] User authenticated with ID: 31
+[01-Mar-2025 10:11:51 Europe/Berlin] All required fields present
+[01-Mar-2025 10:11:51 Europe/Berlin] Searching for employee: Robert Jhon Aracena
+[01-Mar-2025 10:11:51 Europe/Berlin] Attempting to insert attendance record
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:11:51 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php:130
+Stack trace:
+#0 C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php(130): mysqli_stmt->bind_param('isssdd', 26, '2025-03-01', '17:11:47', '17:11:48', 'late', 0.00027777777777778, 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php on line 130
+[01-Mar-2025 10:11:51 Europe/Berlin] === New Attendance Record Request ===
+[01-Mar-2025 10:11:51 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:11:47 PM
+    [timeOut] => 5:11:48 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:11:51 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:11:51 Europe/Berlin] Looking for config file at: C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder/db_attendance.php
+[01-Mar-2025 10:11:51 Europe/Berlin] Database connection successful
+[01-Mar-2025 10:11:51 Europe/Berlin] User authenticated with ID: 31
+[01-Mar-2025 10:11:51 Europe/Berlin] All required fields present
+[01-Mar-2025 10:11:51 Europe/Berlin] Searching for employee: Robert Jhon Aracena
+[01-Mar-2025 10:11:51 Europe/Berlin] Attempting to insert attendance record
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:11:51 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php:130
+Stack trace:
+#0 C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php(130): mysqli_stmt->bind_param('isssdd', 26, '2025-03-01', '17:11:47', '17:11:48', 'late', 0.00027777777777778, 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php on line 130
+[01-Mar-2025 10:11:51 Europe/Berlin] === New Attendance Record Request ===
+[01-Mar-2025 10:11:51 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:11:47 PM
+    [timeOut] => 5:11:48 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:11:51 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:11:51 Europe/Berlin] Looking for config file at: C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder/db_attendance.php
+[01-Mar-2025 10:11:51 Europe/Berlin] Database connection successful
+[01-Mar-2025 10:11:51 Europe/Berlin] User authenticated with ID: 31
+[01-Mar-2025 10:11:51 Europe/Berlin] All required fields present
+[01-Mar-2025 10:11:51 Europe/Berlin] Searching for employee: Robert Jhon Aracena
+[01-Mar-2025 10:11:51 Europe/Berlin] Attempting to insert attendance record
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:11:51 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:11:51 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php:130
+Stack trace:
+#0 C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php(130): mysqli_stmt->bind_param('isssdd', 26, '2025-03-01', '17:11:47', '17:11:48', 'late', 0.00027777777777778, 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php on line 130
+[01-Mar-2025 10:18:01 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:18:01 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:17:57 PM
+    [timeOut] => 5:17:58 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:18:01 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:18:01 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:17:57 PM
+    [timeOut] => 5:17:58 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:18:01 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:18:01 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[01-Mar-2025 10:18:01 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:18:01 Europe/Berlin] Time In: 17:17:57
+[01-Mar-2025 10:18:01 Europe/Berlin] Time Out: 17:17:58
+[01-Mar-2025 10:18:01 Europe/Berlin] Attempting to insert attendance record
+[01-Mar-2025 10:18:01 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:18:01 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:18:01 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:18:01 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php:119
+Stack trace:
+#0 C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php(119): mysqli_stmt->bind_param('isssdd', 26, '2025-03-01', '17:17:57', '17:17:58', 'late', 0.00027777777777778, 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php on line 119
+[01-Mar-2025 10:18:01 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:18:01 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:17:57 PM
+    [timeOut] => 5:17:58 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:18:01 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:18:01 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:17:57 PM
+    [timeOut] => 5:17:58 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:18:01 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:18:01 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[01-Mar-2025 10:18:01 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:18:01 Europe/Berlin] Time In: 17:17:57
+[01-Mar-2025 10:18:01 Europe/Berlin] Time Out: 17:17:58
+[01-Mar-2025 10:18:01 Europe/Berlin] Attempting to insert attendance record
+[01-Mar-2025 10:18:01 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:18:01 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:18:01 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:18:01 Europe/Berlin] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php:119
+Stack trace:
+#0 C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php(119): mysqli_stmt->bind_param('isssdd', 26, '2025-03-01', '17:17:57', '17:17:58', 'late', 0.00027777777777778, 0)
+#1 {main}
+  thrown in C:\xampp\htdocs\CSE-7\CSE7_Frontend\attendance_folder\record_attendance.php on line 119
+[01-Mar-2025 10:22:29 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:22:29 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:22:25 PM
+    [timeOut] => 5:22:26 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:22:29 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:22:29 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:22:25 PM
+    [timeOut] => 5:22:26 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:22:29 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:22:29 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[01-Mar-2025 10:22:29 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:22:29 Europe/Berlin] Time In: 17:22:25
+[01-Mar-2025 10:22:29 Europe/Berlin] Time Out: 17:22:26
+[01-Mar-2025 10:22:29 Europe/Berlin] Attempting to insert attendance record
+[01-Mar-2025 10:22:29 Europe/Berlin] About to execute with parameters:
+[01-Mar-2025 10:22:29 Europe/Berlin] employee_id: 26
+[01-Mar-2025 10:22:29 Europe/Berlin] date: 2025-03-01
+[01-Mar-2025 10:22:29 Europe/Berlin] time_in: 17:22:25
+[01-Mar-2025 10:22:29 Europe/Berlin] time_out: 17:22:26
+[01-Mar-2025 10:22:29 Europe/Berlin] status: late
+[01-Mar-2025 10:22:29 Europe/Berlin] regular_hours: 0.00027777777777778
+[01-Mar-2025 10:22:29 Europe/Berlin] overtime_hours: 0
+[01-Mar-2025 10:22:29 Europe/Berlin] Attendance record successfully saved
+[01-Mar-2025 10:22:29 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:22:29 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:22:29 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:22:29 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:22:29 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:22:25 PM
+    [timeOut] => 5:22:26 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:22:29 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:22:29 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:22:25 PM
+    [timeOut] => 5:22:26 PM
+    [status] => late
+)
+
+[01-Mar-2025 10:22:29 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:22:29 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[01-Mar-2025 10:22:29 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:22:29 Europe/Berlin] Time In: 17:22:25
+[01-Mar-2025 10:22:29 Europe/Berlin] Time Out: 17:22:26
+[01-Mar-2025 10:22:29 Europe/Berlin] Attempting to update attendance record
+[01-Mar-2025 10:22:29 Europe/Berlin] About to execute with parameters:
+[01-Mar-2025 10:22:29 Europe/Berlin] employee_id: 26
+[01-Mar-2025 10:22:29 Europe/Berlin] date: 2025-03-01
+[01-Mar-2025 10:22:29 Europe/Berlin] time_in: 17:22:25
+[01-Mar-2025 10:22:29 Europe/Berlin] time_out: 17:22:26
+[01-Mar-2025 10:22:29 Europe/Berlin] status: late
+[01-Mar-2025 10:22:29 Europe/Berlin] regular_hours: 0.00027777777777778
+[01-Mar-2025 10:22:29 Europe/Berlin] overtime_hours: 0
+[01-Mar-2025 10:22:29 Europe/Berlin] Attendance record successfully saved
+[01-Mar-2025 10:22:29 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:22:29 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:22:29 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:33:22 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:33:22 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => JHon 
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:33:20 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:33:22 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:33:22 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => JHon 
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:33:20 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:33:22 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:33:22 Europe/Berlin] Employee Name: JHon
+[01-Mar-2025 10:33:22 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:33:22 Europe/Berlin] Time In: 17:33:20
+[01-Mar-2025 10:33:22 Europe/Berlin] Time Out: null
+[01-Mar-2025 10:33:22 Europe/Berlin] No employee found with name: JHon
+[01-Mar-2025 10:33:22 Europe/Berlin] ERROR in record_attendance.php: Employee not found: JHon
+[01-Mar-2025 10:33:23 Europe/Berlin] Stack trace: #0 {main}
+[01-Mar-2025 10:33:23 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:33:23 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:33:23 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:33:23 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => JHon 
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:33:20 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:33:23 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:33:23 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => JHon 
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:33:20 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:33:23 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:33:23 Europe/Berlin] Employee Name: JHon
+[01-Mar-2025 10:33:23 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:33:23 Europe/Berlin] Time In: 17:33:20
+[01-Mar-2025 10:33:23 Europe/Berlin] Time Out: null
+[01-Mar-2025 10:33:23 Europe/Berlin] No employee found with name: JHon
+[01-Mar-2025 10:33:23 Europe/Berlin] ERROR in record_attendance.php: Employee not found: JHon
+[01-Mar-2025 10:33:23 Europe/Berlin] Stack trace: #0 {main}
+[01-Mar-2025 10:33:23 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:33:23 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:34:45 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:34:45 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:34:41 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:34:45 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[01-Mar-2025 10:34:45 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:34:41 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:34:45 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:34:45 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[01-Mar-2025 10:34:45 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:34:45 Europe/Berlin] Time In: 17:34:41
+[01-Mar-2025 10:34:45 Europe/Berlin] Time Out: null
+[01-Mar-2025 10:34:45 Europe/Berlin] Attempting to update attendance record
+[01-Mar-2025 10:34:45 Europe/Berlin] About to execute with parameters:
+[01-Mar-2025 10:34:45 Europe/Berlin] employee_id: 26
+[01-Mar-2025 10:34:45 Europe/Berlin] date: 2025-03-01
+[01-Mar-2025 10:34:45 Europe/Berlin] time_in: 17:34:41
+[01-Mar-2025 10:34:45 Europe/Berlin] time_out: null
+[01-Mar-2025 10:34:45 Europe/Berlin] status: late
+[01-Mar-2025 10:34:45 Europe/Berlin] regular_hours: 0
+[01-Mar-2025 10:34:45 Europe/Berlin] overtime_hours: 0
+[01-Mar-2025 10:34:45 Europe/Berlin] Attendance record successfully saved
+[01-Mar-2025 10:34:45 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:34:45 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:34:45 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:34:45 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:34:45 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:34:41 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:34:45 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_67c2d4b579f9a] => Array
+        (
+            [employee_id] => 26
+            [date] => 2025-03-01
+            [time_in] => 17:34:41
+            [time_out] => 
+            [status] => late
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_67c2d4b579f9a_expires] => 1740821985
+)
+
+[01-Mar-2025 10:34:45 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:34:41 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:34:45 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:34:45 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[01-Mar-2025 10:34:45 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:34:45 Europe/Berlin] Time In: 17:34:41
+[01-Mar-2025 10:34:45 Europe/Berlin] Time Out: null
+[01-Mar-2025 10:34:45 Europe/Berlin] Attempting to update attendance record
+[01-Mar-2025 10:34:45 Europe/Berlin] About to execute with parameters:
+[01-Mar-2025 10:34:45 Europe/Berlin] employee_id: 26
+[01-Mar-2025 10:34:45 Europe/Berlin] date: 2025-03-01
+[01-Mar-2025 10:34:45 Europe/Berlin] time_in: 17:34:41
+[01-Mar-2025 10:34:45 Europe/Berlin] time_out: null
+[01-Mar-2025 10:34:45 Europe/Berlin] status: late
+[01-Mar-2025 10:34:45 Europe/Berlin] regular_hours: 0
+[01-Mar-2025 10:34:45 Europe/Berlin] overtime_hours: 0
+[01-Mar-2025 10:34:45 Europe/Berlin] Attendance record successfully saved
+[01-Mar-2025 10:34:45 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:34:45 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:34:45 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:41:39 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:41:39 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => ljkhhhjk bkbnnmbn
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:41:34 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:41:39 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_67c2d4b579f9a] => Array
+        (
+            [employee_id] => 26
+            [date] => 2025-03-01
+            [time_in] => 17:34:41
+            [time_out] => 
+            [status] => late
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_67c2d4b579f9a_expires] => 1740821985
+    [attendance_submission_67c2d4b588e51] => Array
+        (
+            [employee_id] => 26
+            [date] => 2025-03-01
+            [time_in] => 17:34:41
+            [time_out] => 
+            [status] => late
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_67c2d4b588e51_expires] => 1740821985
+)
+
+[01-Mar-2025 10:41:39 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => ljkhhhjk bkbnnmbn
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:41:34 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:41:39 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:41:39 Europe/Berlin] Employee Name: ljkhhhjk bkbnnmbn
+[01-Mar-2025 10:41:39 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:41:39 Europe/Berlin] Time In: 17:41:34
+[01-Mar-2025 10:41:39 Europe/Berlin] Time Out: null
+[01-Mar-2025 10:41:39 Europe/Berlin] Attempting to insert attendance record
+[01-Mar-2025 10:41:39 Europe/Berlin] About to execute with parameters:
+[01-Mar-2025 10:41:39 Europe/Berlin] employee_id: 27
+[01-Mar-2025 10:41:39 Europe/Berlin] date: 2025-03-01
+[01-Mar-2025 10:41:39 Europe/Berlin] time_in: 17:41:34
+[01-Mar-2025 10:41:39 Europe/Berlin] time_out: null
+[01-Mar-2025 10:41:39 Europe/Berlin] status: late
+[01-Mar-2025 10:41:39 Europe/Berlin] regular_hours: 0
+[01-Mar-2025 10:41:39 Europe/Berlin] overtime_hours: 0
+[01-Mar-2025 10:41:39 Europe/Berlin] Attendance record successfully saved
+[01-Mar-2025 10:41:39 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:41:39 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:41:39 Europe/Berlin] Closing database connection
+[01-Mar-2025 10:41:39 Europe/Berlin] 
+
+=== New Attendance Record Request ===
+[01-Mar-2025 10:41:39 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => ljkhhhjk bkbnnmbn
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:41:34 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:41:39 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_67c2d65357953] => Array
+        (
+            [employee_id] => 27
+            [date] => 2025-03-01
+            [time_in] => 17:41:34
+            [time_out] => 
+            [status] => late
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_67c2d65357953_expires] => 1740822399
+)
+
+[01-Mar-2025 10:41:39 Europe/Berlin] Received POST data: Array
+(
+    [employeeName] => ljkhhhjk bkbnnmbn
+    [attendanceDate] => 2025-03-01
+    [timeIn] => 5:41:34 PM
+    [timeOut] => 
+    [status] => late
+)
+
+[01-Mar-2025 10:41:39 Europe/Berlin] Processed input data:
+[01-Mar-2025 10:41:39 Europe/Berlin] Employee Name: ljkhhhjk bkbnnmbn
+[01-Mar-2025 10:41:39 Europe/Berlin] Date: 2025-03-01
+[01-Mar-2025 10:41:39 Europe/Berlin] Time In: 17:41:34
+[01-Mar-2025 10:41:39 Europe/Berlin] Time Out: null
+[01-Mar-2025 10:41:39 Europe/Berlin] Attempting to update attendance record
+[01-Mar-2025 10:41:39 Europe/Berlin] About to execute with parameters:
+[01-Mar-2025 10:41:39 Europe/Berlin] employee_id: 27
+[01-Mar-2025 10:41:39 Europe/Berlin] date: 2025-03-01
+[01-Mar-2025 10:41:39 Europe/Berlin] time_in: 17:41:34
+[01-Mar-2025 10:41:39 Europe/Berlin] time_out: null
+[01-Mar-2025 10:41:39 Europe/Berlin] status: late
+[01-Mar-2025 10:41:39 Europe/Berlin] regular_hours: 0
+[01-Mar-2025 10:41:39 Europe/Berlin] overtime_hours: 0
+[01-Mar-2025 10:41:39 Europe/Berlin] Attendance record successfully saved
+[01-Mar-2025 10:41:39 Europe/Berlin] Closing prepared statement
+[01-Mar-2025 10:41:39 Europe/Berlin] Closing check statement
+[01-Mar-2025 10:41:39 Europe/Berlin] Closing database connection

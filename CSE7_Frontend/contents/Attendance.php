@@ -75,49 +75,6 @@
         </div>
     </div>
 
-    <!-- Record Attendance Modal -->
-    <div id="attendanceModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Record Attendance</h2>
-                <button class="close-btn">&times;</button>
-            </div>
-            <form id="attendanceForm">
-                <div class="form-group">
-                    <label for="employeeName">Employee</label>
-                    <input type="text" id="employeeName" placeholder="Search employee...">
-                    <div id="employeeSearchResults" class="search-results"></div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="timeIn">Time In</label>
-                        <input type="time" id="timeIn" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="timeOut">Time Out</label>
-                        <input type="time" id="timeOut" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="attendanceStatus">Status</label>
-                    <select id="attendanceStatus" required>
-                        <option value="present">Present</option>
-                        <option value="late">Late</option>
-                        <option value="absent">Absent</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="notes">Notes</label>
-                    <textarea id="notes" rows="3"></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="submit-btn">Save Attendance</button>
-                    <button type="button" class="cancel-btn">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <script src="/CSE-7/CSE7_Frontend/javascripts/attendance.js"></script>
 </body>
 </html>
