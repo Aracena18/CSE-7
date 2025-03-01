@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="attendance-container">
-        <!-- Attendance Stats Section -->
+        <!-- Stats Cards -->
         <div class="attendance-stats">
             <div class="stat-card">
                 <i class="fas fa-user-check stat-icon"></i>
@@ -69,12 +69,13 @@
                     </tr>
                 </thead>
                 <tbody id="attendanceTableBody">
-                    <!-- Attendance records will be dynamically populated here -->
+                    <!-- Table content will be dynamically populated -->
                 </tbody>
             </table>
         </div>
     </div>
 
+    <!-- Make sure script is loaded at the end of body -->
     <script src="/CSE-7/CSE7_Frontend/javascripts/attendance.js"></script>
 </body>
 </html>
