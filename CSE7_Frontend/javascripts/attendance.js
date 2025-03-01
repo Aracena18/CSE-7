@@ -57,6 +57,12 @@ function loadAttendanceData() {
             data.data.forEach(record => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
+                    <td class="checkbox-column">
+                        <input type="checkbox" class="task-checkbox" 
+                            onchange="updateAttendance(${record.id}, this.checked)"
+                            ${record.time_out ? 'checked disabled' : ''}
+                        >
+                    </td>
                     <td>
                         <div class="employee-name">
                             <div class="employee-avatar">${record.employee_name.charAt(0)}</div>
@@ -77,6 +83,7 @@ function loadAttendanceData() {
                                 <i class="fas fa-edit"></i>
                             </button>
                         </div>
+
                     </td>
                 `;
                 tbody.appendChild(row);
@@ -93,6 +100,61 @@ function loadAttendanceData() {
             `;
         });
 }
+
+// Funtion for editing attendance
+function editAttendance(id) {
+    console.log('Edit attendance:', id);
+}
+
+
+// Function for updating attendance time out
+// Update the existing updateAttendance function:
+
+function updateAttendance(id, checked) {
+    if (!checked) return; // Only proceed if checkbox is checked
+
+    const confirmation = confirm('Are you sure you want to record time out for this employee?');
+    if (!confirmation) {
+        // Uncheck the checkbox if user cancels
+        const checkbox = document.querySelector(`input[type="checkbox"][onchange*="${id}"]`);
+        if (checkbox) checkbox.checked = false;
+        return;
+    }
+
+    fetch(`/CSE-7/CSE7_Frontend/attendance_folder/updateAttendance.php?id=${id}`, {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification('Time out recorded successfully', 'success');
+            
+            // Disable the checkbox after successful update
+            const checkbox = document.querySelector(`input[type="checkbox"][onchange*="${id}"]`);
+            if (checkbox) {
+                checkbox.disabled = true;
+                checkbox.checked = true;
+            }
+            
+            // Refresh the attendance data
+            loadAttendanceData();
+            updateAttendanceStats();
+        } else {
+            showNotification(data.message || 'Failed to update attendance', 'error');
+            // Uncheck the checkbox if update failed
+            const checkbox = document.querySelector(`input[type="checkbox"][onchange*="${id}"]`);
+            if (checkbox) checkbox.checked = false;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('Error updating attendance', 'error');
+        // Uncheck the checkbox if there was an error
+        const checkbox = document.querySelector(`input[type="checkbox"][onchange*="${id}"]`);
+        if (checkbox) checkbox.checked = false;
+    });
+}
+
 
 function formatStatus(status) {
     const statusMap = {
@@ -262,6 +324,8 @@ function initializeAttendanceModal() {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         if (isSubmitting) return;
+
+
         
         isSubmitting = true;
         const submitBtn = form.querySelector('button[type="submit"]');
@@ -270,30 +334,32 @@ function initializeAttendanceModal() {
         submitBtn.textContent = 'Submitting...';
         
         try {
+            // Get form data
             const formData = new FormData(form);
-            const response = await fetch('/CSE-7/CSE7_Frontend/attendance_folder/add_attendance.php', {
+    
+            const response = await fetch('/CSE-7/CSE7_Frontend/attendance_folder/record_attendance.php', {
                 method: 'POST',
                 body: formData
             });
-            
+    
             const data = await response.json();
             
             if (data.success) {
-                showNotification(data.message, 'success');
-                closeAndResetModal(); // Close modal first
-                await loadAttendanceData(); // Then refresh data
-                await updateAttendanceStats();
+                showNotification('Attendance recorded successfully', 'success');
+                closeAndResetModal();
+                loadAttendanceData();
+                resetForm();
             } else {
-                if (data.type === 'duplicate_entry') {
-                    showNotification(data.message, 'warning');
-                    closeAndResetModal();
-                } else {
-                    showNotification(data.message || 'Failed to record attendance', 'error');
-                    closeAndResetModal();
-                }
+                showNotification(data.message || 'Failed to record attendance', 'error');
+                console.error('Submission error:', data);
+                closeAndResetModal()
+                resetForm();
             }
         } catch (error) {
-            showNotification('Error recording attendance: ' + error.message, 'error');
+            console.error('Error:', error);
+            showNotification('An error occurred while recording attendance', 'error');
+            closeAndResetModal()
+            resetForm();
         } finally {
             isSubmitting = false;
             submitBtn.disabled = false;

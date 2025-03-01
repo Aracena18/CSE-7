@@ -60,6 +60,7 @@
             <table class="attendance-table">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Employee</th>
                         <th>Time In</th>
                         <th>Time Out</th>

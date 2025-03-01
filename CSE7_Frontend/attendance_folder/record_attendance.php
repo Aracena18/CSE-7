@@ -1,55 +1,37 @@
 <?php
 session_start();
+require_once "db_attendance.php";
+
+header('Content-Type: application/json');
+
+// Enable error logging
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/attendance_debug.log');
+ini_set('display_errors', 0);
+$logFile = __DIR__ . '/attendance_debug.log';
 
-// Debug: Log all incoming data
-error_log("\n\n=== New Attendance Record Request ===");
-error_log("POST Data: " . print_r($_POST, true));
-error_log("Session Data: " . print_r($_SESSION, true));
+function writeLog($message) {
+    global $logFile;
+    $timestamp = date('[d-M-Y H:i:s e] ');
+    file_put_contents($logFile, $timestamp . $message . "\n", FILE_APPEND);
+}
 
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
+writeLog("\n=== New Attendance Record Request ===");
+writeLog("POST Data: " . print_r($_POST, true));
+writeLog("Session Data: " . print_r($_SESSION, true));
+
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['success' => false, 'message' => 'Not authenticated']);
+    exit;
+}
 
 try {
-    // Add request ID to prevent double processing
-    $requestId = $_POST['requestId'] ?? uniqid();
-    $cacheKey = "attendance_submission_{$requestId}";
-    
-    // Check if this request was already processed
-    if (isset($_SESSION[$cacheKey])) {
-        error_log("Duplicate submission detected with request ID: " . $requestId);
-        echo json_encode([
-            "success" => true,
-            "message" => "Attendance already recorded",
-            "duplicate" => true,
-            "data" => $_SESSION[$cacheKey]
-        ]);
-        exit;
-    }
-
-    // Use the correct database config file path
-    require_once __DIR__ . "/db_attendance.php";  // Changed from db_attendance.php
-
-    // Immediate database connection check
-    if (!isset($conn) || $conn->connect_error) {
-        throw new Exception("Database connection failed: " . ($conn->connect_error ?? "Connection not established"));
-    }
-
-    // Validate POST data before processing
     if (empty($_POST)) {
         throw new Exception("No data received");
     }
 
-    error_log("Received POST data: " . print_r($_POST, true));
-
-    // Check if user is authenticated
-    if (!isset($_SESSION['user_id'])) {
-        throw new Exception('User not authenticated');
-    }
+    // Generate unique request ID and cache key
+    $requestId = uniqid('att_', true);
+    $cacheKey = 'attendance_submission_' . $requestId;
 
     // Validate and sanitize input
     if (!isset($_POST['employeeName'], $_POST['attendanceDate'], $_POST['status'])) {
@@ -57,17 +39,18 @@ try {
     }
 
     $employeeName = trim($_POST['employeeName']);
-    // Format date properly
     $attendanceDate = date('Y-m-d', strtotime(str_replace(',', '', $_POST['attendanceDate'])));
+    
+    // Convert time format properly
     $timeIn = !empty($_POST['timeIn']) ? date('H:i:s', strtotime($_POST['timeIn'])) : null;
     $timeOut = !empty($_POST['timeOut']) ? date('H:i:s', strtotime($_POST['timeOut'])) : null;
-    $status = trim($_POST['status']);
+    $status = strtolower(trim($_POST['status']));
 
-    error_log("Processed input data:");
-    error_log("Employee Name: " . $employeeName);
-    error_log("Date: " . $attendanceDate);
-    error_log("Time In: " . ($timeIn ?? 'null'));
-    error_log("Time Out: " . ($timeOut ?? 'null'));
+    writeLog("Processed input data:");
+    writeLog("Employee Name: $employeeName");
+    writeLog("Date: $attendanceDate");
+    writeLog("Time In: " . ($timeIn ?? 'null'));
+    writeLog("Time Out: " . ($timeOut ?? 'null'));
 
     // Get employee_id
     $stmt = $conn->prepare("SELECT emp_id FROM employees WHERE name = ?");
@@ -77,13 +60,13 @@ try {
     
     $stmt->bind_param("s", $employeeName);
     if (!$stmt->execute()) {
-        error_log("Execute failed: " . $stmt->error);
+        writeLog("Execute failed: " . $stmt->error);
         throw new Exception("Failed to search for employee");
     }
     
     $result = $stmt->get_result();
     if ($result->num_rows === 0) {
-        error_log("No employee found with name: " . $employeeName);
+        writeLog("No employee found with name: " . $employeeName);
         throw new Exception('Employee not found: ' . $employeeName);
     }
     
@@ -99,19 +82,13 @@ try {
         $time2 = strtotime($timeOut);
         $difference = $time2 - $time1;
         
-        $total_hours = $difference / 3600; // Convert seconds to hours
-        
-        // Assuming 8 hours is regular working hours
-        if ($total_hours <= 8) {
-            $regular_hours = $total_hours;
-        } else {
-            $regular_hours = 8;
-            $overtime_hours = $total_hours - 8;
-        }
+        $total_hours = $difference / 3600;
+        $regular_hours = min($total_hours, 8);
+        $overtime_hours = max(0, $total_hours - 8);
     }
 
     // Check if attendance record already exists for this employee on this date
-    $check_stmt = $conn->prepare("SELECT id FROM attendance WHERE employee_id = ? AND date = ?");
+    $check_stmt = $conn->prepare("SELECT id, time_in, time_out FROM attendance WHERE employee_id = ? AND date = ?");
     if (!$check_stmt) {
         throw new Exception("Failed to prepare check statement: " . $conn->error);
     }
@@ -119,11 +96,20 @@ try {
     $check_stmt->execute();
     $existing_record = $check_stmt->get_result();
 
-    // Debug: Log the final SQL operation
-    error_log("Attempting to " . ($existing_record->num_rows > 0 ? "update" : "insert") . " attendance record");
-    
     if ($existing_record->num_rows > 0) {
-        // Update existing record - 7 parameters
+        $record = $existing_record->fetch_assoc();
+        
+        // If this is a new attendance record (not an update)
+        if (!isset($_POST['update']) || $_POST['update'] !== 'true') {
+            throw new Exception("Attendance record already exists for this employee today");
+        }
+        
+        // For updates, only allow if time_out is not set
+        if ($record['time_out'] !== null) {
+            throw new Exception("Cannot modify attendance record after time out is recorded");
+        }
+
+        // Update existing record
         $stmt = $conn->prepare("UPDATE attendance SET time_in = ?, time_out = ?, status = ?, 
                                regular_hours = ?, overtime_hours = ? WHERE employee_id = ? AND date = ?");
         if (!$stmt) {
@@ -140,7 +126,7 @@ try {
             $attendanceDate
         );
     } else {
-        // Insert new record - 7 parameters
+        // Only allow new records if they don't exist
         $stmt = $conn->prepare("INSERT INTO attendance (employee_id, date, time_in, time_out, status, 
                                regular_hours, overtime_hours) VALUES (?, ?, ?, ?, ?, ?, ?)");
         if (!$stmt) {
@@ -159,21 +145,21 @@ try {
     }
 
     // Add debug logging before execute
-    error_log("About to execute with parameters:");
-    error_log("employee_id: " . $employee_id);
-    error_log("date: " . $attendanceDate);
-    error_log("time_in: " . ($timeIn ?? 'null'));
-    error_log("time_out: " . ($timeOut ?? 'null'));
-    error_log("status: " . $status);
-    error_log("regular_hours: " . $regular_hours);
-    error_log("overtime_hours: " . $overtime_hours);
+    writeLog("About to execute with parameters:");
+    writeLog("employee_id: " . $employee_id);
+    writeLog("date: " . $attendanceDate);
+    writeLog("time_in: " . ($timeIn ?? 'null'));
+    writeLog("time_out: " . ($timeOut ?? 'null'));
+    writeLog("status: " . $status);
+    writeLog("regular_hours: " . $regular_hours);
+    writeLog("overtime_hours: " . $overtime_hours);
 
     if (!$stmt->execute()) {
-        error_log("Execute failed: " . $stmt->error);
+        writeLog("Execute failed: " . $stmt->error);
         throw new Exception("Failed to record attendance: " . $stmt->error);
     }
 
-    error_log("Attendance record successfully saved");
+    writeLog("Attendance record successfully saved");
 
     // Store the successful submission in session
     $_SESSION[$cacheKey] = [
@@ -197,19 +183,13 @@ try {
     ]);
 
 } catch (Exception $e) {
-    error_log("ERROR in record_attendance.php: " . $e->getMessage());
-    error_log("Stack trace: " . $e->getTraceAsString());
+    writeLog("ERROR: " . $e->getMessage());
+    writeLog("Stack trace: " . $e->getTraceAsString());
     
     http_response_code(500);
     echo json_encode([
         "success" => false,
-        "message" => "Server error: " . $e->getMessage(),
-        "debug" => [
-            "file" => __FILE__,
-            "line" => __LINE__,
-            "error" => $e->getMessage(),
-            "trace" => $e->getTraceAsString()
-        ]
+        "message" => "Server error: " . $e->getMessage()
     ]);
 } finally {
     // Clean up expired cache entries
@@ -222,16 +202,18 @@ try {
         }
     }
     if (isset($stmt)) {
-        error_log("Closing prepared statement");
+        writeLog("Closing prepared statement");
         $stmt->close();
     }
     if (isset($check_stmt)) {
-        error_log("Closing check statement");
+        writeLog("Closing check statement");
         $check_stmt->close();
     }
     if (isset($conn)) {
-        error_log("Closing database connection");
+        writeLog("Closing database connection");
         $conn->close();
     }
 }
+
 ?>
+
