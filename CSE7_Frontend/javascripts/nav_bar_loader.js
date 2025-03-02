@@ -66,6 +66,10 @@ function loader(url) {
                 document.dispatchEvent(new CustomEvent('Resourcesloaded'));
                 console.log("Resources loaded");
             }
+            else if (url.includes('Inventory_logs.php')) {
+                document.dispatchEvent(new CustomEvent('logsLoaded'));
+                console.log("Resources loaded");
+            }
         })
         .catch(error => console.error('Error loading content:', error));
 }

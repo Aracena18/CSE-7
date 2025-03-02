@@ -526,9 +526,126 @@
 </div>
 
 
-<div class="borrowItemModal">
-    
+
+<div id="borrowItemModal" class="modal">
+    <div class="modal-content">
+        <button class="close">&times;</button>
+        <div class="modal-header">
+            <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+            <h2>Borrow Item</h2>
+        </div>
+        <form id="borrowItemForm" method="POST">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="borrower">Employee Name</label>
+                    <select id="borrower" name="borrower" required>
+                        <option value="">Select Employee</option>
+                        <!-- Will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="borrowQuantity">Quantity</label>
+                    <input type="number" id="borrowQuantity" name="borrowQuantity" min="1" required>
+                    <small id="stockAvailable" class="stock-info">Available: 0</small>
+                </div>
+                <div class="form-group">
+                    <label for="returnDate">Expected Return Date</label>
+                    <input type="date" id="returnDate" name="returnDate" required>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Confirm Borrow</button>
+                <button type="button" class="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
 </div>
+
+
+<div id="returnItemModal" class="modal">
+  <div class="modal-content">
+    <button class="close">&times;</button>
+    <div class="modal-header">
+      <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+      <h2>Return Item</h2>
+    </div>
+    <form id="returnItemForm" method="POST">
+      <div class="form-container">
+        <div class="form-group">
+          <label for="returner">Returned By</label>
+          <select id="returner" name="returner" required>
+            <option value="">Select Employee</option>
+            <!-- Will be populated dynamically -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="returnQuantity">Quantity</label>
+          <input type="number" id="returnQuantity" name="returnQuantity" min="1" required>
+        </div>
+      </div>
+      <div class="form-buttons">
+        <button type="submit" class="submit-btn">Confirm Return</button>
+        <button type="button" class="cancel">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="useItemModal" class="modal">
+    <div class="modal-content">
+        <button class="close">&times;</button>
+        <div class="modal-header">
+            <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+            <h2>Use Item</h2>
+        </div>
+        <form id="useItemForm" method="POST">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="useEmployee">User Name</label>
+                    <select id="useEmployee" name="useEmployee" required>
+                        <option value="">Select Employee</option>
+                        <!-- Will be populated dynamically -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="useQuantity">Quantity</label>
+                    <input type="number" id="useQuantity" name="useQuantity" min="1" required>
+                    <small id="stockAvailableUse" class="stock-info">Available: 0</small>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Confirm Use</button>
+                <button type="button" class="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="StockInModal" class="modal">
+    <div class="modal-content">
+        <button class="close">&times;</button>
+        <div class="modal-header">
+            <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+            <h2>Stock In</h2>
+        </div>
+        <form id="stockInForm" method="POST">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="stockInQuantity">Quantity</label>
+                    <input type="number" id="stockInQuantity" name="stockInQuantity" min="1" required>
+                    <small id="stockInAvailable" class="stock-info">Available: 0</small>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="submit-btn">Confirm Stock In</button>
+                <button type="button" class="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
 
 
     <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
@@ -541,5 +658,8 @@
     <script src="/CSE-7/CSE7_Frontend/javascripts/search_employee.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/attendance_search.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/resources.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/borrow_item.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/return_item.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/inventory_logs.js"></script>
 </body>
 </html>

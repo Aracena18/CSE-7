@@ -35,9 +35,9 @@
                 <div class="metric-value alert" id="lowStockCount">Loading...</div>
                 <div class="items-list" id="lowStockItems"></div>
             </div>
-            <div class="metric-card">
-                <h3>Recent Transactions</h3>
-                <div class="transactions-list" id="recentTransactions">Loading...</div>
+            <div class="metric-card"  onclick="loader('/CSE-7/CSE7_Frontend/contents/Inventory_logs.php')">
+                <h3>Inventory Logs</h3>
+                <div class="transactions-list" id="recentTransactions">View</div>
             </div>
         </div>
 
