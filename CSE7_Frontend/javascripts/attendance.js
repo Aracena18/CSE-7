@@ -5,6 +5,9 @@ document.addEventListener('AttendanceLoaded', function() {
     initializeEventListeners();
 });
 
+let hasRecordAttendanceFormListener = false;
+let isSubmitting = false;
+
 function initializeEventListeners() {
     const dateInput = document.getElementById('attendanceDate');
     if (dateInput) {
@@ -242,6 +245,7 @@ document.addEventListener('AttendanceLoaded', function() {
     initializeEmployeeSearch();
 });
 
+
 function initializeAttendanceModal() {
     const modal = document.getElementById('recordAttendanceModal');
     const form = document.getElementById('recordAttendanceForm');
@@ -255,7 +259,7 @@ function initializeAttendanceModal() {
     const timeOutInput = document.getElementById('timeOut');
     const dateInput = document.getElementById('attendanceDate');
 
-    // Set current date in format: Wednesday, February 28, 2024
+    // Set current date in a readable format
     const today = new Date();
     const dateOptions = { 
         weekday: 'long', 
@@ -265,7 +269,7 @@ function initializeAttendanceModal() {
     };
     dateInput.value = today.toLocaleDateString('en-US', dateOptions);
 
-    // Time in button handler with improved formatting
+    // Time In button handler
     timeInBtn.addEventListener('click', function() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', { 
@@ -280,18 +284,14 @@ function initializeAttendanceModal() {
         this.textContent = '✓ Time In Recorded';
         timeOutBtn.disabled = false;
 
-        // Auto-detect if late (after 9:00 AM)
+        // Mark as late if after 9:00 AM
         const hour = now.getHours();
         const minutes = now.getMinutes();
         const status = document.getElementById('status');
-        if (hour > 9 || (hour === 9 && minutes > 0)) {
-            status.value = 'late';
-        } else {
-            status.value = 'present';
-        }
+        status.value = (hour > 9 || (hour === 9 && minutes > 0)) ? 'late' : 'present';
     });
 
-    // Time out button handler with improved formatting
+    // Time Out button handler
     timeOutBtn.addEventListener('click', function() {
         const now = new Date();
         const timeString = now.toLocaleTimeString('en-US', { 
@@ -306,7 +306,7 @@ function initializeAttendanceModal() {
         this.textContent = '✓ Time Out Recorded';
     });
 
-    // Reset form when opening modal
+    // Reset form helper
     function resetForm() {
         form.reset();
         timeInBtn.disabled = false;
@@ -317,76 +317,64 @@ function initializeAttendanceModal() {
         timeInInput.value = '';
         timeOutInput.value = '';
     }
-
-    // Form submission handler with submission lock
-    let isSubmitting = false; // Add submission lock flag
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        if (isSubmitting) return;
-
-
-        
-        isSubmitting = true;
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalButtonText = submitBtn.textContent;
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Submitting...';
-        
-        try {
-            // Get form data
-            const formData = new FormData(form);
     
-            const response = await fetch('/CSE-7/CSE7_Frontend/attendance_folder/record_attendance.php', {
-                method: 'POST',
-                body: formData
-            });
-    
-            const data = await response.json();
-            
-            if (data.success) {
-                showNotification('Attendance recorded successfully', 'success');
+    let isSubmitting = false; // Submission lock flag
+
+    // Only attach the submit listener if not already attached
+    if (!form.dataset.listenerAttached) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (isSubmitting) return;
+
+            isSubmitting = true;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('/CSE-7/CSE7_Frontend/attendance_folder/record_attendance.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    showNotification('Attendance recorded successfully', 'success');
+                    closeAndResetModal();
+                    loadAttendanceData();
+                    resetForm();
+                } else {
+                    showNotification(data.message || 'Failed to record attendance', 'error');
+                    console.error('Submission error:', data);
+                    closeAndResetModal();
+                    resetForm();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('An error occurred while recording attendance', 'error');
                 closeAndResetModal();
-                loadAttendanceData();
                 resetForm();
-            } else {
-                showNotification(data.message || 'Failed to record attendance', 'error');
-                console.error('Submission error:', data);
-                closeAndResetModal()
-                resetForm();
+            } finally {
+                isSubmitting = false;
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalButtonText;
             }
-        } catch (error) {
-            console.error('Error:', error);
-            showNotification('An error occurred while recording attendance', 'error');
-            closeAndResetModal()
-            resetForm();
-        } finally {
-            isSubmitting = false;
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalButtonText;
-        }
-    });
-
-    // Add helper function to close and reset modal
+        });
+        form.dataset.listenerAttached = 'true'; // Mark the listener as attached
+    }
+    
+    // Helper function to close and reset modal
     function closeAndResetModal() {
-        const modal = document.getElementById('recordAttendanceModal');
-        const timeInBtn = document.getElementById('timeInBtn');
-        const timeOutBtn = document.getElementById('timeOutBtn');
-        const form = document.getElementById('recordAttendanceForm');
-
-        // Hide modal
         if (modal) {
             modal.style.display = 'none';
             modal.style.opacity = '0';
             modal.style.visibility = 'hidden';
         }
-
-        // Reset form
         if (form) {
             form.reset();
         }
-
-        // Reset time buttons
         if (timeInBtn) {
             timeInBtn.disabled = false;
             timeInBtn.classList.remove('recorded');
@@ -397,15 +385,13 @@ function initializeAttendanceModal() {
             timeOutBtn.classList.remove('recorded');
             timeOutBtn.textContent = 'Record Time Out';
         }
-
-        // Clear any employee search results
         const searchResults = document.getElementById('employeeSearchResults');
         if (searchResults) {
             searchResults.innerHTML = '';
         }
     }
 
-    // Clean up event listeners when modal is closed
+    // Cleanup helper to re-enable submit button if needed
     const cleanup = () => {
         isSubmitting = false;
         const submitBtn = form.querySelector('button[type="submit"]');
@@ -415,7 +401,7 @@ function initializeAttendanceModal() {
         }
     };
 
-    // Add cleanup to modal close handlers
+    // Attach close event handlers (no duplicate binding assumed for these)
     [closeBtn, cancelBtn].forEach(btn => {
         btn?.addEventListener('click', () => {
             modal.style.display = 'none';
@@ -424,7 +410,7 @@ function initializeAttendanceModal() {
         });
     });
 
-    // Clean up when clicking outside modal
+    // Close modal when clicking outside it
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
@@ -433,6 +419,7 @@ function initializeAttendanceModal() {
         }
     });
 }
+
 
 function initializeEmployeeSearch() {
     const searchInput = document.getElementById('employeeName');

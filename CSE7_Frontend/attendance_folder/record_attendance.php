@@ -40,8 +40,6 @@ try {
 
     $employeeName = trim($_POST['employeeName']);
     $attendanceDate = date('Y-m-d', strtotime(str_replace(',', '', $_POST['attendanceDate'])));
-    
-    // Convert time format properly
     $timeIn = !empty($_POST['timeIn']) ? date('H:i:s', strtotime($_POST['timeIn'])) : null;
     $timeOut = !empty($_POST['timeOut']) ? date('H:i:s', strtotime($_POST['timeOut'])) : null;
     $status = strtolower(trim($_POST['status']));
@@ -147,7 +145,7 @@ try {
         // Create new record
         $stmt = $conn->prepare("INSERT INTO attendance (employee_id, date, time_in, time_out, status, 
                                regular_hours, overtime_hours) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("isssddd", 
+        $stmt->bind_param("issssdd", 
             $employee_id,
             $attendanceDate,
             $timeIn,
@@ -228,6 +226,5 @@ try {
         $conn->close();
     }
 }
-
 ?>
 
