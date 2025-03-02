@@ -525,6 +525,12 @@
     </div>
 </div>
 
+
+<div class="borrowItemModal">
+    
+</div>
+
+
     <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/modal.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/sidebar.js"></script>

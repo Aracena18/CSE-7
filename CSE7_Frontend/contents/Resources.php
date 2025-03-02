@@ -55,7 +55,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="table-container">
+                <div class="table-container-Resources">
                     <table id="inventoryTable">
                     <thead>
                         <tr>
