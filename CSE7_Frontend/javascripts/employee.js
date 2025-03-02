@@ -126,13 +126,14 @@ function updateEmployeeStatus(employeeId, status) {
 function fetchEmployees() {
     getEmployeeData()
         .then(employeeData => {
-            employees = employeeData;
+            employees = employeeData; // Store the data in the global array
+            console.log('Employees:', employees); // Debug log
             const tbody = document.getElementById('employeeTableBody');
             if (!tbody) return;
 
             tbody.innerHTML = '';
             
-            if (employees.length === 0) {
+            if (employeeData.length === 0) {
                 tbody.innerHTML = `
                     <tr>
                         <td colspan="7" class="no-data">No employees found</td>
@@ -141,7 +142,7 @@ function fetchEmployees() {
                 return;
             }
 
-            employees.forEach(emp => {
+            employeeData.forEach(emp => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>
@@ -232,13 +233,20 @@ async function getEmployeeData() {
             throw new Error(result.message || 'Failed to fetch employees');
         }
 
+        // Map each employee to include both attendance and payroll data
         return Array.isArray(result.data) ? result.data.map(emp => ({
             id: emp.emp_id,
             emp_id: emp.emp_id,
             name: emp.name,
             position: emp.position,
             dailyRate: emp.daily_rate,
-            daysWorked: '0',
+            // Attendance data (if available)
+            daysWorked: emp.attendance ? emp.attendance.days_present : '0',
+            totalMinutesLate: emp.attendance ? emp.attendance.total_minutes_late : '0',
+            totalHoursLate: emp.attendance ? emp.attendance.total_hours_late : '0',
+            effectiveDays: emp.attendance ? emp.attendance.effective_days : '0',
+            // Payroll details computed on the backend
+            payroll: emp.payroll ? emp.payroll : {},
             contact: emp.contact,
             status: emp.status || 'active',
             created_at: emp.created_at
@@ -282,19 +290,26 @@ function viewPayroll(employeeId) {
     modal.style.opacity = 1;
     modal.style.visibility = "visible";
     
-    // Update modal content
+    // Update modal header and populate pay periods
     updatePayrollHeader(employee);
     populatePayPeriods(employeeId);
+    
+    // Use the payroll details from the employee object
     fetchPayrollDetails(employeeId);
 }
 
 function findEmployee(emp_id) {
-    // Now this will work because employees is globally accessible
-    const employee = employees.find(emp => emp.emp_id === emp_id);
+    // Convert emp_id to string for consistent comparison
+    const searchId = String(emp_id);
+    
+    // Find employee by comparing string versions of IDs (assuming 'employees' is a global variable)
+    const employee = employees.find(emp => String(emp.emp_id) === searchId);
+    
     if (!employee) {
-        console.error(`Employee with ID ${emp_id} not found`);
+        console.error(`Employee with ID ${searchId} not found`);
         return null;
     }
+    
     return employee;
 }
 
@@ -313,28 +328,40 @@ function updatePayrollHeader(employee) {
     position.textContent = employee.position;
 }
 
+// Generates a select list of weekly periods (Monday to Sunday for the last 6 weeks)
+// and attaches an event listener that calls fetchPayrollDetails when a period is chosen.
 function populatePayPeriods(employeeId) {
-    // This should be replaced with an actual API call
     const periodSelect = document.getElementById('payrollPeriod');
-    const currentDate = new Date();
-    
-    // Generate last 6 pay periods (bimonthly)
     periodSelect.innerHTML = '<option value="">Select Pay Period</option>';
     
-    for(let i = 0; i < 6; i++) {
-        const endDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i === 0 ? currentDate.getDate() : 15);
-        const startDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i === 0 ? 16 : 1);
-        
-        const periodValue = `${startDate.toISOString().split('T')[0]}_${endDate.toISOString().split('T')[0]}`;
-        const periodLabel = `${startDate.toLocaleDateString()} - ${endDate.toLocaleDateString()}`;
-        
+    // Get today's date and calculate the current week's Monday and Sunday.
+    let currentDate = new Date();
+    let dayOfWeek = currentDate.getDay(); // 0 (Sun) to 6 (Sat)
+    // If today is Sunday (0), subtract 6 days; otherwise subtract (dayOfWeek - 1)
+    let diffToMonday = (dayOfWeek === 0) ? 6 : dayOfWeek - 1;
+    let monday = new Date(currentDate);
+    monday.setDate(currentDate.getDate() - diffToMonday);
+    let sunday = new Date(monday);
+    sunday.setDate(monday.getDate() + 6);
+    
+    // Generate the last 6 weekly periods (each Monday to Sunday)
+    for (let i = 0; i < 6; i++) {
+        // Clone the current Monday and Sunday for this period.
+        let periodStart = new Date(monday);
+        let periodEnd = new Date(sunday);
+        let startStr = periodStart.toISOString().split('T')[0];
+        let endStr = periodEnd.toISOString().split('T')[0];
+        let periodValue = `${startStr}_${endStr}`;
+        let periodLabel = `${periodStart.toLocaleDateString()} - ${periodEnd.toLocaleDateString()}`;
         const option = new Option(periodLabel, periodValue);
         periodSelect.add(option);
         
-        currentDate.setDate(currentDate.getDate() - 15); // Move to previous period
+        // Move back one week
+        monday.setDate(monday.getDate() - 7);
+        sunday.setDate(sunday.getDate() - 7);
     }
     
-    // Add change event listener
+    // When the user selects a pay period, fetch the payroll details for that week.
     periodSelect.addEventListener('change', function() {
         if (this.value) {
             const [start, end] = this.value.split('_');
@@ -343,32 +370,52 @@ function populatePayPeriods(employeeId) {
     });
 }
 
+// Fetch payroll details for a specific employee and weekly period.
+// The function builds a URL with query parameters so that the backend calculates payroll
+// using the provided periodStart and periodEnd.
 function fetchPayrollDetails(employeeId, start, end) {
-    // Implement API call to get payroll details
-    // For now using mock data
-    const payrollDetails = {
-        employeeId: employeeId,
-        periodStart: start || '2024-03-01',
-        periodEnd: end || '2024-03-15',
-        daysWorked: 22,
-        dailyRate: 500,
-        grossPay: 11000,
-        deductions: {
-            tax: 500,
-            sss: 300,
-            philhealth: 200,
-            pagibig: 100
-        },
-        netPay: 9900
-    };
-
-    displayPayrollDetails(payrollDetails);
+    const url = `/CSE-7/CSE7_Frontend/employee_folder/get_employees.php?employeeId=${employeeId}&periodStart=${start}&periodEnd=${end}`;
+    
+    fetch(url, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(result => {
+        if (!result.success) {
+            console.error('Error:', result.message);
+            return;
+        }
+        // The backend returns an array of employee objects.
+        // Find the one with the matching employeeId.
+        const employee = result.data.find(emp => String(emp.emp_id) === String(employeeId));
+        if (employee && employee.payroll) {
+            console.log('Payroll details:', employee.payroll);  
+            displayPayrollDetails(employee.payroll);
+        } else {
+            console.error('Payroll details not found for employee', employeeId);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching payroll details:', error);
+    });
 }
 
+// Display payroll details in the payroll modal.
 function displayPayrollDetails(details) {
     const content = document.getElementById('payrollContent');
     if (!content) return;
 
+    console.log("Payroll grosspar:", details.grossPay.toFixed(2)); // Debug log
     content.innerHTML = `
         <div class="payroll-details">
             <div class="payroll-summary">
@@ -404,6 +451,7 @@ function displayPayrollDetails(details) {
         </div>
     `;
 }
+
 
 function printPayroll() {
     window.print();

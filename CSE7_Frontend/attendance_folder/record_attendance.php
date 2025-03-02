@@ -53,7 +53,7 @@ try {
     // Normalize the employee name by trimming excess spaces and converting to a standard case
     $employeeName = trim(preg_replace('/\s+/', ' ', $employeeName));
 
-    // Get employee_id - Fix the query to use the name column instead of first_name/last_name
+    // Get employee_id using the name column
     $stmt = $conn->prepare("SELECT emp_id FROM employees WHERE LOWER(TRIM(name)) = LOWER(?)");
     if (!$stmt) {
         throw new Exception("Database prepare failed: " . $conn->error);
@@ -88,10 +88,11 @@ try {
         $overtime_hours = max(0, $total_hours - 8);
     }
 
-    // Check for existing attendance record
-    $checkQuery = "SELECT id, time_in, time_out FROM attendance 
+    // Check for existing attendance record (only allow one record per day)
+    // Note: `date` is a reserved keyword, so it is escaped with backticks.
+    $checkQuery = "SELECT id, time_in, time_out, status FROM attendance 
                    WHERE employee_id = ? 
-                   AND DATE(date) = DATE(?)";
+                   AND DATE(`date`) = DATE(?)";
     $check_stmt = $conn->prepare($checkQuery);
     if (!$check_stmt) {
         throw new Exception("Failed to prepare check statement: " . $conn->error);
@@ -108,38 +109,19 @@ try {
     if ($existing_record->num_rows > 0) {
         $record = $existing_record->fetch_assoc();
         writeLog("Found existing record - ID: " . $record['id']);
-        
-        // If updating is explicitly allowed or time_out was not set previously
-        if (isset($_POST['update']) && $_POST['update'] === 'true' || $record['time_out'] === null) {
-            writeLog("Updating existing attendance record");
-            // Update existing record
-            $stmt = $conn->prepare("UPDATE attendance SET time_in = ?, time_out = ?, status = ?, 
-                                   regular_hours = ?, overtime_hours = ? WHERE employee_id = ? AND date = ?");
-            $stmt->bind_param("sssddis", 
-                $timeIn,
-                $timeOut,
-                $status,
-                $regular_hours,
-                $overtime_hours,
-                $employee_id,
-                $attendanceDate
-            );
-        } else {
-            // Just return success since the record exists
-            echo json_encode([
-                "success" => true,
-                "message" => "Attendance already recorded for this date",
-                "requestId" => $requestId,
-                "data" => [
-                    "employee_id" => $employee_id,
-                    "date" => $attendanceDate,
-                    "time_in" => $record['time_in'],
-                    "time_out" => $record['time_out'],
-                    "status" => $status
-                ]
-            ]);
-            exit;
-        }
+        echo json_encode([
+            "success" => true,
+            "message" => "Employee already have an attendance for today",
+            "requestId" => $requestId,
+            "data" => [
+                "employee_id" => $employee_id,
+                "date" => $attendanceDate,
+                "time_in" => $record['time_in'],
+                "time_out" => $record['time_out'],
+                "status" => $record['status']
+            ]
+        ]);
+        exit;
     } else {
         writeLog("No existing attendance record found - creating new record");
         // Create new record
@@ -227,4 +209,3 @@ try {
     }
 }
 ?>
-

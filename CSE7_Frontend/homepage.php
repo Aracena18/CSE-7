@@ -376,7 +376,7 @@
             <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
             <h2>Employee Payroll</h2>
         </div>
-        <div class="payroll-container">
+        <div class="payroll-container">  
             <div class="payroll-header">
                 <div class="employee-info">
                     <div id="employeeAvatar"></div>
@@ -457,6 +457,74 @@
     </div>
 </div>
 
+<!-- Add Item Modal -->
+<div id="addItemModal" class="modal">
+    <div class="modal-content">
+        <button id="closeBtn" class="close">&times;</button>
+        <div class="modal-header">
+            <img src="/CSE-7/CSE7_Frontend/Assets/logo.png" alt="Logo" width="160">
+            <h2>Add New Item</h2>
+        </div>
+        <form id="addItemForm" method="POST">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="itemName">Item Name</label>
+                    <input type="text" id="itemName" name="itemName" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select Category</option>
+                        <option value="seeds">Seeds</option>
+                        <option value="fertilizers">Fertilizers</option>
+                        <option value="tools">Tools</option>
+                        <option value="equipment">Equipment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="currentStock">Initial Stock</label>
+                    <input type="number" id="currentStock" name="currentStock" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label for="threshold">Minimum Threshold</label>
+                    <input type="number" id="threshold" name="threshold" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="supplier">Supplier</label>
+                    <select id="supplier" name="supplier" required>
+                        <option value="">Select Supplier</option>
+                        <option value="Agro Supplies Co.">Agro Supplies Co.</option>
+                        <option value="GreenGrow Ltd.">GreenGrow Ltd.</option>
+                        <option value="Farm Equipments Inc.">Farm Equipments Inc.</option>
+                        <option value="Seeds & More Corp.">Seeds & More Corp.</option>
+                        <option value="Organic Fertilizers Plus">Organic Fertilizers Plus</option>
+                        <option value="Farm Tools Express">Farm Tools Express</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="unit">Unit of Measurement</label>
+                    <select id="unit" name="unit" required>
+                        <option value="">Select Unit</option>
+                        <option value="pieces">Pieces</option>
+                        <option value="kg">Kilograms</option>
+                        <option value="g">Grams</option>
+                        <option value="l">Liters</option>
+                        <option value="bags">Bags</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" id="submitBtn" class="submit-btn">Add Item</button>
+                <button type="button" id="cancelBtn" class="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
     <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/modal.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/sidebar.js"></script>
@@ -466,5 +534,6 @@
     <script src="/CSE-7/CSE7_Frontend/javascripts/attendance.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/search_employee.js"></script>
     <script src="/CSE-7/CSE7_Frontend/javascripts/attendance_search.js"></script>
+    <script src="/CSE-7/CSE7_Frontend/javascripts/resources.js"></script>
 </body>
 </html>

@@ -62,6 +62,9 @@ function loader(url) {
             } else if (url.includes('Attendance.php')) {
                 document.dispatchEvent(new CustomEvent('AttendanceLoaded'));
                 console.log("Attendance loaded");
+            } else if (url.includes('Resources.php')) {
+                document.dispatchEvent(new CustomEvent('Resourcesloaded'));
+                console.log("Resources loaded");
             }
         })
         .catch(error => console.error('Error loading content:', error));
