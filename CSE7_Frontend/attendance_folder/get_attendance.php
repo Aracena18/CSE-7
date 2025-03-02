@@ -22,6 +22,15 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $date = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d');
 
+// Validate date format
+if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $date)) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Invalid date format'
+    ]);
+    exit;
+}
+
 error_log("Fetching attendance for user_id: $user_id and date: $date");
 
 try {
