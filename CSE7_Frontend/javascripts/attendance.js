@@ -344,6 +344,7 @@ function initializeAttendanceModal() {
                     showNotification('Attendance recorded successfully', 'success');
                     closeAndResetModal();
                     loadAttendanceData();
+                    updateAttendanceStats();
                     resetForm();
                 } else {
                     showNotification(data.message || 'Failed to record attendance', 'error');

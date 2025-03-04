@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/content.css">
     <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/employee.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/CSE-7/CSE7_Frontend/css/task_modal.css">
     <title>Document</title>
 </head>
 <body>
@@ -61,10 +62,10 @@
                         <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Employee.php')">Employee</a></li>
                     <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/attendance1.svg" alt="">
                         <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Attendance.php')">Attendance</a></li>
-                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group 12.svg" alt="">
+                    <!--<li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group 12.svg" alt="">
                         <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Sales.php')">Sales</a></li>
-                    <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group 13.svg" alt="">
-                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Production.php')">Production</a></li>
+                     <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/Group 13.svg" alt="">
+                        <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Production.php')">Production</a></li> -->
                     <li><img src="/CSE-7/CSE7_Frontend/Assets/brand logos/carbon_tools.svg" alt="">
                         <a href="#" onclick="loader('/CSE-7/CSE7_Frontend/contents/Resources.php')">Resources</a></li>
                 </ul>
@@ -644,8 +645,40 @@
     </div>
 </div>
 
-
-
+<!-- View Task Modal -->
+<div id="viewTaskModal" class="modal">
+    <div class="modal-content task-modal">
+        <div class="modal-header">
+            <div class="employee-info">
+                <div id="taskEmployeeAvatar" class="employee-avatar"></div>
+                <div class="employee-details">
+                    <h3 id="taskEmployeeName"></h3>
+                    <p id="taskEmployeePosition"></p>
+                </div>
+            </div>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="task-filters">
+                <select id="taskStatusFilter">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+                <select id="taskDateFilter">
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="this_week">This Week</option>
+                    <option value="this_month">This Month</option>
+                </select>
+            </div>
+            <div id="taskList" class="task-list">
+                <!-- Tasks will be populated here -->
+            </div>
+        </div>
+    </div>
+</div>
 
 
     <script src="/CSE-7/CSE7_Frontend/javascripts/nav_bar_loader.js"></script>

@@ -26,9 +26,9 @@ try {
         throw new Exception("Invalid user ID");
     }
     
-    // Get employee ID from name
-    $employeeName = $_POST["assignedTo"];
-    $stmt = $conn->prepare("SELECT emp_id FROM employees WHERE name = ? AND user_id = ?");
+    // Get employee ID and status using the employee name
+    $employeeName = trim($_POST["assignedTo"]);
+    $stmt = $conn->prepare("SELECT emp_id, status FROM employees WHERE LOWER(TRIM(name)) = LOWER(?) AND user_id = ?");
     $stmt->bind_param("si", $employeeName, $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -39,6 +39,12 @@ try {
     
     $employee = $result->fetch_assoc();
     $employeeId = $employee['emp_id'];
+    $employeeStatus = strtolower(trim($employee['status']));
+    
+    // Do not allow to add a task if the employee is on leave.
+    if ($employeeStatus === 'onleave') {
+        throw new Exception("Cannot assign task: Employee is on leave.");
+    }
     
     // Verify crop exists and belongs to user
     $cropId = $_POST["cropSelect"];
@@ -63,7 +69,7 @@ try {
     // Updated SQL to include crops column
     $stmt = $conn->prepare("INSERT INTO tasks (description, assigned_to, start_date, end_date, priority, status, 
                            location, completed, user_id, crops) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
+    
     if (!$stmt) {
         throw new Exception("Prepare failed: " . $conn->error);
     }

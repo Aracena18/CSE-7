@@ -122,3 +122,9 @@
 [02-Mar-2025 09:28:59 Europe/Berlin] Received input: {"id":"34","type":"status","value":"inactive"}
 [02-Mar-2025 09:28:59 Europe/Berlin] Updating employee 34 status to inactive
 [02-Mar-2025 09:28:59 Europe/Berlin] Executing query: UPDATE employees SET status = 'inactive' WHERE emp_id = '34'
+[02-Mar-2025 20:00:51 Europe/Berlin] Received input: {"id":"27","type":"status","value":"active"}
+[02-Mar-2025 20:00:51 Europe/Berlin] Updating employee 27 status to active
+[02-Mar-2025 20:00:51 Europe/Berlin] Executing query: UPDATE employees SET status = 'active' WHERE emp_id = '27'
+[02-Mar-2025 20:00:53 Europe/Berlin] Received input: {"id":"27","type":"status","value":"inactive"}
+[02-Mar-2025 20:00:53 Europe/Berlin] Updating employee 27 status to inactive
+[02-Mar-2025 20:00:53 Europe/Berlin] Executing query: UPDATE employees SET status = 'inactive' WHERE emp_id = '27'

@@ -3,22 +3,25 @@ header('Content-Type: application/json');
 require_once 'db_attendance.php';
 
 try {
-    // Get today's date
+    // Get today's date in the proper format
     $today = date('Y-m-d');
 
-    // Count present employees
-    $presentQuery = $conn->query("SELECT COUNT(*) as count FROM attendance WHERE DATE(time_in) = '$today' AND status = 'present'");
-    $present = $presentQuery->fetch_assoc()['count'];
+    // Count present employees using the 'date' column
+    $presentQuery = $conn->query("SELECT COUNT(*) as count FROM attendance WHERE date = '$today' AND status = 'present'");
+    $presentRow = $presentQuery->fetch_assoc();
+    $present = isset($presentRow['count']) ? $presentRow['count'] : 0;
 
-    // Count absent employees
-    $absentQuery = $conn->query("SELECT COUNT(*) as count FROM attendance WHERE DATE(time_in) = '$today' AND status = 'absent'");
-    $absent = $absentQuery->fetch_assoc()['count'];
+    // Count absent employees using the 'date' column
+    $absentQuery = $conn->query("SELECT COUNT(*) as count FROM attendance WHERE date = '$today' AND status = 'absent'");
+    $absentRow = $absentQuery->fetch_assoc();
+    $absent = isset($absentRow['count']) ? $absentRow['count'] : 0;
 
-    // Count late employees
-    $lateQuery = $conn->query("SELECT COUNT(*) as count FROM attendance WHERE DATE(time_in) = '$today' AND status = 'late'");
-    $late = $lateQuery->fetch_assoc()['count'];
+    // Count late employees using the 'date' column
+    $lateQuery = $conn->query("SELECT COUNT(*) as count FROM attendance WHERE date = '$today' AND status = 'late'");
+    $lateRow = $lateQuery->fetch_assoc();
+    $late = isset($lateRow['count']) ? $lateRow['count'] : 0;
 
-    // Calculate total employees
+    // Calculate total employees and attendance rate
     $total = $present + $absent + $late;
     $rate = $total > 0 ? round(($present / $total) * 100, 2) : 0;
 

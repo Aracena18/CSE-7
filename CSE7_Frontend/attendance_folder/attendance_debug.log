@@ -780,3 +780,778 @@
 [02-Mar-2025 06:06:55 Europe/Berlin] Employee ID: 35
 [02-Mar-2025 06:06:55 Europe/Berlin] Date: 2025-03-02
 [02-Mar-2025 06:06:55 Europe/Berlin] Found existing record - ID: 54
+[02-Mar-2025 20:03:47 Europe/Berlin] 
+=== New Attendance Record Request ===
+[02-Mar-2025 20:03:47 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 03:03:41
+    [timeOut] => 
+    [status] => present
+)
+
+[02-Mar-2025 20:03:47 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c3e7632aadb8.62673821] => Array
+        (
+            [employee_id] => 35
+            [date] => 2025-03-02
+            [time_in] => 13:06:41
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c3e7632aadb8.62673821_expires] => 1740892303
+)
+
+[02-Mar-2025 20:03:47 Europe/Berlin] Processed input data:
+[02-Mar-2025 20:03:47 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[02-Mar-2025 20:03:47 Europe/Berlin] Date: 2025-03-03
+[02-Mar-2025 20:03:47 Europe/Berlin] Time In: 03:03:41
+[02-Mar-2025 20:03:47 Europe/Berlin] Time Out: null
+[02-Mar-2025 20:03:47 Europe/Berlin] Checking for existing attendance record:
+[02-Mar-2025 20:03:47 Europe/Berlin] Employee ID: 26
+[02-Mar-2025 20:03:47 Europe/Berlin] Date: 2025-03-03
+[02-Mar-2025 20:03:47 Europe/Berlin] No existing attendance record found - creating new record
+[02-Mar-2025 20:03:47 Europe/Berlin] About to execute with parameters:
+[02-Mar-2025 20:03:47 Europe/Berlin] employee_id: 26
+[02-Mar-2025 20:03:47 Europe/Berlin] date: 2025-03-03
+[02-Mar-2025 20:03:47 Europe/Berlin] time_in: 03:03:41
+[02-Mar-2025 20:03:47 Europe/Berlin] time_out: null
+[02-Mar-2025 20:03:47 Europe/Berlin] status: present
+[02-Mar-2025 20:03:47 Europe/Berlin] regular_hours: 0
+[02-Mar-2025 20:03:47 Europe/Berlin] overtime_hours: 0
+[02-Mar-2025 20:03:47 Europe/Berlin] Attendance record successfully saved
+[02-Mar-2025 20:03:47 Europe/Berlin] Closing prepared statement
+[02-Mar-2025 20:03:47 Europe/Berlin] Closing check statement
+[02-Mar-2025 20:03:47 Europe/Berlin] Closing database connection
+[03-Mar-2025 05:20:21 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 05:20:21 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 12:20:20
+    [timeOut] => 
+    [status] => present
+)
+
+[03-Mar-2025 05:20:21 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c4ab93279784.98437062] => Array
+        (
+            [employee_id] => 26
+            [date] => 2025-03-03
+            [time_in] => 03:03:41
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c4ab93279784.98437062_expires] => 1740942527
+)
+
+[03-Mar-2025 05:20:21 Europe/Berlin] Processed input data:
+[03-Mar-2025 05:20:21 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[03-Mar-2025 05:20:21 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 05:20:21 Europe/Berlin] Time In: 12:20:20
+[03-Mar-2025 05:20:21 Europe/Berlin] Time Out: null
+[03-Mar-2025 05:20:21 Europe/Berlin] Checking for existing attendance record:
+[03-Mar-2025 05:20:21 Europe/Berlin] Employee ID: 26
+[03-Mar-2025 05:20:21 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 05:20:21 Europe/Berlin] Found existing record - ID: 55
+[03-Mar-2025 05:20:33 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 05:20:33 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => g g
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 12:20:31
+    [timeOut] => 
+    [status] => present
+)
+
+[03-Mar-2025 05:20:33 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c4ab93279784.98437062] => Array
+        (
+            [employee_id] => 26
+            [date] => 2025-03-03
+            [time_in] => 03:03:41
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c4ab93279784.98437062_expires] => 1740942527
+)
+
+[03-Mar-2025 05:20:33 Europe/Berlin] Processed input data:
+[03-Mar-2025 05:20:33 Europe/Berlin] Employee Name: g g
+[03-Mar-2025 05:20:33 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 05:20:33 Europe/Berlin] Time In: 12:20:31
+[03-Mar-2025 05:20:33 Europe/Berlin] Time Out: null
+[03-Mar-2025 05:20:33 Europe/Berlin] Checking for existing attendance record:
+[03-Mar-2025 05:20:33 Europe/Berlin] Employee ID: 46
+[03-Mar-2025 05:20:33 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 05:20:33 Europe/Berlin] No existing attendance record found - creating new record
+[03-Mar-2025 05:20:33 Europe/Berlin] About to execute with parameters:
+[03-Mar-2025 05:20:33 Europe/Berlin] employee_id: 46
+[03-Mar-2025 05:20:33 Europe/Berlin] date: 2025-03-03
+[03-Mar-2025 05:20:33 Europe/Berlin] time_in: 12:20:31
+[03-Mar-2025 05:20:33 Europe/Berlin] time_out: null
+[03-Mar-2025 05:20:33 Europe/Berlin] status: present
+[03-Mar-2025 05:20:33 Europe/Berlin] regular_hours: 0
+[03-Mar-2025 05:20:33 Europe/Berlin] overtime_hours: 0
+[03-Mar-2025 05:20:33 Europe/Berlin] Attendance record successfully saved
+[03-Mar-2025 05:20:33 Europe/Berlin] Closing prepared statement
+[03-Mar-2025 05:20:33 Europe/Berlin] Closing check statement
+[03-Mar-2025 05:20:33 Europe/Berlin] Closing database connection
+[03-Mar-2025 05:33:38 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 05:33:38 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => n n
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 12:33:30
+    [timeOut] => 
+    [status] => absent
+)
+
+[03-Mar-2025 05:33:38 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c52e11a8a458.69527522] => Array
+        (
+            [employee_id] => 46
+            [date] => 2025-03-03
+            [time_in] => 12:20:31
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c52e11a8a458.69527522_expires] => 1740975933
+)
+
+[03-Mar-2025 05:33:38 Europe/Berlin] Processed input data:
+[03-Mar-2025 05:33:38 Europe/Berlin] Employee Name: n n
+[03-Mar-2025 05:33:38 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 05:33:38 Europe/Berlin] Time In: 12:33:30
+[03-Mar-2025 05:33:38 Europe/Berlin] Time Out: null
+[03-Mar-2025 05:33:38 Europe/Berlin] Checking for existing attendance record:
+[03-Mar-2025 05:33:38 Europe/Berlin] Employee ID: 47
+[03-Mar-2025 05:33:38 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 05:33:38 Europe/Berlin] No existing attendance record found - creating new record
+[03-Mar-2025 05:33:38 Europe/Berlin] About to execute with parameters:
+[03-Mar-2025 05:33:38 Europe/Berlin] employee_id: 47
+[03-Mar-2025 05:33:38 Europe/Berlin] date: 2025-03-03
+[03-Mar-2025 05:33:38 Europe/Berlin] time_in: 12:33:30
+[03-Mar-2025 05:33:38 Europe/Berlin] time_out: null
+[03-Mar-2025 05:33:38 Europe/Berlin] status: absent
+[03-Mar-2025 05:33:38 Europe/Berlin] regular_hours: 0
+[03-Mar-2025 05:33:38 Europe/Berlin] overtime_hours: 0
+[03-Mar-2025 05:33:38 Europe/Berlin] Attendance record successfully saved
+[03-Mar-2025 05:33:38 Europe/Berlin] Closing prepared statement
+[03-Mar-2025 05:33:38 Europe/Berlin] Closing check statement
+[03-Mar-2025 05:33:38 Europe/Berlin] Closing database connection
+[03-Mar-2025 05:37:02 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 05:37:02 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => g g
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 12:36:59
+    [timeOut] => 
+    [status] => late
+)
+
+[03-Mar-2025 05:37:02 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c5312263ef67.49795060] => Array
+        (
+            [employee_id] => 47
+            [date] => 2025-03-03
+            [time_in] => 12:33:30
+            [time_out] => 
+            [status] => absent
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c5312263ef67.49795060_expires] => 1740976718
+)
+
+[03-Mar-2025 05:37:02 Europe/Berlin] Processed input data:
+[03-Mar-2025 05:37:02 Europe/Berlin] Employee Name: g g
+[03-Mar-2025 05:37:02 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 05:37:02 Europe/Berlin] Time In: 12:36:59
+[03-Mar-2025 05:37:02 Europe/Berlin] Time Out: null
+[03-Mar-2025 05:37:02 Europe/Berlin] Checking for existing attendance record:
+[03-Mar-2025 05:37:02 Europe/Berlin] Employee ID: 46
+[03-Mar-2025 05:37:02 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 05:37:02 Europe/Berlin] Found existing record - ID: 56
+[03-Mar-2025 07:44:31 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 07:44:31 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => k k
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 14:44:27
+    [timeOut] => 
+    [status] => present
+)
+
+[03-Mar-2025 07:44:31 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c5312263ef67.49795060] => Array
+        (
+            [employee_id] => 47
+            [date] => 2025-03-03
+            [time_in] => 12:33:30
+            [time_out] => 
+            [status] => absent
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c5312263ef67.49795060_expires] => 1740976718
+)
+
+[03-Mar-2025 07:44:31 Europe/Berlin] Processed input data:
+[03-Mar-2025 07:44:31 Europe/Berlin] Employee Name: k k
+[03-Mar-2025 07:44:31 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 07:44:31 Europe/Berlin] Time In: 14:44:27
+[03-Mar-2025 07:44:31 Europe/Berlin] Time Out: null
+[03-Mar-2025 07:44:31 Europe/Berlin] Checking for existing attendance record:
+[03-Mar-2025 07:44:31 Europe/Berlin] Employee ID: 37
+[03-Mar-2025 07:44:31 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 07:44:31 Europe/Berlin] No existing attendance record found - creating new record
+[03-Mar-2025 07:44:31 Europe/Berlin] About to execute with parameters:
+[03-Mar-2025 07:44:31 Europe/Berlin] employee_id: 37
+[03-Mar-2025 07:44:31 Europe/Berlin] date: 2025-03-03
+[03-Mar-2025 07:44:31 Europe/Berlin] time_in: 14:44:27
+[03-Mar-2025 07:44:31 Europe/Berlin] time_out: null
+[03-Mar-2025 07:44:31 Europe/Berlin] status: present
+[03-Mar-2025 07:44:31 Europe/Berlin] regular_hours: 0
+[03-Mar-2025 07:44:31 Europe/Berlin] overtime_hours: 0
+[03-Mar-2025 07:44:31 Europe/Berlin] Attendance record successfully saved
+[03-Mar-2025 07:44:31 Europe/Berlin] Closing prepared statement
+[03-Mar-2025 07:44:31 Europe/Berlin] Closing check statement
+[03-Mar-2025 07:44:31 Europe/Berlin] Closing database connection
+[03-Mar-2025 07:45:55 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 07:45:55 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => tes5 tes5
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 14:45:53
+    [timeOut] => 
+    [status] => present
+)
+
+[03-Mar-2025 07:45:55 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c54fcf534451.70730648] => Array
+        (
+            [employee_id] => 37
+            [date] => 2025-03-03
+            [time_in] => 14:44:27
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c54fcf534451.70730648_expires] => 1740984571
+)
+
+[03-Mar-2025 07:45:55 Europe/Berlin] Processed input data:
+[03-Mar-2025 07:45:55 Europe/Berlin] Employee Name: tes5 tes5
+[03-Mar-2025 07:45:55 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 07:45:55 Europe/Berlin] Time In: 14:45:53
+[03-Mar-2025 07:45:55 Europe/Berlin] Time Out: null
+[03-Mar-2025 07:45:55 Europe/Berlin] Checking for existing attendance record:
+[03-Mar-2025 07:45:55 Europe/Berlin] Employee ID: 49
+[03-Mar-2025 07:45:55 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 07:45:55 Europe/Berlin] No existing attendance record found - creating new record
+[03-Mar-2025 07:45:55 Europe/Berlin] About to execute with parameters:
+[03-Mar-2025 07:45:55 Europe/Berlin] employee_id: 49
+[03-Mar-2025 07:45:55 Europe/Berlin] date: 2025-03-03
+[03-Mar-2025 07:45:55 Europe/Berlin] time_in: 14:45:53
+[03-Mar-2025 07:45:55 Europe/Berlin] time_out: null
+[03-Mar-2025 07:45:55 Europe/Berlin] status: present
+[03-Mar-2025 07:45:55 Europe/Berlin] regular_hours: 0
+[03-Mar-2025 07:45:55 Europe/Berlin] overtime_hours: 0
+[03-Mar-2025 07:45:55 Europe/Berlin] Attendance record successfully saved
+[03-Mar-2025 07:45:55 Europe/Berlin] Closing prepared statement
+[03-Mar-2025 07:45:55 Europe/Berlin] Closing check statement
+[03-Mar-2025 07:45:55 Europe/Berlin] Closing database connection
+[03-Mar-2025 07:48:06 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 07:48:06 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon D. Aracena
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 14:48:04
+    [timeOut] => 
+    [status] => present
+)
+
+[03-Mar-2025 07:48:06 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c54fcf534451.70730648] => Array
+        (
+            [employee_id] => 37
+            [date] => 2025-03-03
+            [time_in] => 14:44:27
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c54fcf534451.70730648_expires] => 1740984571
+    [attendance_submission_att_67c55023c8cde2.66866066] => Array
+        (
+            [employee_id] => 49
+            [date] => 2025-03-03
+            [time_in] => 14:45:53
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c55023c8cde2.66866066_expires] => 1740984655
+)
+
+[03-Mar-2025 07:48:06 Europe/Berlin] Processed input data:
+[03-Mar-2025 07:48:06 Europe/Berlin] Employee Name: Robert Jhon D. Aracena
+[03-Mar-2025 07:48:06 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 07:48:06 Europe/Berlin] Time In: 14:48:04
+[03-Mar-2025 07:48:06 Europe/Berlin] Time Out: null
+[03-Mar-2025 07:48:06 Europe/Berlin] No employee found with name: Robert Jhon D. Aracena
+[03-Mar-2025 07:48:06 Europe/Berlin] ERROR: Employee not found: Robert Jhon D. Aracena
+[03-Mar-2025 07:48:06 Europe/Berlin] Stack trace: #0 {main}
+[03-Mar-2025 07:48:06 Europe/Berlin] Closing prepared statement
+[03-Mar-2025 07:48:06 Europe/Berlin] Closing database connection
+[03-Mar-2025 07:48:23 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 07:48:23 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 14:48:21
+    [timeOut] => 
+    [status] => present
+)
+
+[03-Mar-2025 07:48:23 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c54fcf534451.70730648] => Array
+        (
+            [employee_id] => 37
+            [date] => 2025-03-03
+            [time_in] => 14:44:27
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c54fcf534451.70730648_expires] => 1740984571
+    [attendance_submission_att_67c55023c8cde2.66866066] => Array
+        (
+            [employee_id] => 49
+            [date] => 2025-03-03
+            [time_in] => 14:45:53
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c55023c8cde2.66866066_expires] => 1740984655
+)
+
+[03-Mar-2025 07:48:23 Europe/Berlin] Processed input data:
+[03-Mar-2025 07:48:23 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[03-Mar-2025 07:48:23 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 07:48:23 Europe/Berlin] Time In: 14:48:21
+[03-Mar-2025 07:48:23 Europe/Berlin] Time Out: null
+[03-Mar-2025 07:48:23 Europe/Berlin] Checking for existing attendance record:
+[03-Mar-2025 07:48:23 Europe/Berlin] Employee ID: 26
+[03-Mar-2025 07:48:23 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 07:48:23 Europe/Berlin] No existing attendance record found - creating new record
+[03-Mar-2025 07:48:23 Europe/Berlin] About to execute with parameters:
+[03-Mar-2025 07:48:23 Europe/Berlin] employee_id: 26
+[03-Mar-2025 07:48:23 Europe/Berlin] date: 2025-03-03
+[03-Mar-2025 07:48:23 Europe/Berlin] time_in: 14:48:21
+[03-Mar-2025 07:48:23 Europe/Berlin] time_out: null
+[03-Mar-2025 07:48:23 Europe/Berlin] status: present
+[03-Mar-2025 07:48:23 Europe/Berlin] regular_hours: 0
+[03-Mar-2025 07:48:23 Europe/Berlin] overtime_hours: 0
+[03-Mar-2025 07:48:23 Europe/Berlin] Attendance record successfully saved
+[03-Mar-2025 07:48:23 Europe/Berlin] Closing prepared statement
+[03-Mar-2025 07:48:23 Europe/Berlin] Closing check statement
+[03-Mar-2025 07:48:23 Europe/Berlin] Closing database connection
+[03-Mar-2025 13:11:40 Europe/Berlin] 
+=== New Attendance Record Request ===
+[03-Mar-2025 13:11:40 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => m m
+    [attendanceDate] => Monday, March 3, 2025
+    [timeIn] => 20:11:39
+    [timeOut] => 
+    [status] => present
+)
+
+[03-Mar-2025 13:11:40 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c54fcf534451.70730648] => Array
+        (
+            [employee_id] => 37
+            [date] => 2025-03-03
+            [time_in] => 14:44:27
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c54fcf534451.70730648_expires] => 1740984571
+    [attendance_submission_att_67c55023c8cde2.66866066] => Array
+        (
+            [employee_id] => 49
+            [date] => 2025-03-03
+            [time_in] => 14:45:53
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c55023c8cde2.66866066_expires] => 1740984655
+    [attendance_submission_att_67c550b76ad284.69630294] => Array
+        (
+            [employee_id] => 26
+            [date] => 2025-03-03
+            [time_in] => 14:48:21
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c550b76ad284.69630294_expires] => 1740984803
+)
+
+[03-Mar-2025 13:11:40 Europe/Berlin] Processed input data:
+[03-Mar-2025 13:11:40 Europe/Berlin] Employee Name: m m
+[03-Mar-2025 13:11:40 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 13:11:40 Europe/Berlin] Time In: 20:11:39
+[03-Mar-2025 13:11:40 Europe/Berlin] Time Out: null
+[03-Mar-2025 13:11:40 Europe/Berlin] Checking for existing attendance record:
+[03-Mar-2025 13:11:40 Europe/Berlin] Employee ID: 44
+[03-Mar-2025 13:11:40 Europe/Berlin] Date: 2025-03-03
+[03-Mar-2025 13:11:40 Europe/Berlin] No existing attendance record found - creating new record
+[03-Mar-2025 13:11:40 Europe/Berlin] About to execute with parameters:
+[03-Mar-2025 13:11:40 Europe/Berlin] employee_id: 44
+[03-Mar-2025 13:11:40 Europe/Berlin] date: 2025-03-03
+[03-Mar-2025 13:11:40 Europe/Berlin] time_in: 20:11:39
+[03-Mar-2025 13:11:40 Europe/Berlin] time_out: null
+[03-Mar-2025 13:11:40 Europe/Berlin] status: present
+[03-Mar-2025 13:11:40 Europe/Berlin] regular_hours: 0
+[03-Mar-2025 13:11:40 Europe/Berlin] overtime_hours: 0
+[03-Mar-2025 13:11:40 Europe/Berlin] Attendance record successfully saved
+[03-Mar-2025 13:11:40 Europe/Berlin] Closing prepared statement
+[03-Mar-2025 13:11:40 Europe/Berlin] Closing check statement
+[03-Mar-2025 13:11:40 Europe/Berlin] Closing database connection
+[04-Mar-2025 03:30:02 Europe/Berlin] 
+=== New Attendance Record Request ===
+[04-Mar-2025 03:30:02 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon D Aracena
+    [attendanceDate] => Tuesday, March 4, 2025
+    [timeIn] => 10:30:00
+    [timeOut] => 
+    [status] => present
+)
+
+[04-Mar-2025 03:30:02 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c59c7c510595.42573842] => Array
+        (
+            [employee_id] => 44
+            [date] => 2025-03-03
+            [time_in] => 20:11:39
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c59c7c510595.42573842_expires] => 1741004200
+)
+
+[04-Mar-2025 03:30:02 Europe/Berlin] Processed input data:
+[04-Mar-2025 03:30:02 Europe/Berlin] Employee Name: Robert Jhon D Aracena
+[04-Mar-2025 03:30:02 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 03:30:02 Europe/Berlin] Time In: 10:30:00
+[04-Mar-2025 03:30:02 Europe/Berlin] Time Out: null
+[04-Mar-2025 03:30:02 Europe/Berlin] No employee found with name: Robert Jhon D Aracena
+[04-Mar-2025 03:30:02 Europe/Berlin] ERROR: Employee not found: Robert Jhon D Aracena
+[04-Mar-2025 03:30:02 Europe/Berlin] Stack trace: #0 {main}
+[04-Mar-2025 03:30:02 Europe/Berlin] Closing prepared statement
+[04-Mar-2025 03:30:02 Europe/Berlin] Closing database connection
+[04-Mar-2025 03:30:13 Europe/Berlin] 
+=== New Attendance Record Request ===
+[04-Mar-2025 03:30:13 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => Robert Jhon Aracena
+    [attendanceDate] => Tuesday, March 4, 2025
+    [timeIn] => 10:30:11
+    [timeOut] => 
+    [status] => present
+)
+
+[04-Mar-2025 03:30:13 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[04-Mar-2025 03:30:13 Europe/Berlin] Processed input data:
+[04-Mar-2025 03:30:13 Europe/Berlin] Employee Name: Robert Jhon Aracena
+[04-Mar-2025 03:30:13 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 03:30:13 Europe/Berlin] Time In: 10:30:11
+[04-Mar-2025 03:30:13 Europe/Berlin] Time Out: null
+[04-Mar-2025 03:30:13 Europe/Berlin] Checking for existing attendance record:
+[04-Mar-2025 03:30:13 Europe/Berlin] Employee ID: 26
+[04-Mar-2025 03:30:13 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 03:30:13 Europe/Berlin] No existing attendance record found - creating new record
+[04-Mar-2025 03:30:13 Europe/Berlin] About to execute with parameters:
+[04-Mar-2025 03:30:13 Europe/Berlin] employee_id: 26
+[04-Mar-2025 03:30:13 Europe/Berlin] date: 2025-03-04
+[04-Mar-2025 03:30:13 Europe/Berlin] time_in: 10:30:11
+[04-Mar-2025 03:30:13 Europe/Berlin] time_out: null
+[04-Mar-2025 03:30:13 Europe/Berlin] status: present
+[04-Mar-2025 03:30:13 Europe/Berlin] regular_hours: 0
+[04-Mar-2025 03:30:13 Europe/Berlin] overtime_hours: 0
+[04-Mar-2025 03:30:13 Europe/Berlin] Attendance record successfully saved
+[04-Mar-2025 03:30:13 Europe/Berlin] Closing prepared statement
+[04-Mar-2025 03:30:13 Europe/Berlin] Closing check statement
+[04-Mar-2025 03:30:13 Europe/Berlin] Closing database connection
+[04-Mar-2025 03:44:39 Europe/Berlin] 
+=== New Attendance Record Request ===
+[04-Mar-2025 03:44:39 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => u u
+    [attendanceDate] => Tuesday, March 4, 2025
+    [timeIn] => 10:44:36
+    [timeOut] => 
+    [status] => present
+)
+
+[04-Mar-2025 03:44:39 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c665b51b0ff9.71797111] => Array
+        (
+            [employee_id] => 26
+            [date] => 2025-03-04
+            [time_in] => 10:30:11
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c665b51b0ff9.71797111_expires] => 1741055713
+)
+
+[04-Mar-2025 03:44:39 Europe/Berlin] Processed input data:
+[04-Mar-2025 03:44:39 Europe/Berlin] Employee Name: u u
+[04-Mar-2025 03:44:39 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 03:44:39 Europe/Berlin] Time In: 10:44:36
+[04-Mar-2025 03:44:39 Europe/Berlin] Time Out: null
+[04-Mar-2025 03:44:39 Europe/Berlin] Checking for existing attendance record:
+[04-Mar-2025 03:44:39 Europe/Berlin] Employee ID: 41
+[04-Mar-2025 03:44:39 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 03:44:39 Europe/Berlin] No existing attendance record found - creating new record
+[04-Mar-2025 03:44:39 Europe/Berlin] About to execute with parameters:
+[04-Mar-2025 03:44:39 Europe/Berlin] employee_id: 41
+[04-Mar-2025 03:44:39 Europe/Berlin] date: 2025-03-04
+[04-Mar-2025 03:44:39 Europe/Berlin] time_in: 10:44:36
+[04-Mar-2025 03:44:39 Europe/Berlin] time_out: null
+[04-Mar-2025 03:44:39 Europe/Berlin] status: present
+[04-Mar-2025 03:44:39 Europe/Berlin] regular_hours: 0
+[04-Mar-2025 03:44:39 Europe/Berlin] overtime_hours: 0
+[04-Mar-2025 03:44:39 Europe/Berlin] Attendance record successfully saved
+[04-Mar-2025 03:44:39 Europe/Berlin] Closing prepared statement
+[04-Mar-2025 03:44:39 Europe/Berlin] Closing check statement
+[04-Mar-2025 03:44:39 Europe/Berlin] Closing database connection
+[04-Mar-2025 04:27:06 Europe/Berlin] 
+=== New Attendance Record Request ===
+[04-Mar-2025 04:27:06 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => n n
+    [attendanceDate] => Tuesday, March 4, 2025
+    [timeIn] => 11:27:05
+    [timeOut] => 
+    [status] => present
+)
+
+[04-Mar-2025 04:27:06 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+    [attendance_submission_att_67c66917327b48.49282581] => Array
+        (
+            [employee_id] => 41
+            [date] => 2025-03-04
+            [time_in] => 10:44:36
+            [time_out] => 
+            [status] => present
+            [regular_hours] => 0
+            [overtime_hours] => 0
+        )
+
+    [attendance_submission_att_67c66917327b48.49282581_expires] => 1741056579
+)
+
+[04-Mar-2025 04:27:06 Europe/Berlin] Processed input data:
+[04-Mar-2025 04:27:06 Europe/Berlin] Employee Name: n n
+[04-Mar-2025 04:27:06 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 04:27:06 Europe/Berlin] Time In: 11:27:05
+[04-Mar-2025 04:27:06 Europe/Berlin] Time Out: null
+[04-Mar-2025 04:27:06 Europe/Berlin] Employee status is not active: onleave
+[04-Mar-2025 04:27:06 Europe/Berlin] ERROR: Attendance cannot be recorded: Employee status is not active.
+[04-Mar-2025 04:27:06 Europe/Berlin] Stack trace: #0 {main}
+[04-Mar-2025 04:27:06 Europe/Berlin] Closing prepared statement
+[04-Mar-2025 04:27:06 Europe/Berlin] Closing database connection
+[04-Mar-2025 04:34:34 Europe/Berlin] 
+=== New Attendance Record Request ===
+[04-Mar-2025 04:34:34 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => u u
+    [attendanceDate] => Tuesday, March 4, 2025
+    [timeIn] => 11:34:33
+    [timeOut] => 
+    [status] => present
+)
+
+[04-Mar-2025 04:34:34 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[04-Mar-2025 04:34:34 Europe/Berlin] Processed input data:
+[04-Mar-2025 04:34:34 Europe/Berlin] Employee Name: u u
+[04-Mar-2025 04:34:34 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 04:34:34 Europe/Berlin] Time In: 11:34:33
+[04-Mar-2025 04:34:34 Europe/Berlin] Time Out: null
+[04-Mar-2025 04:34:34 Europe/Berlin] Checking for existing attendance record:
+[04-Mar-2025 04:34:34 Europe/Berlin] Employee ID: 41
+[04-Mar-2025 04:34:34 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 04:34:34 Europe/Berlin] Found existing record - ID: 63
+[04-Mar-2025 08:54:19 Europe/Berlin] 
+=== New Attendance Record Request ===
+[04-Mar-2025 08:54:19 Europe/Berlin] POST Data: Array
+(
+    [employeeName] => test11 test11
+    [attendanceDate] => Tuesday, March 4, 2025
+    [timeIn] => 15:54:17
+    [timeOut] => 
+    [status] => present
+)
+
+[04-Mar-2025 08:54:19 Europe/Berlin] Session Data: Array
+(
+    [user_id] => 31
+    [user_name] => ROBERT JHON ARACENA
+    [user_email] => r.aracena.545985@umindanao.edu.ph
+    [logged_in] => 1
+)
+
+[04-Mar-2025 08:54:19 Europe/Berlin] Processed input data:
+[04-Mar-2025 08:54:19 Europe/Berlin] Employee Name: test11 test11
+[04-Mar-2025 08:54:19 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 08:54:19 Europe/Berlin] Time In: 15:54:17
+[04-Mar-2025 08:54:19 Europe/Berlin] Time Out: null
+[04-Mar-2025 08:54:19 Europe/Berlin] Checking for existing attendance record:
+[04-Mar-2025 08:54:19 Europe/Berlin] Employee ID: 54
+[04-Mar-2025 08:54:19 Europe/Berlin] Date: 2025-03-04
+[04-Mar-2025 08:54:19 Europe/Berlin] No existing attendance record found - creating new record
+[04-Mar-2025 08:54:19 Europe/Berlin] About to execute with parameters:
+[04-Mar-2025 08:54:19 Europe/Berlin] employee_id: 54
+[04-Mar-2025 08:54:19 Europe/Berlin] date: 2025-03-04
+[04-Mar-2025 08:54:19 Europe/Berlin] time_in: 15:54:17
+[04-Mar-2025 08:54:19 Europe/Berlin] time_out: null
+[04-Mar-2025 08:54:19 Europe/Berlin] status: present
+[04-Mar-2025 08:54:19 Europe/Berlin] regular_hours: 0
+[04-Mar-2025 08:54:19 Europe/Berlin] overtime_hours: 0
+[04-Mar-2025 08:54:19 Europe/Berlin] Attendance record successfully saved
+[04-Mar-2025 08:54:19 Europe/Berlin] Closing prepared statement
+[04-Mar-2025 08:54:19 Europe/Berlin] Closing check statement
+[04-Mar-2025 08:54:19 Europe/Berlin] Closing database connection

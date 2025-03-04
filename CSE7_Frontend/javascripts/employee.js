@@ -5,6 +5,8 @@ document.addEventListener('Employeeloaded', function() {
     fetchEmployees();
     initializeEmployeeModal();
     initializePayrollModal();
+    fetchAndUpdateStats();
+
 });
 
 function calculateSalary(dailyRate, daysWorked) {
@@ -764,14 +766,6 @@ function closeAllDropdowns() {
     document.querySelector('.dropdown-backdrop')?.classList.remove('show');
 }
 
-function viewEmployeeTasks(employeeId) {
-    const employee = findEmployee(employeeId);
-    if (!employee) return;
-
-    // Implement your task viewing logic here
-    console.log(`Viewing tasks for employee: ${employee.name}`);
-    // This would typically open a modal or navigate to a task view
-}
 
 // Close modal when clicking outside or on close button
 window.addEventListener('click', function(event) {
@@ -818,3 +812,182 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize status selects
     document.querySelectorAll('.status-select-employee').forEach(updateStatusColor);
 });
+function showModal(modal) {
+    modal.style.display = "flex";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
+    modal.style.opacity = 1;
+    modal.style.visibility = "visible";
+}
+
+// Default sample data (will be overwritten by dynamic data)
+let sampleEmployee = {
+    name: "John Doe",
+    position: "Farm Supervisor",
+    avatar: "https://ui-avatars.com/api/?name=John+Doe&background=random"
+};
+
+let sampleTasks = [
+    {
+        id: 1,
+        title: "Harvest Tomatoes",
+        description: "Harvest ripe tomatoes from Field A",
+        status: "pending",
+        priority: "high",
+        startDate: "2024-01-20",
+        endDate: "2024-01-21",
+        location: "Field A"
+    },
+    {
+        id: 2,
+        title: "Apply Fertilizer",
+        description: "Apply organic fertilizer to corn field",
+        status: "in_progress",
+        priority: "medium",
+        startDate: "2024-01-19",
+        endDate: "2024-01-19",
+        location: "Field B"
+    },
+    {
+        id: 3,
+        title: "Irrigation System Check",
+        description: "Perform maintenance check on irrigation system",
+        status: "completed",
+        priority: "low",
+        startDate: "2024-01-18",
+        endDate: "2024-01-18",
+        location: "All Fields"
+    }
+];
+
+function populateTaskModal() {
+    // Set employee details
+    const employeeNameEl = document.getElementById('taskEmployeeName');
+    const employeePositionEl = document.getElementById('taskEmployeePosition');
+    const employeeAvatarEl = document.getElementById('taskEmployeeAvatar');
+
+    if (employeeNameEl) {
+        employeeNameEl.textContent = sampleEmployee.name;
+    }
+    if (employeePositionEl) {
+        employeePositionEl.textContent = sampleEmployee.position;
+    }
+    if (employeeAvatarEl) {
+        employeeAvatarEl.style.backgroundImage = `url(${sampleEmployee.avatar})`;
+    }
+
+    // Populate task list
+    const taskList = document.getElementById('taskList');
+    if (!taskList) return;
+    taskList.innerHTML = ''; // Clear existing tasks
+
+    if (Array.isArray(sampleTasks) && sampleTasks.length > 0) {
+        sampleTasks.forEach(task => {
+            const taskElement = document.createElement('div');
+            taskElement.className = `task-item ${task.status}`;
+            taskElement.innerHTML = `
+                <div class="task-header">
+                    <h4>${task.title}</h4>
+                    <span class="priority-badge ${task.priority}">${task.priority}</span>
+                </div>
+                <p>${task.description}</p>
+                <div class="task-footer">
+                    <span class="task-date">📅 ${task.startDate} - ${task.endDate}</span>
+                    <span class="task-location">📍 ${task.location}</span>
+                </div>
+            `;
+            taskList.appendChild(taskElement);
+        });
+    } else {
+        taskList.innerHTML = '<p>No tasks assigned.</p>';
+    }
+}
+
+// Add event listener for the task status filter
+document.getElementById('taskStatusFilter').addEventListener('change', function(e) {
+    const status = e.target.value;
+    const tasks = document.querySelectorAll('.task-item');
+    tasks.forEach(task => {
+        if (status === 'all' || task.classList.contains(status)) {
+            task.style.display = 'block';
+        } else {
+            task.style.display = 'none';
+        }
+    });
+});
+
+// This function is called when the "View Tasks" button is clicked
+function viewEmployeeTasks(employeeID) {
+    const viewTaskModal = document.getElementById('viewTaskModal');
+    if (!viewTaskModal) return;
+
+    // Close modal when clicking the close button
+    const closeBtn = viewTaskModal.querySelector('.close');
+    if (closeBtn) {
+        closeBtn.onclick = () => {
+            viewTaskModal.style.display = 'none';
+        };
+    }
+
+    // Attach a handler for a cancel button if one exists
+    const cancelBtn = viewTaskModal.querySelector('.cancel');
+    if (cancelBtn) {
+        cancelBtn.onclick = () => {
+            viewTaskModal.style.display = 'none';
+        };
+    }
+
+    // Fetch dynamic data and then show the modal
+    fetch(`/CSE-7/CSE7_Frontend/employee_folder/get_employee_task.php?employee_id=${employeeID}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                sampleEmployee = data.employee;
+                sampleTasks = data.tasks;
+                populateTaskModal();
+            } else {
+                console.error("Error fetching tasks:", data.message);
+            }
+            showModal(viewTaskModal);
+        })
+        .catch(error => {
+            console.error("Fetch error:", error);
+            showModal(viewTaskModal);
+        });
+}
+
+
+// Function to update stat cards
+function updateStats(stats) {
+    // Select each stat card's value element
+    const totalEmployeesEl = document.querySelector('.employee-stats .stat-card:nth-child(1) .stat-value');
+    const activeTodayEl    = document.querySelector('.employee-stats .stat-card:nth-child(2) .stat-value');
+    const onLeaveEl        = document.querySelector('.employee-stats .stat-card:nth-child(3) .stat-value');
+    const totalPayrollEl   = document.querySelector('.employee-stats .stat-card:nth-child(4) .stat-value');
+
+    if (totalEmployeesEl) totalEmployeesEl.textContent = stats.totalEmployees;
+    if (activeTodayEl)    activeTodayEl.textContent = stats.activeToday;
+    if (onLeaveEl)        onLeaveEl.textContent = stats.onLeave;
+    if (totalPayrollEl)   totalPayrollEl.textContent = stats.totalPayroll;
+    console.log("Employee payroll: " + stats.totalPayroll);
+    console.log("Employee On leave: " + stats.onLeave);
+}
+
+// Function to fetch stats from the backend API and update the cards
+function fetchAndUpdateStats() {
+    // Replace the URL below with your actual backend API endpoint
+    fetch('/CSE-7/CSE7_Frontend/employee_folder/get_employee_stats.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Assume your API returns a JSON object like:
+                // { success: true, stats: { totalEmployees: 24, activeToday: 18, onLeave: 3, totalPayroll: "₱45,200" } }
+                updateStats(data.stats);
+            } else {
+                console.error("Failed to load stats:", data.message);
+            }
+        })
+        .catch(error => console.error("Error fetching stats:", error));
+}
+
+// Call this function on page load or whenever you need to refresh the stats

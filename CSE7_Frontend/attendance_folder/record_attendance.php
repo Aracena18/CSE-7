@@ -39,6 +39,7 @@ try {
     }
 
     $employeeName = trim($_POST['employeeName']);
+    // Convert the attendance date into Y-m-d format
     $attendanceDate = date('Y-m-d', strtotime(str_replace(',', '', $_POST['attendanceDate'])));
     $timeIn = !empty($_POST['timeIn']) ? date('H:i:s', strtotime($_POST['timeIn'])) : null;
     $timeOut = !empty($_POST['timeOut']) ? date('H:i:s', strtotime($_POST['timeOut'])) : null;
@@ -53,8 +54,8 @@ try {
     // Normalize the employee name by trimming excess spaces and converting to a standard case
     $employeeName = trim(preg_replace('/\s+/', ' ', $employeeName));
 
-    // Get employee_id using the name column
-    $stmt = $conn->prepare("SELECT emp_id FROM employees WHERE LOWER(TRIM(name)) = LOWER(?)");
+    // Get employee_id and status using the name column
+    $stmt = $conn->prepare("SELECT emp_id, status FROM employees WHERE LOWER(TRIM(name)) = LOWER(?)");
     if (!$stmt) {
         throw new Exception("Database prepare failed: " . $conn->error);
     }
@@ -73,8 +74,15 @@ try {
     
     $employee = $result->fetch_assoc();
     $employee_id = $employee['emp_id'];
+    $employeeStatus = strtolower(trim($employee['status']));
 
-    // Calculate working hours if both time_in and time_out are present
+    // Only allow attendance submission if the employee status is active.
+    if ($employeeStatus !== 'active') {
+        writeLog("Employee status is not active: " . $employee['status']);
+        throw new Exception("Attendance cannot be recorded: Employee status is not active.");
+    }
+
+    // Calculate working hours if both timeIn and timeOut are present
     $regular_hours = 0;
     $overtime_hours = 0;
     
@@ -89,10 +97,8 @@ try {
     }
 
     // Check for existing attendance record (only allow one record per day)
-    // Note: `date` is a reserved keyword, so it is escaped with backticks.
     $checkQuery = "SELECT id, time_in, time_out, status FROM attendance 
-                   WHERE employee_id = ? 
-                   AND DATE(`date`) = DATE(?)";
+                   WHERE employee_id = ? AND `date` = ?";
     $check_stmt = $conn->prepare($checkQuery);
     if (!$check_stmt) {
         throw new Exception("Failed to prepare check statement: " . $conn->error);
@@ -110,8 +116,8 @@ try {
         $record = $existing_record->fetch_assoc();
         writeLog("Found existing record - ID: " . $record['id']);
         echo json_encode([
-            "success" => true,
-            "message" => "Employee already have an attendance for today",
+            "success" => false,
+            "message" => "Cannot add attendance twice a day",
             "requestId" => $requestId,
             "data" => [
                 "employee_id" => $employee_id,
@@ -125,8 +131,7 @@ try {
     } else {
         writeLog("No existing attendance record found - creating new record");
         // Create new record
-        $stmt = $conn->prepare("INSERT INTO attendance (employee_id, date, time_in, time_out, status, 
-                               regular_hours, overtime_hours) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO attendance (employee_id, `date`, time_in, time_out, status, regular_hours, overtime_hours) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("issssdd", 
             $employee_id,
             $attendanceDate,

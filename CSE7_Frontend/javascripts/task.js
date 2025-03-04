@@ -61,7 +61,7 @@ function initializeTaskModal() {
         closeBtn.onclick = function () {
             modal.style.display = "none";
             form.reset();
-        }
+        };
 
         // Close modal when cancel button is clicked
         if (cancelBtn) {
@@ -79,7 +79,7 @@ function initializeTaskModal() {
             }
         };
 
-        // Form submission handler
+        // *** SINGLE form submission handler ***
         form.addEventListener("submit", function (event) {
             event.preventDefault();
             const formData = new FormData(form);
@@ -121,7 +121,7 @@ document.addEventListener('taskloaded', function() {
     
     // Initialize task modal
     initializeTaskModal();
-    initializeEditTaskModal(); // Add this line
+    initializeEditTaskModal(); // Add this line if edit modal initialization exists
     fetchTask();
     // Initialize priority dropdowns
     const prioritySelects = document.querySelectorAll('.priority-select');
@@ -140,11 +140,11 @@ document.addEventListener('taskloaded', function() {
 
 // Listen for task added event to refresh task list
 document.addEventListener('taskAdded', function() {
-    // Add function to refresh task list here
     if (typeof fetchTask === 'function') {
         fetchTask();
     }
 });
+
 function fetchTask() {
     fetch("/CSE-7/CSE7_Frontend/tasks_folder/get_tasks.php")
         .then(response => response.json())
@@ -234,16 +234,12 @@ function formatDate(dateString) {
 
 // Change color function for priority and status
 function changePriorityColor(select) {
-    // Remove all existing priority classes
     select.classList.remove('high', 'medium', 'low');
-    // Add the selected class
     select.classList.add(select.value);
 }
 
 function changeStatusColor(select) {
-    // Remove all existing status classes
     select.classList.remove('todo', 'inprogress', 'completed', 'onhold');
-    // Add the selected class
     select.classList.add(select.value);
 }
 
@@ -260,13 +256,12 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', fetchTask);
 document.addEventListener('taskAdded', fetchTask);
 
-// Replace existing color change functions with these updated versions
+// Updated color change functions
 function updatePriorityColor(select) {
     const value = select.value;
-    select.className = 'priority-select'; // Reset classes
+    select.className = 'priority-select';
     select.classList.add(value);
 
-    // Apply color styles based on priority
     const styles = {
         high: { color: '#ca0000', background: '#ffeded' },
         medium: { color: '#ca6f00', background: '#fff3e0' },
@@ -277,6 +272,7 @@ function updatePriorityColor(select) {
     select.style.color = style.color;
     select.style.backgroundColor = style.background;
 }
+
 function updateTaskPriority(taskId, priority) {
     fetch(`/CSE-7/CSE7_Frontend/tasks_folder/update_task.php`, {
         method: 'POST',
@@ -293,7 +289,7 @@ function updateTaskPriority(taskId, priority) {
     .then(data => {
         if (data.success) {
             console.log('Priority updated successfully');
-            fetchTask(); // Refresh the table
+            fetchTask();
         } else {
             alert('Failed to update priority: ' + data.message);
         }
@@ -305,7 +301,6 @@ function updateTaskPriority(taskId, priority) {
 }
 
 function updateTaskStatus(taskId, status) {
-    // Handle both checkbox and dropdown status updates
     const isCheckbox = typeof status === 'boolean';
     const updateData = isCheckbox ? 
         { id: taskId, type: 'completed', value: status } :
@@ -322,7 +317,6 @@ function updateTaskStatus(taskId, status) {
     .then(data => {
         if (data.success) {
             console.log('Status updated successfully');
-
             if (isCheckbox && status === true) {
                 const statusSelect = document.getElementById(`status-select-${taskId}`);
                 if (statusSelect) {
@@ -330,8 +324,7 @@ function updateTaskStatus(taskId, status) {
                     updateStatusColor(statusSelect);
                 }
             }
-            
-            fetchTask(); // Refresh the table
+            fetchTask();
         } else {
             alert('Failed to update status: ' + data.message);
         }
@@ -344,10 +337,9 @@ function updateTaskStatus(taskId, status) {
 
 function updateStatusColor(select) {
     const value = select.value;
-    select.className = 'status-select'; // Reset classes
+    select.className = 'status-select';
     select.classList.add(value);
 
-    // Apply color styles based on status
     const styles = {
         todo: { color: '#5856d6', background: '#eeeeff' },
         inprogress: { color: '#007aff', background: '#e6f2ff' },
@@ -360,8 +352,6 @@ function updateStatusColor(select) {
     select.style.backgroundColor = style.background;
 }
 
-
-// Add these new handler functions
 function handlePriorityChange(select, taskId) {
     updatePriorityColor(select);
     updateTaskPriority(taskId, select.value);
@@ -372,15 +362,6 @@ function handleStatusChange(select, taskId) {
     updateTaskStatus(taskId, select.value);
 }
 
-// Update the initialization event listener
-document.addEventListener('DOMContentLoaded', function() {
-    fetchTask();
-    
-    // Initialize any existing selects
-    document.querySelectorAll('.priority-select').forEach(updatePriorityColor);
-    document.querySelectorAll('.status-select').forEach(updateStatusColor);
-});
-
 function deleteTask(id) {
     if (!confirm("Are you sure you want to delete this task?")) return;
 
@@ -390,9 +371,9 @@ function deleteTask(id) {
     .then(response => response.json())
     .then(data => {
         alert(data.message);
-        if (data.success) fetchTask(); // Reload Task
+        if (data.success) fetchTask();
     })
-    .catch(error => console.error("Error deleting crop:", error));
+    .catch(error => console.error("Error deleting task:", error));
 }
 
 function editTask(taskId) {
@@ -401,18 +382,17 @@ function editTask(taskId) {
         return;
     }
 
-    console.log('Fetching task with ID:', taskId); // Debug log
+    console.log('Fetching task with ID:', taskId);
 
     fetch(`/CSE-7/CSE7_Frontend/tasks_folder/get_task.php?id=${taskId}`)
         .then(response => response.json())
         .then(data => {
-            console.log('Received task data:', data); // Debug log
+            console.log('Received task data:', data);
             
             if (!data.success) {
                 throw new Error(data.message || 'Failed to fetch task data');
             }
             
-            // Ensure we're using the correct data structure
             const taskData = data.task || data.data;
             if (!taskData || !taskData.id) {
                 throw new Error('Invalid task data received');
@@ -434,9 +414,8 @@ function populateEditTaskForm(task) {
         return;
     }
 
-    console.log('Populating form with task:', task); // Debug log
+    console.log('Populating form with task:', task);
 
-    // Create hidden input for task ID if it doesn't exist
     let taskIdInput = form.querySelector('input[name="taskId"]');
     if (!taskIdInput) {
         taskIdInput = document.createElement('input');
@@ -446,11 +425,9 @@ function populateEditTaskForm(task) {
         form.appendChild(taskIdInput);
     }
 
-    // Set task ID value
     taskIdInput.value = task.id;
-    console.log('Set task ID to:', task.id); // Debug log
+    console.log('Set task ID to:', task.id);
 
-    // Map and update form fields
     const fieldMappings = {
         'taskDescription': task.description,
         'assignedTo': task.assigned_to,
@@ -461,18 +438,16 @@ function populateEditTaskForm(task) {
         'taskLocation': task.location
     };
 
-    // Update each field and log the values
     Object.entries(fieldMappings).forEach(([fieldId, value]) => {
         const input = form.querySelector(`#${fieldId}`);
         if (input) {
             input.value = value || '';
-            console.log(`Set ${fieldId} to:`, value); // Debug log
+            console.log(`Set ${fieldId} to:`, value);
         } else {
             console.warn(`Field ${fieldId} not found`);
         }
     });
 
-    // Update dropdown colors
     const prioritySelect = form.querySelector('.priority-select');
     const statusSelect = form.querySelector('.status-select');
     if (prioritySelect) updatePriorityColor(prioritySelect);
@@ -507,7 +482,6 @@ function initializeEditTaskModal() {
         return;
     }
 
-    // Form submission handler
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -522,7 +496,6 @@ function initializeEditTaskModal() {
 
         const formData = new FormData(this);
         
-        // Log form data for debugging
         for (let pair of formData.entries()) {
             console.log(pair[0], pair[1]);
         }
@@ -552,14 +525,12 @@ function initializeEditTaskModal() {
         });
     });
 
-    // Close button handlers
     const closeBtn = modal.querySelector(".close");
     const cancelBtn = modal.querySelector(".cancel");
 
     closeBtn?.addEventListener('click', closeEditTaskModal);
     cancelBtn?.addEventListener('click', closeEditTaskModal);
 
-    // Close on outside click
     window.addEventListener('click', (e) => {
         if (e.target === modal) {
             closeEditTaskModal();
@@ -567,7 +538,7 @@ function initializeEditTaskModal() {
     });
 }
 
-// Add this function to load crops into select fields
+// Load crops into select fields when modals are opened
 function loadCrops() {
     fetch('/CSE-7/CSE7_Backend/api/crops/get_crops.php')
         .then(response => response.json())
@@ -575,11 +546,9 @@ function loadCrops() {
             const cropSelect = document.getElementById('cropSelect');
             const cropSelectEdit = document.getElementById('cropSelectEdit');
             
-            // Clear existing options
             cropSelect.innerHTML = '<option value="">Select Crop</option>';
             cropSelectEdit.innerHTML = '<option value="">Select Crop</option>';
             
-            // Add crop options
             crops.forEach(crop => {
                 const option = new Option(crop.crop_name, crop.id);
                 const optionEdit = new Option(crop.crop_name, crop.id);
@@ -590,42 +559,15 @@ function loadCrops() {
         .catch(error => console.error('Error loading crops:', error));
 }
 
-// Call loadCrops when the modals are opened
+// Load crops when modals are opened
 document.addEventListener('DOMContentLoaded', function() {
-    // ...existing code...
-    
-    // Add crop loading when add task modal is opened
     document.getElementById('addTaskBtn').addEventListener('click', function() {
         loadCrops();
-        // ...existing modal open code...
     });
     
-    // Add crop loading when edit task modal is opened
     document.querySelectorAll('.edit-task-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             loadCrops();
-            // ...existing edit modal open code...
         });
     });
-});
-
-// Update your task submission handlers to include the crop data
-// In your addTaskForm submit handler:
-document.getElementById('addTaskForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = {
-        // ...existing form data...
-        crop_id: document.getElementById('cropSelect').value,
-    };
-    // ...rest of submission code...
-});
-
-// In your editTaskForm submit handler:
-document.getElementById('EditTaskForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = {
-        // ...existing form data...
-        crop_id: document.getElementById('cropSelectEdit').value,
-    };
-    // ...rest of submission code...
 });
