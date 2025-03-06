@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
@@ -47,25 +47,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->execute();
     $stmt->store_result();
 
+    $employeeData = null; // Will hold employee details if available
+    // Query to fetch the associated employee record (including its user_id)
+    $empQuery = "SELECT emp_id, position, user_id FROM employees WHERE email = ?";
+
     if ($stmt->num_rows > 0) {
         // User exists - verify Google ID
         $stmt->bind_result($user_id, $db_name, $db_email, $db_google_id);
         $stmt->fetch();
 
         if ($db_google_id === $google_id) {
-            // Set session variables
+            // Set session variables initially with user's id
             $_SESSION['user_id'] = $user_id;
             $_SESSION['user_name'] = $db_name;
             $_SESSION['user_email'] = $db_email;
             $_SESSION['logged_in'] = true;
 
+            // Look for matching employee in the employees table
+            $empStmt = $conn->prepare($empQuery);
+            $empStmt->bind_param("s", $email);
+            $empStmt->execute();
+            $empStmt->store_result();
+            if ($empStmt->num_rows > 0) {
+                $empStmt->bind_result($emp_id, $position, $emp_user_id);
+                $empStmt->fetch();
+                $employeeData = [
+                    "emp_id"   => $emp_id,
+                    "position" => $position,
+                    "user_id"  => $emp_user_id
+                ];
+                // If an employee record is found, override the session user_id with the employee's associated user_id.
+                $_SESSION['user_id'] = $emp_user_id;
+            }
+            $empStmt->close();
+
             echo json_encode([
                 "success" => true,
                 "user" => [
-                    "id" => $user_id,
-                    "name" => $db_name,
+                    "id"    => $_SESSION['user_id'], // Now set to employee's associated user_id if available.
+                    "name"  => $db_name,
                     "email" => $db_email
                 ],
+                "employee" => $employeeData,
                 "redirect_url" => "/CSE-7/CSE7_Frontend/homepage.php"
             ]);
         } else {
@@ -86,14 +109,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_email'] = $email;
             $_SESSION['logged_in'] = true;
 
+            // Look for matching employee in the employees table
+            $empStmt = $conn->prepare($empQuery);
+            $empStmt->bind_param("s", $email);
+            $empStmt->execute();
+            $empStmt->store_result();
+            if ($empStmt->num_rows > 0) {
+                $empStmt->bind_result($emp_id, $position, $emp_user_id);
+                $empStmt->fetch();
+                $employeeData = [
+                    "emp_id"   => $emp_id,
+                    "position" => $position,
+                    "user_id"  => $emp_user_id
+                ];
+                // Override session user_id if an employee record exists
+                $_SESSION['user_id'] = $emp_user_id;
+                $_SESSION['emp_id'] = $emp_id;
+            }
+            $empStmt->close();
+
             echo json_encode([
                 "success" => true,
                 "message" => "New user created",
                 "user" => [
-                    "id" => $newUserId,
-                    "name" => $name,
-                    "email" => $email
+                    "id"    => $_SESSION['user_id'],
+                    "name"  => $name,
+                    "email" => $email,
+                    "redirect_url" => "/CSE-7/CSE7_Frontend/dashboard.php"
                 ],
+                "employee" => $employeeData,
                 "redirect_url" => "/CSE-7/CSE7_Frontend/homepage.php"
             ]);
         } else {

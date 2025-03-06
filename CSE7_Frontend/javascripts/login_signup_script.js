@@ -1,59 +1,75 @@
 window.onload = function() {
     console.log("Page fully loaded!");
 
-    // Ensure Google API is loaded before initializing
-    setTimeout(() => {
-        if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
-            initializeGoogle();
-        } else {
-            console.error("Google API not loaded yet!");
-        }
-    }, 1000);
-
-    // Login Form Handling
-    const loginForm = document.getElementById("loginUserForm");
-
-    if (loginForm) {
-        loginForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            console.log("Login form submitted!");
-
-            let email = document.getElementById("userEmail").value;
-            let password = document.getElementById("userPassword").value;
-
-            let formData = new FormData();
-            formData.append("email", email);
-            formData.append("password", password);
-
-            fetch("/CSE-7/CSE7_Frontend/login_pro.php", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Server Response:", data);
-
-                if (data.success) { // Changed from data.login to match PHP response
-                    const name = data.user.name; // Access name from user object
-                    const message = "Welcome " + name;
-                    alert(message);
-                    setTimeout(() => {
-                        window.location.href = "/CSE-7/CSE7_Frontend/homepage.php"; // Use URL from response
-                    }, 500); // Small delay to ensure alert is seen
-                } 
-                else {
-                    alert("Login failed: " + (data.message || "Invalid credentials"));
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("An error occurred while logging in. Please try again.");
-            });
-        });
+    // Initialize Google API (if not ready, try again after a short delay)
+    if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+        initializeGoogle();
     } else {
-        console.error("Error: loginUserForm not found in the DOM!");
+        // Fallback: wait 1 second and check again
+        setTimeout(() => {
+            if (typeof google !== 'undefined' && google.accounts && google.accounts.id) {
+                initializeGoogle();
+            } else {
+                console.error("Google API not loaded yet!");
+            }
+        }, 1000);
     }
+
+    
+   
 };
+
+
+document.addEventListener('loginLoaded', function(){
+    // Login Form Handling
+const loginUserForm = document.getElementById("loginUserForm");
+
+if (loginUserForm) {
+    console.log("Login Form found:"+ loginUserForm);
+    loginUserForm.addEventListener("submit", async function(event) {
+       event.preventDefault();
+       console.log("Login form submitted!");
+
+       const email = document.getElementById("userEmail").value;
+       const password = document.getElementById("userPassword").value;
+
+       const formData = new FormData();
+       formData.append("email", email);
+       formData.append("password", password);
+
+       try {
+           const response = await fetch("/CSE-7/CSE7_Frontend/login_cred.php", {
+               method: "POST",
+               body: formData
+           });
+           const data = await response.json();
+           console.log("Server Response:", data);
+
+           if (data.success) {
+               const name = data.user.name;
+               alert("Welcome " + name);
+               setTimeout(() => {
+                 // Check if an employee object exists. If so, redirect to dashboard; otherwise, homepage.
+                 if (data.employee) {
+                   console.log("Redirecting to dashboard...");
+                   window.location.href = "/CSE-7/CSE7_Frontend/dashboard.php";
+                 } else {
+                   window.location.href = "/CSE-7/CSE7_Frontend/homepage.php";
+                 }
+               }, 500);
+           } else {
+               alert("Login failed: " + (data.message || "Invalid credentials"));
+           }
+       } catch (error) {
+           console.error("Error:", error);
+           alert("An error occurred while logging in. Please try again.");
+       }
+   });
+} else {
+   console.error("Error: loginUserForm not found in the DOM!");
+}
+});
+
 
 // Google Sign-In Initialization
 function initializeGoogle() {
@@ -68,11 +84,21 @@ function initializeGoogle() {
         const loginButton = document.getElementById("gsi_button_login");
 
         if (signUpButton) {
-            google.accounts.id.renderButton(signUpButton, { theme: "outline", size: "large", type: "standard", text: "signup_with" });
+            google.accounts.id.renderButton(signUpButton, { 
+                theme: "outline", 
+                size: "large", 
+                type: "standard", 
+                text: "signup_with" 
+            });
         }
 
         if (loginButton) {
-            google.accounts.id.renderButton(loginButton, { theme: "outline", size: "large", type: "standard", text: "signin_with" });
+            google.accounts.id.renderButton(loginButton, { 
+                theme: "outline", 
+                size: "large", 
+                type: "standard", 
+                text: "signin_with" 
+            });
         }
     } else {
         console.error('Google Identity Services not loaded');
@@ -106,9 +132,7 @@ function handleCredentialResponse(response) {
         if (data.success) {
             const name = data.user.name;
             alert("Welcome " + name);
-            // Allow alert to be shown before redirect
             setTimeout(() => {
-                // Use the redirect URL from server response
                 window.location.href = data.redirect_url;
             }, 500);
         } else {
@@ -129,6 +153,7 @@ function toggleLogin(url) {
         fetch(url)
             .then(response => response.text())
             .then(data => {
+                
                 loginForm.innerHTML = data;
                 container.classList.add('active');
                 document.body.style.overflow = 'hidden';

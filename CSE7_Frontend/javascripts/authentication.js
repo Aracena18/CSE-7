@@ -12,6 +12,8 @@ async function toggleLogin(content) {
             SignUpForm.style.display = 'none';
             SignUpForm.style.zIndex = -1;
             initializeGoogle(); // Initialize after content is loaded
+            console.log("Log in loaded");
+            document.dispatchEvent(new CustomEvent('loginLoaded'));
         } else {
             loginForm.style.display = 'none';
         }

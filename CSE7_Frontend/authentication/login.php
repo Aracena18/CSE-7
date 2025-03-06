@@ -80,7 +80,8 @@
             </div>
             </div>
         </div>
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        
+        <script src="https://accounts.google.com/gsi/client" async defer onload="initializeGoogle()"></script>          
         <script src="../CSE7_Frontend/javascripts/login_signup_script.js" defer></script>
 
         

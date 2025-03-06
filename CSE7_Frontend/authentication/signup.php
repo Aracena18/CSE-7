@@ -32,7 +32,7 @@
         <input type="text" name="name" class="enter-your-email-wrapper" placeholder="Enter your name" required>
       </div>
       <div class="username-parent">
-        <div class="username">Email</div>
+        <div class="email">Email</div>
         <input type="email" name="email" class="enter-your-email-wrapper" placeholder="Enter your email" required>
       </div>
       <div class="password-parent">
@@ -82,7 +82,8 @@
 </div>
 </div>
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script src="https://accounts.google.com/gsi/client" async defer onload="initializeGoogle()"></script>
 <script src="../CSE7_Frontend\javascripts\login_signup_script.js"></script>
 </body>
 </html>

@@ -114,8 +114,9 @@
   </div>
 
 
-<!-- Load Google Identity Services -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<script src="https://accounts.google.com/gsi/client" async defer onload="initializeGoogle()"></script>
+
 
 <script src="/CSE-7/CSE7_Frontend/javascripts/login_signup_script.js"></script>
 <script src="/CSE-7/CSE7_Frontend/javascripts/authentication.js"></script>
