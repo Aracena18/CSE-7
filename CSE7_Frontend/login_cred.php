@@ -55,7 +55,7 @@ if ($empStmt->num_rows > 0) {
     if (password_verify($password, $emp_hashed_password)) {
         // Employee login successful:
         // Update the session: set the session user_id to the employee's associated user_id.
-        
+        $_SESSION['user_id'] = $emp_user_id;
         $_SESSION['emp_id']  = $emp_id;
         $_SESSION['user_name'] = $emp_name;
         $_SESSION['user_email'] = $emp_email;
@@ -65,10 +65,10 @@ if ($empStmt->num_rows > 0) {
          $positionLower = strtolower(trim($position));
          if ($positionLower === "farm supervisor") {
              $redirectUrl = "/CSE-7/CSE7_Frontend/dashboard.php";
-             $_SESSION['user_id_supervisor'] = $emp_user_id;
+
          } else {
              $redirectUrl = "/CSE-7/CSE7_Frontend/employee_dashboard.php";
-             $_SESSION['user_id_normal'] = $emp_user_id;
+
          }
 
         echo json_encode([

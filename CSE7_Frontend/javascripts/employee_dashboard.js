@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () { 
     // Initialize variables
     const tasksList = document.getElementById("employeeTaskList");
     const taskStatusFilter = document.getElementById("taskStatusFilter");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
             taskUpdateModal.style.display = "none";
         });
 
-        // Form submission for task update
+        // Form submission for task update (proof submission)
         taskUpdateForm.addEventListener("submit", handleTaskUpdate);
 
         // Sidebar toggle
@@ -138,13 +138,14 @@ document.addEventListener("DOMContentLoaded", function () {
         taskUpdateModal.style.display = "block";
     };
 
-    // Handle task update submission (e.g., when marking a task as done with proof)
+    // Handle task update submission (submitting proof of task completion)
     async function handleTaskUpdate(e) {
         e.preventDefault();
         const formData = new FormData(taskUpdateForm);
         formData.append("task_id", currentTaskId);
 
         try {
+            // Using the endpoint that handles file upload and task update
             const response = await fetch(`/CSE-7/CSE7_Frontend/tasks_folder/submit_task_update.php`, {
                 method: "POST",
                 body: formData

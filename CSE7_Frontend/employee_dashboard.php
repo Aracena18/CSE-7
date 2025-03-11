@@ -141,7 +141,7 @@
         <div class="modal-content">
             <span class="close-modal">&times;</span>
             <h2>Complete Task</h2>
-            <form id="taskUpdateForm">
+            <form id="taskUpdateForm" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="taskNotes">Completion Notes:</label>
                     <textarea id="taskNotes" name="taskNotes" rows="4" placeholder="Describe how you completed the task..."></textarea>
@@ -149,7 +149,7 @@
                 <div class="form-group">
                     <label for="taskImages">Upload Proof of Work:</label>
                     <div class="file-upload-container">
-                        <input type="file" id="taskImages" name="taskImages" multiple accept="image/*" required>
+                    <input type="file" name="taskImages[]" multiple accept="image/*" required>
                         <label for="taskImages" class="file-upload-label">
                             <i class="fas fa-cloud-upload-alt"></i>
                             <span>Click to upload or drag and drop</span>

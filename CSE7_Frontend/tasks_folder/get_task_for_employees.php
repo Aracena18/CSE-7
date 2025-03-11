@@ -4,7 +4,7 @@ header("Content-Type: application/json");
 require_once "db_config_task.php";
 
 // Check if employee is logged in
-if (!isset($_SESSION['user_id_normal']) || !isset($_SESSION['emp_id'])) {
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['emp_id'])) {
     http_response_code(401);
     echo json_encode(["success" => false, "message" => "Unauthorized"]);
     exit();
