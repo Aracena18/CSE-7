@@ -165,11 +165,6 @@ function fetchTask() {
             response.data.forEach(task => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td class="checkbox-column">
-                        <input type="checkbox" class="task-checkbox" 
-                               ${task.completed ? 'checked' : ''} 
-                               onchange="updateTaskStatus(${task.id}, this.checked)">
-                    </td>
                     <td class="description-column">${task.description}</td>
                     <td>${task.assigned_to}</td>
                     <td>${task.location}</td>
@@ -183,12 +178,7 @@ function fetchTask() {
                         </select>
                     </td>
                     <td>
-                        <select id="status-select-${task.id}" class="status-select" onchange="handleStatusChange(this, ${task.id})">
-                            <option id="todo" value="todo" ${task.status === 'todo' ? 'selected' : ''}>To Do</option>
-                            <option id="inprogress" value="inprogress" ${task.status === 'inprogress' ? 'selected' : ''}>In Progress</option>
-                            <option id="completed" value="completed" ${task.status === 'completed' ? 'selected' : ''}>Completed</option>
-                            <option id="onhold" value="onhold" ${task.status === 'onhold' ? 'selected' : ''}>On Hold</option>
-                        </select>
+                        <span class="status-badge ${task.status}">${getStatusDisplay(task.status)}</span>
                     </td>
                     <td>
                         <div class="action-buttons">
@@ -201,11 +191,9 @@ function fetchTask() {
                 tbody.appendChild(row);
 
                 // Initialize colors for newly added row
-                const prioritySelect = row.querySelector('.priority-select');
-                const statusSelect = row.querySelector('.status-select');
+                const prioritySelect = row.querySelector('.priority-select');;
                 
                 updatePriorityColor(prioritySelect);
-                updateStatusColor(statusSelect);
 
                 const editBtn = row.querySelector('.edit-btn');
                 if (editBtn) {
@@ -571,3 +559,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Add this helper function to format status display text
+function getStatusDisplay(status) {
+    const statusMap = {
+        pending: "NEW TASK",
+        in_progress: "IN PROGRESS",
+        for_review: "PENDING REVIEW",
+        approved: "COMPLETED",
+        rejected: "REJECTED"
+    };
+    return statusMap[status] || status.toUpperCase();
+}

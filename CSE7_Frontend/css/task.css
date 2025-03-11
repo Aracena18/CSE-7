@@ -147,58 +147,48 @@ tr:hover {
     background-color: #e8f5e9;
 }
 
+/* Remove old status select styles and add new status badge styles */
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 /* Status Colors */
-.status-select.todo {
-    color: #5856d6;
+.status-badge.pending {
     background-color: #eeeeff;
+    color: #5856d6;
 }
 
-.status-select.inprogress {
-    color: #007aff;
+.status-badge.in_progress {
     background-color: #e6f2ff;
+    color: #007aff;
 }
 
-.status-select.completed {
-    color: #4cd964;
-    background-color: #e8f5e9;
-}
-
-.status-select.onhold {
-    color: #ff9500;
+.status-badge.for_review {
     background-color: #fff3e0;
+    color: #ff9500;
 }
 
-#high {
-    background-color: #ffcccc;
-    color: #a10000;
-}
-
-#medium {
-    background-color: #fff3cd;
-    color: #8a6d3b;
-}
-
-#low {
-    background-color: #d4edda;
-    color: #155724;
-}
-
-#todo {
-    background-color: #eeeeff;
-    color: #5856d6;
-}
-
-#inprogress {
-    background-color: #e6f2ff;
-    color: #007aff;
-}
-
-#completed {
+.status-badge.approved {
     background-color: #e8f5e9;
     color: #4cd964;
 }
 
+.status-badge.rejected {
+    background-color: #ffeded;
+    color: #ca0000;
+}
+
+/* Remove old status styles */
+.status-select,
+#todo,
+#inprogress,
+#completed,
 #onhold {
-    background-color: #fff3e0;
-    color: #ff9500;
+    display: none;
 }

@@ -69,7 +69,7 @@
       </nav>
 
       <div class="sidebar-footer">
-        <a href="#" class="logout-link">
+        <a href="/CSE-7/CSE7_Frontend/authentication/logout.php" class="logout-link">
           <i class="fas fa-sign-out-alt"></i> 
           <span>Logout</span>
         </a>

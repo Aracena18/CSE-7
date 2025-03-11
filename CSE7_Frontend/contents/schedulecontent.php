@@ -40,7 +40,6 @@
                 <table class="tasks-table">
                     <thead>
                         <tr>
-                            <th class="checkbox-column"></th>
                             <th class="description-column">Description</th>
                             <th>Assigned To</th>
                             <th>Location</th>  <!-- Added Location column -->

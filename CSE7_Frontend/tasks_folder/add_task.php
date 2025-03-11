@@ -62,7 +62,7 @@ try {
     $startDate = $_POST["startDate"];
     $endDate = $_POST["endDate"];
     $priority = $_POST["priority"];
-    $status = $_POST["status"];
+    $status ="pending";
     $location = $_POST["taskLocation"];
     $completed = 0;
 

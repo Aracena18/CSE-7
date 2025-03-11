@@ -1063,3 +1063,150 @@ button:hover {
   outline: none;
   border-color: #3b82f6;
 }
+
+/* Employee Task Grid Styles */
+.employee-task-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.task-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.tasks-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin: 0 1.5rem;
+}
+
+/* Time Record Styles */
+.attendance-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin: 1.5rem;
+}
+
+.time-record-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.current-date {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.time-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.time-action-card {
+    background: var(--light-green);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.time-display {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-green);
+    margin: 1rem 0;
+}
+
+.time-btn {
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.time-btn:hover {
+    background: var(--secondary-green);
+}
+
+.time-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Task Update Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    margin: 2rem auto;
+}
+
+.close-modal {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.btn-submit {
+    background: var(--primary-green);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+}

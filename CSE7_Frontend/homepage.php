@@ -172,15 +172,6 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" name="status" class="status-select" onchange="changeStatusColor(this)" required>
-                        <option value="todo" class="todo">To Do</option>
-                        <option value="inprogress" class="inprogress">In Progress</option>
-                        <option value="completed" class="completed">Completed</option>
-                        <option value="onhold" class="onhold">On Hold</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label for="taskLocation">Location</label>
                     <input type="text" id="taskLocation" name="taskLocation" required>
                 </div>

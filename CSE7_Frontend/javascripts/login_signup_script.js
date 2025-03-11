@@ -14,62 +14,51 @@ window.onload = function() {
             }
         }, 1000);
     }
-
-    
-   
 };
-
 
 document.addEventListener('loginLoaded', function(){
     // Login Form Handling
-const loginUserForm = document.getElementById("loginUserForm");
+    const loginUserForm = document.getElementById("loginUserForm");
 
-if (loginUserForm) {
-    console.log("Login Form found:"+ loginUserForm);
-    loginUserForm.addEventListener("submit", async function(event) {
-       event.preventDefault();
-       console.log("Login form submitted!");
+    if (loginUserForm) {
+        console.log("Login Form found:" + loginUserForm);
+        loginUserForm.addEventListener("submit", async function(event) {
+            event.preventDefault();
+            console.log("Login form submitted!");
 
-       const email = document.getElementById("userEmail").value;
-       const password = document.getElementById("userPassword").value;
+            const email = document.getElementById("userEmail").value;
+            const password = document.getElementById("userPassword").value;
 
-       const formData = new FormData();
-       formData.append("email", email);
-       formData.append("password", password);
+            const formData = new FormData();
+            formData.append("email", email);
+            formData.append("password", password);
 
-       try {
-           const response = await fetch("/CSE-7/CSE7_Frontend/login_cred.php", {
-               method: "POST",
-               body: formData
-           });
-           const data = await response.json();
-           console.log("Server Response:", data);
+            try {
+                const response = await fetch("/CSE-7/CSE7_Frontend/login_cred.php", {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await response.json();
+                console.log("Server Response:", data);
 
-           if (data.success) {
-               const name = data.user.name;
-               alert("Welcome " + name);
-               setTimeout(() => {
-                 // Check if an employee object exists. If so, redirect to dashboard; otherwise, homepage.
-                 if (data.employee) {
-                   console.log("Redirecting to dashboard...");
-                   window.location.href = "/CSE-7/CSE7_Frontend/dashboard.php";
-                 } else {
-                   window.location.href = "/CSE-7/CSE7_Frontend/homepage.php";
-                 }
-               }, 500);
-           } else {
-               alert("Login failed: " + (data.message || "Invalid credentials"));
-           }
-       } catch (error) {
-           console.error("Error:", error);
-           alert("An error occurred while logging in. Please try again.");
-       }
-   });
-} else {
-   console.error("Error: loginUserForm not found in the DOM!");
-}
+                if (data.success) {
+                    alert("Welcome " + data.user.name);
+                    setTimeout(() => {
+                        // Use the redirect_url provided by the backend.
+                        window.location.href = data.redirect_url;
+                    }, 500);
+                } else {
+                    alert("Login failed: " + (data.message || "Invalid credentials"));
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("An error occurred while logging in. Please try again.");
+            }
+        });
+    } else {
+        console.error("Error: loginUserForm not found in the DOM!");
+    }
 });
-
 
 // Google Sign-In Initialization
 function initializeGoogle() {
@@ -130,8 +119,7 @@ function handleCredentialResponse(response) {
     .then(data => {
         console.log("Server Response (Google):", data);
         if (data.success) {
-            const name = data.user.name;
-            alert("Welcome " + name);
+            alert("Welcome " + data.user.name);
             setTimeout(() => {
                 window.location.href = data.redirect_url;
             }, 500);
@@ -153,7 +141,6 @@ function toggleLogin(url) {
         fetch(url)
             .then(response => response.text())
             .then(data => {
-                
                 loginForm.innerHTML = data;
                 container.classList.add('active');
                 document.body.style.overflow = 'hidden';
