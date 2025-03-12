@@ -338,6 +338,7 @@
 
   <!-- Sidebar & Navigation Functionality -->
   <script src="/CSE-7/CSE7_Frontend/javascripts/supervisor_attendance.js"></script>
+  <script src="/CSE-7/CSE7_Frontend/javascripts/dashboard.js"></script>
   <!--<script src="/CSE-7/CSE7_Frontend/javascripts/dashboard.js"></script>-->
   <script>
     document.addEventListener('DOMContentLoaded', function() {

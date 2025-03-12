@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () { 
+document.addEventListener("DOMContentLoaded", function () {  
     // Initialize variables
     const tasksList = document.getElementById("employeeTaskList");
     const taskStatusFilter = document.getElementById("taskStatusFilter");
@@ -21,9 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Task filtering
         taskStatusFilter.addEventListener("change", filterTasks);
 
-        // Modal close
+        // Modal close: reset form on close
         document.querySelector(".close-modal").addEventListener("click", () => {
             taskUpdateModal.style.display = "none";
+            taskUpdateForm.reset();
         });
 
         // Form submission for task update (proof submission)
@@ -44,7 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (data.success && Array.isArray(data.tasks)) {
                 console.log("Fetched Tasks:", data.tasks);
-                renderTasks(data.tasks);
+                // Only show tasks that are not approved
+                const filteredTasks = data.tasks.filter(task => task.status.toLowerCase() !== "approved");
+                renderTasks(filteredTasks);
                 updateTaskCounts(data.tasks);
             } else {
                 console.error("Error:", data.message);
@@ -56,7 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Render tasks dynamically into the DOM
     function renderTasks(tasks) {
-        tasksList.innerHTML = tasks.map(task => `
+        tasksList.innerHTML = tasks.map(task => {
+            // For rejected tasks, show supervisor comments if available
+            const supervisorComments = task.Comments ? `<div class="supervisor-comments">Supervisor Comments: ${task.Comments}</div>` : "";
+            return `
             <div class="task-card ${task.status.toLowerCase()}" data-task-id="${task.id}">
                 <div class="task-header">
                     <span class="task-priority ${task.priority}">${task.priority.toUpperCase()}</span>
@@ -69,9 +75,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     <div class="info-item"><i class="fas fa-map-marker-alt"></i> ${task.location}</div>
                     <div class="info-item"><i class="fas fa-user"></i> ${task.assignedBy}</div>
                 </div>
+                ${task.status.toLowerCase() === "rejected" ? supervisorComments : ""}
                 <div class="task-actions">${getActionButton(task)}</div>
             </div>
-        `).join("");
+            `;
+        }).join("");
         animateCards();
     }
 
@@ -102,10 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return `<button disabled class="update-btn pending-approval">
                     <i class="fas fa-clock"></i> Waiting for Review
                 </button>`;
-            case "approved":
-                return `<button disabled class="update-btn completed">
-                    <i class="fas fa-check-circle"></i> Completed
-                </button>`;
             case "rejected":
                 return `<button onclick="openTaskUpdate('${task.id}')" class="update-btn rejected">
                     <i class="fas fa-redo"></i> Resubmit
@@ -135,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Open task update modal for tasks that need further action
     window.openTaskUpdate = function (taskId) {
         currentTaskId = taskId;
+        taskUpdateForm.reset(); // Reset the form before opening the modal
         taskUpdateModal.style.display = "block";
     };
 
@@ -154,6 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             taskUpdateModal.style.display = "none";
+            taskUpdateForm.reset();
             fetchTasks(); // Reload tasks after update
         } catch (error) {
             console.error("Error updating task:", error);
